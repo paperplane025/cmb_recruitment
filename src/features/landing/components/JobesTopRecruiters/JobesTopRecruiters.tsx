@@ -149,126 +149,128 @@ export function JobesTopRecruiters() {
       id="top-recruiters-section"
       aria-labelledby="recruiters-heading"
     >
-      {/* ─── Section Header ─── */}
-      <div className={styles['p-recruiters__header']}>
-        <h2 className={styles['p-recruiters__header-title']} id="recruiters-heading">
-          Our Top <span className={styles['p-recruiters__header-accent']}>Recruiters</span>
-        </h2>
-        <p className={styles['p-recruiters__header-subtitle']}>
-          To choose your trending job dream &amp; to make future bright.
-        </p>
-      </div>
+      <div className={`${styles['p-recruiters__container']} l-container`}>
+        {/* ─── Section Header ─── */}
+        <div className={styles['p-recruiters__header']}>
+          <h2 className={styles['p-recruiters__header-title']} id="recruiters-heading">
+            Our Top <span className={styles['p-recruiters__header-accent']}>Recruiters</span>
+          </h2>
+          <p className={styles['p-recruiters__header-subtitle']}>
+            To choose your trending job dream &amp; to make future bright.
+          </p>
+        </div>
 
-      {/* ─── Grid of Recruiter Cards ─── */}
-      <div className={styles['p-recruiters__grid']} role="list" aria-label="Top recruiters">
-        {RECRUITERS.map((recruiter) => (
-          <article
-            key={recruiter.id}
-            className={styles['p-recruiters__card']}
-            role="listitem"
-            id={`recruiter-card-${recruiter.id}`}
-          >
-            {/* Left: Logo */}
-            <div className={styles['p-recruiters__card-logo']}>
-              {recruiter.logo}
-            </div>
-
-            {/* Right: Info & CTA */}
-            <div className={styles['p-recruiters__card-body']}>
-              <h3 className={styles['p-recruiters__card-name']}>{recruiter.name}</h3>
-              
-              {/* Meta stats */}
-              <div className={styles['p-recruiters__card-meta']}>
-                <div className={styles['p-recruiters__meta-item']}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={styles['p-recruiters__meta-icon']}
-                    aria-hidden="true"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                  <span>{recruiter.peopleCount} People</span>
-                </div>
-
-                <div className={styles['p-recruiters__meta-item']}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={styles['p-recruiters__meta-icon']}
-                    aria-hidden="true"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span>{recruiter.location}</span>
-                </div>
+        {/* ─── Grid of Recruiter Cards ─── */}
+        <div className={styles['p-recruiters__grid']} role="list" aria-label="Top recruiters">
+          {RECRUITERS.map((recruiter) => (
+            <article
+              key={recruiter.id}
+              className={styles['p-recruiters__card']}
+              role="listitem"
+              id={`recruiter-card-${recruiter.id}`}
+            >
+              {/* Left: Logo */}
+              <div className={styles['p-recruiters__card-logo']}>
+                {recruiter.logo}
               </div>
 
-              {/* View Details Link */}
-              <Link
-                to={`${APP_ROUTES.jobs}?company=${encodeURIComponent(recruiter.name)}`}
-                className={styles['p-recruiters__card-link']}
-                aria-label={`View recruitment details for ${recruiter.name}`}
-              >
-                <span>View Details</span>
-                <span className={styles['p-recruiters__card-link-circle']}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          </article>
-        ))}
-      </div>
+              {/* Right: Info & CTA */}
+              <div className={styles['p-recruiters__card-body']}>
+                <h3 className={styles['p-recruiters__card-name']}>{recruiter.name}</h3>
+                
+                {/* Meta stats */}
+                <div className={styles['p-recruiters__card-meta']}>
+                  <div className={styles['p-recruiters__meta-item']}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={styles['p-recruiters__meta-icon']}
+                      aria-hidden="true"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span>{recruiter.peopleCount} People</span>
+                  </div>
 
-      {/* ─── Footer: View All Link ─── */}
-      <div className={styles['p-recruiters__footer']}>
-        <Link
-          to={APP_ROUTES.jobs}
-          className={styles['p-recruiters__view-all']}
-          id="recruiters-view-all"
-          aria-label="View all recruiters list"
-        >
-          <span>View All Recruiters</span>
-          <span className={styles['p-recruiters__view-all-circle']}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </span>
-        </Link>
+                  <div className={styles['p-recruiters__meta-item']}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={styles['p-recruiters__meta-icon']}
+                      aria-hidden="true"
+                    >
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>{recruiter.location}</span>
+                  </div>
+                </div>
+
+                {/* View Details Link */}
+                <Link
+                  to={`${APP_ROUTES.jobs}?company=${encodeURIComponent(recruiter.name)}`}
+                  className={styles['p-recruiters__card-link']}
+                  aria-label={`View recruitment details for ${recruiter.name}`}
+                >
+                  <span>View Details</span>
+                  <span className={styles['p-recruiters__card-link-circle']}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* ─── Footer: View All Link ─── */}
+        <div className={styles['p-recruiters__footer']}>
+          <Link
+            to={APP_ROUTES.jobs}
+            className={styles['p-recruiters__view-all']}
+            id="recruiters-view-all"
+            aria-label="View all recruiters list"
+          >
+            <span>View All Recruiters</span>
+            <span className={styles['p-recruiters__view-all-circle']}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   )

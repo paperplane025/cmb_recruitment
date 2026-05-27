@@ -191,8 +191,8 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
             aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="16" />
             <line x1="8" y1="12" x2="16" y2="12" />
+            <polyline points="12 8 16 12 12 16" />
           </svg>
           Apply Now
         </Link>
@@ -209,50 +209,52 @@ export function JobesFeaturedJobs() {
   return (
     <section className={styles['p-featured-jobs']} id="featured-job-list-section" aria-labelledby="featured-jobs-heading">
       {/* ── Section Header ── */}
-      <div className={styles['p-featured-jobs__header']}>
-        <div className={styles['p-featured-jobs__header-left']}>
-          <h2 className={styles['p-featured-jobs__header-title']} id="featured-jobs-heading">
-            <span className={styles['p-featured-jobs__header-accent']}>Featured</span> Job List
-          </h2>
-          <p className={styles['p-featured-jobs__header-subtitle']}>
-            To choose your trending job dream &amp; to make future bright.
-          </p>
+      <div className={`${styles['p-featured-jobs__container']} l-container`}>
+        <div className={styles['p-featured-jobs__header']}>
+          <div className={styles['p-featured-jobs__header-left']}>
+            <h2 className={styles['p-featured-jobs__header-title']} id="featured-jobs-heading">
+              <span className={styles['p-featured-jobs__header-accent']}>Featured</span> Job List
+            </h2>
+            <p className={styles['p-featured-jobs__header-subtitle']}>
+              To choose your trending job dream &amp; to make future bright.
+            </p>
+          </div>
+
+          <Link
+            to={APP_ROUTES.jobs}
+            className={styles['p-featured-jobs__explore-link']}
+            id="featured-jobs-explore-more"
+            aria-label="Explore more job listings"
+          >
+            Explore More
+            <span className={styles['p-featured-jobs__explore-badge']} aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </Link>
         </div>
 
-        <Link
-          to={APP_ROUTES.jobs}
-          className={styles['p-featured-jobs__explore-link']}
-          id="featured-jobs-explore-more"
-          aria-label="Explore more job listings"
-        >
-          Explore More
-          <span className={styles['p-featured-jobs__explore-badge']} aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </span>
-        </Link>
+        {/* ── Job Cards List ── */}
+        {isLoading ? (
+          <LoadingState />
+        ) : (
+          <div className={styles['p-featured-jobs__list']} role="list" aria-label="Featured jobs">
+            {jobs?.slice(0, 4).map((job, idx) => (
+              <FeaturedJobCard key={job.id} job={job} index={idx} />
+            ))}
+          </div>
+        )}
       </div>
-
-      {/* ── Job Cards List ── */}
-      {isLoading ? (
-        <LoadingState />
-      ) : (
-        <div className={styles['p-featured-jobs__list']} role="list" aria-label="Featured jobs">
-          {jobs?.slice(0, 4).map((job, idx) => (
-            <FeaturedJobCard key={job.id} job={job} index={idx} />
-          ))}
-        </div>
-      )}
     </section>
   )
 }

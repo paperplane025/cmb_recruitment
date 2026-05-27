@@ -43,7 +43,7 @@ export function Footer() {
     <footer className={styles['p-footer']} id="site-footer">
       {/* ─── Top Section: 4-column links ─── */}
       <div className={styles['p-footer__top']}>
-        <div className="l-container-1320">
+        <div className="l-container">
           <div className={styles['p-footer__grid']}>
             {FOOTER_COLUMNS.map((col) => (
               <div key={col.heading} className={styles['p-footer__col']}>
@@ -104,7 +104,7 @@ export function Footer() {
 
       {/* ─── Bottom Bar ─── */}
       <div className={styles['p-footer__bottom']}>
-        <div className="l-container-1320">
+        <div className="l-container">
           <div className={styles['p-footer__bottom-inner']}>
             {/* ─── Left: Support + Copyright ─── */}
             <div>

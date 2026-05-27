@@ -94,7 +94,7 @@
       gap: 6px;
       font-size: 15px;
       font-weight: 500;
-      color: #3d4f4f;
+      color: var(--title-color1);
       text-decoration: none;
       height: 100%;
       position: relative;
@@ -108,32 +108,12 @@
         transition: transform 0.25s ease;
       }
 
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background-color: var(--jobes-teal);
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
-      }
-
       &:hover {
         color: var(--jobes-teal);
+      }
 
-        svg {
-          transform: translateY(2px);
-        }
-
-        &::after {
-          transform: scaleX(1);
-          transform-origin: left;
-        }
+      &--active {
+        color: var(--jobes-teal) !important;
       }
     }
 
@@ -146,7 +126,8 @@
       &:hover .p-header__dropdown {
         opacity: 1;
         visibility: visible;
-        transform: translateY(12px); /* Slides up to 12px below menu, creating a premium gap */
+        transform: translateY(1px);
+        /* Slides up to 12px below menu, creating a premium gap */
       }
     }
   }
@@ -155,17 +136,22 @@
   &__dropdown {
     position: absolute;
     top: 100%;
-    left: 0; /* Aligns left exactly with parent text */
-    transform: translateY(35px); /* Positioned lower down initially for slide-up entry */
+    left: 0;
+    /* Aligns left exactly with parent text */
+    transform: translateY(35px);
+    /* Positioned lower down initially for slide-up entry */
     width: 220px;
-    background-color: #061215; /* Dark background matching user screenshot */
-    border: 1px solid rgba(0, 167, 172, 0.15); /* Premium glowing dark teal border */
-    border-radius: 8px; /* Clean look */
+    background-color: #061215;
+    /* Dark background matching user screenshot */
+    border: 1px solid rgba(0, 167, 172, 0.15);
+    /* Premium glowing dark teal border */
+    border-radius: 8px;
+    /* Clean look */
     padding: 16px 20px;
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
     opacity: 0;
     visibility: hidden;
-    transition: 
+    transition:
       opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0.4s;
@@ -174,7 +160,8 @@
     z-index: 110;
 
     &::before {
-      display: none; /* Hide the arrow pointer as in the screenshot */
+      display: none;
+      /* Hide the arrow pointer as in the screenshot */
     }
 
     &-item {
@@ -190,13 +177,21 @@
       padding: 8px 0;
       font-size: 15px;
       font-weight: 500;
-      color: #ffffff; /* White text as in screenshot */
+      color: #ffffff;
+      /* White text as in screenshot */
       text-decoration: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
       &:hover {
-        color: var(--jobes-teal); /* Teal glow on hover */
-        transform: translateX(4px); /* Modern slide-right effect */
+        color: var(--jobes-teal);
+        /* Teal glow on hover */
+        transform: translateX(4px);
+        /* Modern slide-right effect */
+      }
+
+      &--active {
+        color: var(--jobes-teal) !important;
+        transform: translateX(4px) !important;
       }
     }
   }
@@ -233,7 +228,8 @@
       right: 2px;
       width: 8px;
       height: 8px;
-      background-color: #10b981; /* Green dot */
+      background-color: #10b981;
+      /* Green dot */
       border-radius: 50%;
       border: 1.5px solid #ffffff;
     }
@@ -259,7 +255,8 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    isolation: isolate; /* Tạo stacking context riêng để z-index: -1 không chui xuống dưới nền */
+    isolation: isolate;
+    /* Tạo stacking context riêng để z-index: -1 không chui xuống dưới nền */
     transition: color 0.3s ease, box-shadow 0.3s ease;
 
     /* Center-expand background overlay */
@@ -269,11 +266,14 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%; /* Height bắt đầu là 100% */
+      height: 100%;
+      /* Height bắt đầu là 100% */
       transform: scaleX(0);
-      transform-origin: center; /* Trượt từ giữa ra 2 bên */
+      transform-origin: center;
+      /* Trượt từ giữa ra 2 bên */
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: -1; /* Nằm dưới tất cả nội dung, kể cả text node thuần */
+      z-index: -1;
+      /* Nằm dưới tất cả nội dung, kể cả text node thuần */
       border-radius: inherit;
     }
 
@@ -287,7 +287,7 @@
     &--signin {
       background-color: #ffffff;
       border: 1px solid #eaeeee;
-      color: #0c2121;
+      color: var(--title-color1);
 
       &::before {
         background-color: var(--jobes-teal);
@@ -426,6 +426,10 @@
 
       &:hover {
         color: var(--jobes-teal);
+      }
+
+      &--active {
+        color: var(--jobes-teal) !important;
       }
     }
 

@@ -124,7 +124,7 @@ export function JobesTrustedCompanies() {
 
   return (
     <section className={styles['p-companies']} id="trusted-companies-section" aria-labelledby="companies-heading">
-      <div className={styles['p-companies__container']}>
+      <div className={`${styles['p-companies__container']} l-container`}>
         {/* Left Side Label */}
         <div className={styles['p-companies__label-wrapper']}>
           <h2 className={styles['p-companies__label']} id="companies-heading">

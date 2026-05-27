@@ -9,8 +9,8 @@ $breakpoints: (
 );
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  --text: #595959;
+  --text-h: #061421;
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
@@ -26,9 +26,16 @@ $breakpoints: (
   --jobes-teal-hover: #00898d;
   --jobes-teal-light: rgba(0, 167, 172, 0.1);
   --jobes-teal-border: rgba(0, 167, 172, 0.3);
-  --jobes-dark-bg: #030a0a;
+  --jobes-dark-bg: #000000;
 
-  --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  /* Design token aliases (matching style.css naming) */
+  --primary-color1: #00a7ac;
+  --primary-dark: #000000;
+  --title-color1: #061421;
+  --text-color1: #595959;
+  --white: #ffffff;
+
+  --sans: 'Work Sans', system-ui, -apple-system, sans-serif;
+  --heading: 'Exo 2', system-ui, -apple-system, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 }

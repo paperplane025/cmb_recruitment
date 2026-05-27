@@ -82,7 +82,8 @@
     background-color: transparent;
     perspective: 1000px;
     width: 100%;
-    height: 245px; /* balanced card height */
+    height: 245px;
+    /* balanced card height */
     box-sizing: border-box;
 
     &-inner {
@@ -140,11 +141,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        135deg, 
-        rgba(3, 10, 10, 0.88) 0%, 
-        rgba(0, 167, 172, 0.72) 100%
-      );
+      background: linear-gradient(135deg,
+          rgba(3, 10, 10, 0.88) 0%,
+          rgba(0, 167, 172, 0.72) 100%);
       z-index: 1;
     }
 
@@ -162,7 +161,7 @@
     /* Text & Links elements */
     &-title {
       font-family: var(--sans);
-      font-size: 16.5px;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.35;
       color: var(--text-h);
@@ -185,12 +184,17 @@
     /* Flipped text elements (Back face) */
     &-back-title {
       font-family: var(--sans);
-      font-size: 16.5px;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.35;
       color: #ffffff;
       margin: 0 0 8px;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--jobes-teal);
+      }
     }
 
     &-back-count {
@@ -219,7 +223,8 @@
       }
 
       &:hover {
-        border-bottom-color: #ffffff;
+        color: var(--jobes-teal);
+        border-bottom-color: var(--jobes-teal);
       }
     }
   }
@@ -234,7 +239,8 @@
     text-align: left;
     padding: 30px 12px 30px 24px;
     box-sizing: border-box;
-    height: 245px; /* match height of flip cards */
+    height: 245px;
+    /* match height of flip cards */
 
     @include respond-to('xs', 'max') {
       align-items: center;

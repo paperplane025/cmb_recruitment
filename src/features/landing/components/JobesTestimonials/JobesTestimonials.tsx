@@ -115,134 +115,136 @@ export function JobesTestimonials() {
       id="client-testimonials-section"
       aria-labelledby="testimonials-heading"
     >
-      {/* ─── Header ─── */}
-      <div className={styles['p-testimonials__header']}>
-        <div className={styles['p-testimonials__header-left']}>
-          <h2 className={styles['p-testimonials__header-title']} id="testimonials-heading">
-            <span className={styles['p-testimonials__header-accent']}>Feedback</span> From Our Clients
-          </h2>
-          <p className={styles['p-testimonials__header-subtitle']}>
-            To choose your trending job dream &amp; to make future bright.
-          </p>
-        </div>
+      <div className={`${styles['p-testimonials__container']} l-container`}>
+        {/* ─── Header ─── */}
+        <div className={styles['p-testimonials__header']}>
+          <div className={styles['p-testimonials__header-left']}>
+            <h2 className={styles['p-testimonials__header-title']} id="testimonials-heading">
+              <span className={styles['p-testimonials__header-accent']}>Feedback</span> From Our Clients
+            </h2>
+            <p className={styles['p-testimonials__header-subtitle']}>
+              To choose your trending job dream &amp; to make future bright.
+            </p>
+          </div>
 
-        {/* ─── Navigation Arrows ─── */}
-        <div className={styles['p-testimonials__nav']}>
-          <button
-            className={styles['p-testimonials__nav-btn']}
-            aria-label="Previous testimonial"
-            id="testimonial-prev-btn"
-            onClick={() => swiperRef.current?.slidePrev()}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
-          </button>
-          <button
-            className={styles['p-testimonials__nav-btn']}
-            aria-label="Next testimonial"
-            id="testimonial-next-btn"
-            onClick={() => swiperRef.current?.slideNext()}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* ─── Swiper Slider ─── */}
-      <div className={styles['p-testimonials__slider-wrapper']}>
-        <Swiper
-          modules={[Navigation]}
-          onSwiper={handleSwiperInit}
-          onRealIndexChange={handleRealIndexChange}
-          loop={true}
-          spaceBetween={24}
-          slidesPerView={1}
-          centeredSlides={true}
-          breakpoints={{
-            768: {
-              slidesPerView: 2,
-              centeredSlides: false,
-            },
-            1024: {
-              slidesPerView: 3,
-              centeredSlides: true,
-            },
-          }}
-          className={styles['p-testimonials__slider']}
-        >
-          {TESTIMONIALS.map((item, idx) => (
-            <SwiperSlide key={idx} className={styles['p-testimonials__slide']}>
-              <article
-                className={styles['p-testimonials__card']}
-                aria-label={`Testimonial from ${item.name}`}
-                id={`testimonial-card-${idx}`}
-              >
-                <div className={styles['p-testimonials__card-quote-wrapper']}>
-                  <QuoteIcon />
-                </div>
-                <p className={styles['p-testimonials__card-quote']}>{item.quote}</p>
-                <div className={styles['p-testimonials__card-meta']}>
-                  <h3 className={styles['p-testimonials__card-name']}>{item.name}</h3>
-                  <p className={styles['p-testimonials__card-role']}>{item.role}</p>
-                </div>
-              </article>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* ─── Custom Avatar Pagination ─── */}
-      <div
-        ref={wrapperRef}
-        className={styles['p-testimonials__avatars-wrapper']}
-        role="tablist"
-        aria-label="Select testimonial slide"
-      >
-        <div ref={avatarsRef} className={styles['p-testimonials__avatars']}>
-          {TESTIMONIALS.map((item, idx) => (
+          {/* ─── Navigation Arrows ─── */}
+          <div className={styles['p-testimonials__nav']}>
             <button
-              key={idx}
-              className={`${styles['p-testimonials__avatar-bullet']}${
-                activeIndex === idx ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
-              }`}
-              onClick={() => {
-                swiperRef.current?.slideToLoop(idx)
-                setActiveIndex(idx)
-                scrollAvatars(idx)
-              }}
-              role="tab"
-              aria-selected={activeIndex === idx}
-              aria-label={`Go to slide ${idx + 1}: ${item.name}`}
-              id={`testimonial-bullet-${idx}`}
+              className={styles['p-testimonials__nav-btn']}
+              aria-label="Previous testimonial"
+              id="testimonial-prev-btn"
+              onClick={() => swiperRef.current?.slidePrev()}
             >
-              <img
-                src={item.avatar}
-                alt={`${item.name} headshot`}
-                className={styles['p-testimonials__avatar-img']}
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
             </button>
-          ))}
+            <button
+              className={styles['p-testimonials__nav-btn']}
+              aria-label="Next testimonial"
+              id="testimonial-next-btn"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* ─── Swiper Slider ─── */}
+        <div className={styles['p-testimonials__slider-wrapper']}>
+          <Swiper
+            modules={[Navigation]}
+            onSwiper={handleSwiperInit}
+            onRealIndexChange={handleRealIndexChange}
+            loop={true}
+            spaceBetween={24}
+            slidesPerView={1}
+            centeredSlides={true}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+                centeredSlides: false,
+              },
+              1024: {
+                slidesPerView: 3,
+                centeredSlides: true,
+              },
+            }}
+            className={styles['p-testimonials__slider']}
+          >
+            {TESTIMONIALS.map((item, idx) => (
+              <SwiperSlide key={idx} className={styles['p-testimonials__slide']}>
+                <article
+                  className={styles['p-testimonials__card']}
+                  aria-label={`Testimonial from ${item.name}`}
+                  id={`testimonial-card-${idx}`}
+                >
+                  <div className={styles['p-testimonials__card-quote-wrapper']}>
+                    <QuoteIcon />
+                  </div>
+                  <p className={styles['p-testimonials__card-quote']}>{item.quote}</p>
+                  <div className={styles['p-testimonials__card-meta']}>
+                    <h3 className={styles['p-testimonials__card-name']}>{item.name}</h3>
+                    <p className={styles['p-testimonials__card-role']}>{item.role}</p>
+                  </div>
+                </article>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* ─── Custom Avatar Pagination ─── */}
+        <div
+          ref={wrapperRef}
+          className={styles['p-testimonials__avatars-wrapper']}
+          role="tablist"
+          aria-label="Select testimonial slide"
+        >
+          <div ref={avatarsRef} className={styles['p-testimonials__avatars']}>
+            {TESTIMONIALS.map((item, idx) => (
+              <button
+                key={idx}
+                className={`${styles['p-testimonials__avatar-bullet']}${
+                  activeIndex === idx ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
+                }`}
+                onClick={() => {
+                  swiperRef.current?.slideToLoop(idx)
+                  setActiveIndex(idx)
+                  scrollAvatars(idx)
+                }}
+                role="tab"
+                aria-selected={activeIndex === idx}
+                aria-label={`Go to slide ${idx + 1}: ${item.name}`}
+                id={`testimonial-bullet-${idx}`}
+              >
+                <img
+                  src={item.avatar}
+                  alt={`${item.name} headshot`}
+                  className={styles['p-testimonials__avatar-img']}
+                />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

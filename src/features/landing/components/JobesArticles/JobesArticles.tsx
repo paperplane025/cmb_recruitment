@@ -43,52 +43,54 @@ export function JobesArticles() {
       id="recent-articles-section"
       aria-labelledby="articles-heading"
     >
-      {/* ─── Section Header ─── */}
-      <div className={styles['p-articles__header']}>
-        <h2 className={styles['p-articles__header-title']} id="articles-heading">
-          Our Recent <span className={styles['p-articles__header-accent']}>Article</span>
-        </h2>
-        <p className={styles['p-articles__header-subtitle']}>
-          To much valuable feed from our trusted users in world-wide.
-        </p>
-      </div>
+      <div className={`${styles['p-articles__container']} l-container`}>
+        {/* ─── Section Header ─── */}
+        <div className={styles['p-articles__header']}>
+          <h2 className={styles['p-articles__header-title']} id="articles-heading">
+            Our Recent <span className={styles['p-articles__header-accent']}>Article</span>
+          </h2>
+          <p className={styles['p-articles__header-subtitle']}>
+            To much valuable feed from our trusted users in world-wide.
+          </p>
+        </div>
 
-      {/* ─── Article Cards Grid ─── */}
-      <div className={styles['p-articles__grid']}>
-        {ARTICLES.map((article) => (
-          <article
-            key={article.id}
-            className={styles['p-articles__card']}
-            id={`article-card-${article.id}`}
-          >
-            <a href={article.href} className={styles['p-articles__card-link']} aria-label={article.title}>
-              {/* ─── Image Wrapper ─── */}
-              <div className={styles['p-articles__card-image-wrapper']}>
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className={styles['p-articles__card-image']}
-                  loading="lazy"
-                />
-                {/* ─── Date Badge ─── */}
-                <span className={styles['p-articles__card-date']}>
-                  {article.date}
-                </span>
-              </div>
-
-              {/* ─── Card Content ─── */}
-              <div className={styles['p-articles__card-content']}>
-                <div className={styles['p-articles__card-author']}>
-                  <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
-                  <span>{article.author}</span>
+        {/* ─── Article Cards Grid ─── */}
+        <div className={styles['p-articles__grid']}>
+          {ARTICLES.map((article) => (
+            <article
+              key={article.id}
+              className={styles['p-articles__card']}
+              id={`article-card-${article.id}`}
+            >
+              <a href={article.href} className={styles['p-articles__card-link']} aria-label={article.title}>
+                {/* ─── Image Wrapper ─── */}
+                <div className={styles['p-articles__card-image-wrapper']}>
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className={styles['p-articles__card-image']}
+                    loading="lazy"
+                  />
+                  {/* ─── Date Badge ─── */}
+                  <span className={styles['p-articles__card-date']}>
+                    {article.date}
+                  </span>
                 </div>
-                <h3 className={styles['p-articles__card-title']}>
-                  {article.title}
-                </h3>
-              </div>
-            </a>
-          </article>
-        ))}
+
+                {/* ─── Card Content ─── */}
+                <div className={styles['p-articles__card-content']}>
+                  <div className={styles['p-articles__card-author']}>
+                    <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
+                    <span>{article.author}</span>
+                  </div>
+                  <h3 className={styles['p-articles__card-title']}>
+                    {article.title}
+                  </h3>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@
   width: 100%;
   padding: 60px 0;
   box-sizing: border-box;
+  background-color: #f5f6f7;
 
   @include respond-to('xl', 'max') {
     padding: 40px 0;
@@ -71,7 +72,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--sans);
+    font-family: var(--heading);
     font-size: 14.5px;
     font-weight: 600;
     color: var(--text-h);
@@ -97,10 +98,11 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--text-h);
     background: transparent;
     transition:
       background-color 0.25s ease,
+      border-color 0.25s ease,
       color 0.25s ease,
       transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -164,7 +166,8 @@
       display: flex;
       align-items: center;
       flex: 1;
-      gap: 50px; /* from devtools screenshot */
+      gap: 50px;
+      /* from devtools screenshot */
 
       @include respond-to('lg', 'max') {
         gap: 20px;
@@ -215,7 +218,7 @@
     }
 
     &-title {
-      font-family: var(--sans);
+      font-family: var(--heading);
       font-size: 17px;
       font-weight: 700;
       color: var(--text-h);
@@ -429,7 +432,7 @@
         color: var(--jobes-teal-hover);
 
         svg {
-          transform: scale(1.15) rotate(45deg);
+          transform: scale(1.1);
         }
       }
     }

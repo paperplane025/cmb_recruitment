@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
 import { useAuth } from '@/shared/hooks/useAuth.ts'
 import styles from './JobesHeader.module.scss'
@@ -7,6 +7,7 @@ import styles from './JobesHeader.module.scss'
 export function JobesHeader() {
   const { isAuthenticated, logout, user } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen)
   const closeMobileMenu = () => setIsMobileMenuOpen(false)
@@ -18,57 +19,71 @@ export function JobesHeader() {
       hasDropdown: true,
       subItems: [
         { label: 'Home Page 01', path: '/' },
-        { label: 'Home Page 02', path: '/' },
-        { label: 'Home Page 03', path: '/' },
+        { label: 'Home Page 02', path: '/home-02' },
+        { label: 'Home Page 03', path: '/home-03' },
       ],
     },
     {
       label: 'Find Jobs',
       hasDropdown: true,
       subItems: [
-        { label: 'Job Category', path: '/jobs' },
+        { label: 'Job Category', path: '/jobs/category' },
         { label: 'Job Listing 01', path: '/jobs' },
-        { label: 'Job Listing 02', path: '/jobs' },
-        { label: 'Job Details', path: '/jobs' },
+        { label: 'Job Listing 02', path: '/jobs-list-2' },
+        { label: 'Job Details', path: '/jobs/1' },
       ],
     },
     {
       label: 'Pages',
       hasDropdown: true,
       subItems: [
-        { label: 'About Us', path: '/' },
-        { label: 'Services', path: '/' },
-        { label: 'Pricing', path: '/' },
-        { label: 'FAQs', path: '/' },
+        { label: 'About Us', path: '/about' },
+        { label: 'Services', path: '/services' },
+        { label: 'Pricing', path: '/pricing' },
+        { label: 'FAQs', path: '/faqs' },
       ],
     },
     {
       label: 'Company',
       hasDropdown: true,
       subItems: [
-        { label: 'Company List', path: '/' },
-        { label: 'Company Detail', path: '/' },
+        { label: 'Company List', path: '/companies' },
+        { label: 'Company Detail', path: '/companies/1' },
       ],
     },
     {
       label: 'Blog',
       hasDropdown: true,
       subItems: [
-        { label: 'Blog Grid', path: '/' },
-        { label: 'Blog Detail', path: '/' },
+        { label: 'Blog Grid', path: '/blog' },
+        { label: 'Blog Detail', path: '/blog/1' },
       ],
     },
     {
       label: 'Contact',
       hasDropdown: false,
-      path: '/',
+      path: '/contact',
     },
   ]
+
+  const isNavItemActive = (item: typeof navItems[0]) => {
+    const pathname = location.pathname
+    if (item.label === 'Home') {
+      return pathname === '/' || pathname.startsWith('/home-')
+    }
+    if (item.hasDropdown) {
+      return item.subItems?.some((sub) => {
+        if (sub.path === '/') return false
+        return pathname === sub.path || (sub.path !== '/jobs' && pathname.startsWith(sub.path))
+      }) ?? false
+    }
+    return pathname === item.path
+  }
 
   return (
     <>
       <header className={styles['p-header']}>
-        <div className={`${styles['p-header__container']} l-container-1320`}>
+        <div className={`${styles['p-header__container']} l-container`}>
           {/* Logo */}
           <Link to="/" className={styles['p-header__logo']} id="header-logo">
             <div className={styles['p-header__logo-icon']}>
@@ -96,53 +111,62 @@ export function JobesHeader() {
 
           {/* Desktop Navigation */}
           <nav className={styles['p-header__nav']} aria-label="Main Navigation">
-            {navItems.map((item, index) => (
-              <div key={index} className={styles['p-header__nav-item']}>
-                {item.hasDropdown ? (
-                  <>
-                    <button
-                      className={styles['p-header__nav-link']}
+            {navItems.map((item, index) => {
+              const isActive = isNavItemActive(item)
+              return (
+                <div key={index} className={styles['p-header__nav-item']}>
+                  {item.hasDropdown ? (
+                    <>
+                      <button
+                        className={`${styles['p-header__nav-link']} ${isActive ? styles['p-header__nav-link--active'] : ''
+                          }`}
+                        id={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                      >
+                        {item.label}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                      <ul className={styles['p-header__dropdown']}>
+                        {item.subItems?.map((sub, idx) => {
+                          const isSubActive = location.pathname === sub.path
+                          return (
+                            <li key={idx} className={styles['p-header__dropdown-item']}>
+                              <Link
+                                to={sub.path}
+                                className={`${styles['p-header__dropdown-link']} ${isSubActive ? styles['p-header__dropdown-link--active'] : ''
+                                  }`}
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </>
+                  ) : (
+                    <Link
+                      to={item.path || '/'}
+                      className={`${styles['p-header__nav-link']} ${isActive ? styles['p-header__nav-link--active'] : ''
+                        }`}
                       id={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                      aria-expanded="false"
-                      aria-haspopup="true"
                     >
                       {item.label}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
-                    </button>
-                    <ul className={styles['p-header__dropdown']}>
-                      {item.subItems?.map((sub, idx) => (
-                        <li key={idx} className={styles['p-header__dropdown-item']}>
-                          <Link
-                            to={sub.path}
-                            className={styles['p-header__dropdown-link']}
-                          >
-                            {sub.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <Link
-                    to={item.path || '/'}
-                    className={styles['p-header__nav-link']}
-                    id={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            ))}
+                    </Link>
+                  )}
+                </div>
+              )
+            })}
           </nav>
 
           {/* Right Actions */}
@@ -254,17 +278,15 @@ export function JobesHeader() {
 
       {/* Mobile Drawer Backing Backdrop */}
       <div
-        className={`${styles['p-header__backdrop']} ${
-          isMobileMenuOpen ? styles['p-header__backdrop--open'] : ''
-        }`}
+        className={`${styles['p-header__backdrop']} ${isMobileMenuOpen ? styles['p-header__backdrop--open'] : ''
+          }`}
         onClick={closeMobileMenu}
       />
 
       {/* Mobile Drawer Panel */}
       <div
-        className={`${styles['p-header__drawer']} ${
-          isMobileMenuOpen ? styles['p-header__drawer--open'] : ''
-        }`}
+        className={`${styles['p-header__drawer']} ${isMobileMenuOpen ? styles['p-header__drawer--open'] : ''
+          }`}
       >
         <div className={styles['p-header__drawer-header']}>
           {/* Drawer Logo */}
@@ -313,30 +335,34 @@ export function JobesHeader() {
 
         {/* Drawer Menu Links */}
         <ul className={styles['p-header__drawer-nav']}>
-          {navItems.map((item, index) => (
-            <li key={index}>
-              <Link
-                to={item.hasDropdown ? '/jobs' : (item.path || '/')}
-                className={styles['p-header__drawer-link']}
-                onClick={closeMobileMenu}
-              >
-                {item.label}
-                {item.hasDropdown && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                )}
-              </Link>
-            </li>
-          ))}
+          {navItems.map((item, index) => {
+            const isActive = isNavItemActive(item)
+            return (
+              <li key={index}>
+                <Link
+                  to={item.hasDropdown ? '/jobs' : (item.path || '/')}
+                  className={`${styles['p-header__drawer-link']} ${isActive ? styles['p-header__drawer-link--active'] : ''
+                    }`}
+                  onClick={closeMobileMenu}
+                >
+                  {item.label}
+                  {item.hasDropdown && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  )}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
 
         {/* Drawer Action buttons */}

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
 import { useAuth } from '@/shared/hooks/useAuth.ts'
@@ -10,9 +10,23 @@ export function JobesHero() {
   const { isAuthenticated } = useAuth()
   const [searchTitle, setSearchTitle] = useState('')
   const [searchCategory, setSearchCategory] = useState('')
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
   const { data: categories } = useJobCategories()
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault()
@@ -40,13 +54,7 @@ export function JobesHero() {
 
   return (
     <section className={styles['p-hero']}>
-      {/* Scroll Down Indicator */}
-      <div className={styles['p-hero__scroll']}>
-        <span>Scroll Down</span>
-        <span className={styles['p-hero__scroll-line']} />
-      </div>
-
-      <div className={`${styles['p-hero__container']} l-container-1320`}>
+      <div className={`${styles['p-hero__container']} l-container`}>
         {/* Left Side Info */}
         <div className={styles['p-hero__content']}>
           <h1 className={styles['p-hero__headline']}>
@@ -56,7 +64,7 @@ export function JobesHero() {
 
           <p className={styles['p-hero__subtitle']}>
             2400 Peoples are daily search in this portal, 100 user added job portal!
-            Explore the most refined and high-paying jobs in technology, management, 
+            Explore the most refined and high-paying jobs in technology, management,
             design, and marketing. Take control of your career today.
           </p>
 
@@ -103,29 +111,55 @@ export function JobesHero() {
                 <rect x="14" y="12" width="7" height="9" />
                 <rect x="3" y="16" width="7" height="5" />
               </svg>
-              <div className={styles['p-hero__search-field-select-wrapper']}>
-                <select
-                  id="hero-search-category"
-                  value={searchCategory}
-                  onChange={(e) => setSearchCategory(e.target.value)}
+              <div className={styles['p-hero__custom-select-container']} ref={dropdownRef}>
+                <button
+                  type="button"
+                  className={styles['p-hero__custom-select-trigger']}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  id="hero-search-category-trigger"
                 >
-                  <option value="">Category</option>
-                  {categories?.map((cat) => (
-                    <option key={cat.key} value={cat.key}>
-                      {cat.label}
-                    </option>
-                  ))}
-                </select>
-                <svg
-                  className={styles['p-hero__search-field-chevron']}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                  <span>
+                    {categories?.find((cat) => cat.key === searchCategory)?.label || 'Category'}
+                  </span>
+                  <svg
+                    className={`${styles['p-hero__custom-select-chevron']} ${isDropdownOpen ? styles['p-hero__custom-select-chevron--open'] : ''
+                      }`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                {isDropdownOpen && (
+                  <ul className={styles['p-hero__custom-select-dropdown']}>
+                    <li
+                      className={`${styles['p-hero__custom-select-option']} ${searchCategory === '' ? styles['p-hero__custom-select-option--active'] : ''
+                        }`}
+                      onClick={() => {
+                        setSearchCategory('')
+                        setIsDropdownOpen(false)
+                      }}
+                    >
+                      Category
+                    </li>
+                    {categories?.map((cat) => (
+                      <li
+                        key={cat.key}
+                        className={`${styles['p-hero__custom-select-option']} ${searchCategory === cat.key ? styles['p-hero__custom-select-option--active'] : ''
+                          }`}
+                        onClick={() => {
+                          setSearchCategory(cat.key)
+                          setIsDropdownOpen(false)
+                        }}
+                      >
+                        {cat.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
 
@@ -147,7 +181,7 @@ export function JobesHero() {
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              24 Jobs
+              <span>24 Jobs</span>
             </button>
           </form>
 

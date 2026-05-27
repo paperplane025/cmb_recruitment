@@ -10,7 +10,7 @@ export function Layout() {
   return (
     <div className="flex min-h-svh flex-col">
       {isHome ? <JobesHeader /> : <Header />}
-      <main className={`flex-1 ${isHome ? '' : 'px-6 py-8 l-container-1320'}`}>
+      <main className={`flex-1 ${isHome ? '' : 'px-6 py-8 l-container'}`}>
         <Outlet />
       </main>
       <Footer />

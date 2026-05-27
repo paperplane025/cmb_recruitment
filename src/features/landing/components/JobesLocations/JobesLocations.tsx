@@ -72,58 +72,60 @@ export function JobesLocations() {
       id="job-by-location-section"
       aria-labelledby="locations-heading"
     >
-      {/* ── Header ── */}
-      <div className={styles['p-locations__header']}>
-        <div className={styles['p-locations__header-left']}>
-          <h2 className={styles['p-locations__header-title']} id="locations-heading">
-            Job By Your{' '}
-            <span className={styles['p-locations__header-accent']}>Location</span>
-          </h2>
-          <p className={styles['p-locations__header-subtitle']}>
-            To choose your trending job dream &amp; to make future bright.
-          </p>
+      <div className={`${styles['p-locations__container']} l-container`}>
+        {/* ── Header ── */}
+        <div className={styles['p-locations__header']}>
+          <div className={styles['p-locations__header-left']}>
+            <h2 className={styles['p-locations__header-title']} id="locations-heading">
+              Job By Your{' '}
+              <span className={styles['p-locations__header-accent']}>Location</span>
+            </h2>
+            <p className={styles['p-locations__header-subtitle']}>
+              To choose your trending job dream &amp; to make future bright.
+            </p>
+          </div>
+
+          <Link
+            to={APP_ROUTES.jobs}
+            className={styles['p-locations__explore-link']}
+            id="locations-view-all"
+            aria-label="View all job locations"
+          >
+            View All Location
+            <span className={styles['p-locations__explore-badge']} aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </Link>
         </div>
 
-        <Link
-          to={APP_ROUTES.jobs}
-          className={styles['p-locations__explore-link']}
-          id="locations-view-all"
-          aria-label="View all job locations"
-        >
-          View All Location
-          <span className={styles['p-locations__explore-badge']} aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </span>
-        </Link>
+        {/* ── Cards grid ── */}
+        {isLoading ? (
+          <LoadingState />
+        ) : (
+          <div
+            className={styles['p-locations__grid']}
+            role="list"
+            aria-label="Job locations"
+          >
+            {locations?.slice(0, 6).map((loc, idx) => (
+              <div key={loc.name} role="listitem">
+                <LocationCard name={loc.name} count={loc.count} index={idx} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
-      {/* ── Cards grid ── */}
-      {isLoading ? (
-        <LoadingState />
-      ) : (
-        <div
-          className={styles['p-locations__grid']}
-          role="list"
-          aria-label="Job locations"
-        >
-          {locations?.slice(0, 6).map((loc, idx) => (
-            <div key={loc.name} role="listitem">
-              <LocationCard name={loc.name} count={loc.count} index={idx} />
-            </div>
-          ))}
-        </div>
-      )}
     </section>
   )
 }

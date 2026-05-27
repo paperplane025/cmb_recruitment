@@ -138,9 +138,11 @@ export function JobesStats() {
       id="platform-stats-section"
       aria-label="Platform statistics"
     >
-      {STATS.map((stat) => (
-        <StatCard key={stat.id} stat={stat} isVisible={isVisible} />
-      ))}
+      <div className={`${styles['p-stats__container']} l-container`}>
+        {STATS.map((stat) => (
+          <StatCard key={stat.id} stat={stat} isVisible={isVisible} />
+        ))}
+      </div>
     </section>
   )
 }

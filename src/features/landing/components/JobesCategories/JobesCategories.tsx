@@ -114,95 +114,96 @@ export function JobesCategories() {
 
   return (
     <section className={styles['p-categories']} id="jobs-category-list-section">
-      {/* Header Info */}
-      <div className={styles['p-categories__header']}>
-        <h2 className={styles['p-categories__title']}>
-          Jobs <span className={styles['p-categories__title-accent']}>Category</span> List
-        </h2>
-        <p className={styles['p-categories__subtitle']}>
-          To choose your trending job dream & to make future bright.
-        </p>
-      </div>
-
-      {isLoading ? (
-        <LoadingState />
-      ) : (
-        <div className={styles['p-categories__grid']}>
-          {/* Render first 9 visual category cards with 3D Flip */}
-          {displayCards.map((card) => (
-            <div
-              key={card.id}
-              className={styles['p-categories__card']}
-              id={`cat-card-${card.id}`}
-            >
-              <div className={styles['p-categories__card-inner']}>
-                {/* Front Side: Clean White Background, soft teal border */}
-                <div className={styles['p-categories__card-front']}>
-                  <h3 className={styles['p-categories__card-title']}>{card.title}</h3>
-                  <span className={styles['p-categories__card-count']}>
-                    {getCategoryCountText(card)}
-                  </span>
-                  <span className={styles['p-categories__card-link']}>View All Jobs</span>
-                </div>
-
-                {/* Back Side: Photo Background with teal-dark overlay */}
-                <Link
-                  to={`${APP_ROUTES.jobs}?category=${card.primaryCategoryKey}`}
-                  className={styles['p-categories__card-back']}
-                  style={{ backgroundImage: `url(${card.bgImage})` }}
-                >
-                  <div className={styles['p-categories__card-overlay']} />
-                  <div className={styles['p-categories__card-back-content']}>
-                    <h3 className={styles['p-categories__card-back-title']}>{card.title}</h3>
-                    <span className={styles['p-categories__card-back-count']}>
+      <div className={`${styles['p-categories__container']} l-container`}>
+        {/* Header Info */}
+        <div className={styles['p-categories__header']}>
+          <h2 className={styles['p-categories__title']}>
+            Jobs <span className={styles['p-categories__title-accent']}>Category</span> List
+          </h2>
+          <p className={styles['p-categories__subtitle']}>
+            To choose your trending job dream & to make future bright.
+          </p>
+        </div>
+        {isLoading ? (
+          <LoadingState />
+        ) : (
+          <div className={styles['p-categories__grid']}>
+            {/* Render first 9 visual category cards with 3D Flip */}
+            {displayCards.map((card) => (
+              <div
+                key={card.id}
+                className={styles['p-categories__card']}
+                id={`cat-card-${card.id}`}
+              >
+                <div className={styles['p-categories__card-inner']}>
+                  {/* Front Side: Clean White Background, soft teal border */}
+                  <div className={styles['p-categories__card-front']}>
+                    <h3 className={styles['p-categories__card-title']}>{card.title}</h3>
+                    <span className={styles['p-categories__card-count']}>
                       {getCategoryCountText(card)}
                     </span>
-                    <span className={styles['p-categories__card-back-link']}>
-                      View All Jobs
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </span>
+                    <span className={styles['p-categories__card-link']}>View All Jobs</span>
                   </div>
-                </Link>
-              </div>
-            </div>
-          ))}
 
-          {/* Render the 10th special text link box */}
-          <div className={styles['p-categories__list-box']} id="cat-card-list-box">
-            <h3 className={styles['p-categories__list-box-title']}>Category List</h3>
-            <Link
-              to={APP_ROUTES.jobs}
-              className={styles['p-categories__list-box-link']}
-              id="cat-view-all-link"
-            >
-              View All Category
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                  {/* Back Side: Photo Background with teal-dark overlay */}
+                  <Link
+                    to={`${APP_ROUTES.jobs}?category=${card.primaryCategoryKey}`}
+                    className={styles['p-categories__card-back']}
+                    style={{ backgroundImage: `url(${card.bgImage})` }}
+                  >
+                    <div className={styles['p-categories__card-overlay']} />
+                    <div className={styles['p-categories__card-back-content']}>
+                      <h3 className={styles['p-categories__card-back-title']}>{card.title}</h3>
+                      <span className={styles['p-categories__card-back-count']}>
+                        {getCategoryCountText(card)}
+                      </span>
+                      <span className={styles['p-categories__card-back-link']}>
+                        View All Jobs
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            ))}
+
+            {/* Render the 10th special text link box */}
+            <div className={styles['p-categories__list-box']} id="cat-card-list-box">
+              <h3 className={styles['p-categories__list-box-title']}>Category List</h3>
+              <Link
+                to={APP_ROUTES.jobs}
+                className={styles['p-categories__list-box-link']}
+                id="cat-view-all-link"
               >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </Link>
+                View All Category
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   )
 }
