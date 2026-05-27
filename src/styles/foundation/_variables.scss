@@ -1,0 +1,41 @@
+$breakpoints: (
+  'xs': 480px,
+  'sm': 640px,
+  'md': 768px,
+  'lg': 900px,
+  'xl': 1024px,
+  'xxl': 1200px,
+  'xxxl': 1280px
+);
+
+:root {
+  --text: #595959;
+  --text-h: #061421;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  /* Jobes Custom Styling variables */
+  --jobes-teal: #00a7ac;
+  --jobes-teal-hover: #00898d;
+  --jobes-teal-light: rgba(0, 167, 172, 0.1);
+  --jobes-teal-border: rgba(0, 167, 172, 0.3);
+  --jobes-dark-bg: #000000;
+
+  /* Design token aliases (matching style.css naming) */
+  --primary-color1: #00a7ac;
+  --primary-dark: #000000;
+  --title-color1: #061421;
+  --text-color1: #595959;
+  --white: #ffffff;
+
+  --sans: 'Work Sans', system-ui, -apple-system, sans-serif;
+  --heading: 'Exo 2', system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}

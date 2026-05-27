@@ -12,6 +12,11 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
+  css: {
+    modules: {
+      generateScopedName: '[local]',
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
