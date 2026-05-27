@@ -1,0 +1,27 @@
+@use "sass:map";
+@import "./variables";
+
+@mixin respond-to($breakpoint, $direction: 'min') {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $value: map.get($breakpoints, $breakpoint);
+    @if $direction == 'min' {
+      @media (min-width: $value) {
+        @content;
+      }
+    } @else if $direction == 'max' {
+      @media (max-width: $value) {
+        @content;
+      }
+    }
+  } @else {
+    @if $direction == 'min' {
+      @media (min-width: $breakpoint) {
+        @content;
+      }
+    } @else if $direction == 'max' {
+      @media (max-width: $breakpoint) {
+        @content;
+      }
+    }
+  }
+}

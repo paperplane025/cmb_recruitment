@@ -1,0 +1,281 @@
+@import "../../../../styles/foundation/mixins";
+
+.p-categories {
+  position: relative;
+  width: 100%;
+  padding: 60px 0;
+  box-sizing: border-box;
+
+  @include respond-to('xl', 'max') {
+    padding: 40px 0;
+  }
+
+  &__header {
+    margin-bottom: 48px;
+    text-align: left;
+
+    @include respond-to('sm', 'max') {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__title {
+    font-family: var(--heading);
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--text-h);
+    margin: 0 0 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+
+    @include respond-to('md', 'max') {
+      font-size: 30px;
+    }
+
+    @include respond-to('xs', 'max') {
+      font-size: 26px;
+    }
+
+    &-accent {
+      color: var(--jobes-teal);
+      position: relative;
+      display: inline-block;
+    }
+  }
+
+  &__subtitle {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+    margin: 0;
+
+    @include respond-to('md', 'max') {
+      font-size: 14px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('xs') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to('xl') {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
+  }
+
+  /* ─── 3D Flip Card Styles ─── */
+
+  &__card {
+    background-color: transparent;
+    perspective: 1000px;
+    width: 100%;
+    height: 245px; /* balanced card height */
+    box-sizing: border-box;
+
+    &-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    &:hover &-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Shared styling for front & back faces */
+    &-front,
+    &-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 36px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+    }
+
+    /* Front Face (Transparent Background, Teal border) */
+    &-front {
+      background-color: transparent;
+      border: 1px solid var(--jobes-teal-border);
+      box-shadow: none;
+    }
+
+    /* Back Face (Full background image, rotated initially) */
+    &-back {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: rotateY(180deg);
+      overflow: hidden;
+      position: relative;
+      text-decoration: none;
+    }
+
+    /* Overlay on the back image for contrast */
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        rgba(3, 10, 10, 0.88) 0%, 
+        rgba(0, 167, 172, 0.72) 100%
+      );
+      z-index: 1;
+    }
+
+    &-back-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Text & Links elements */
+    &-title {
+      font-family: var(--sans);
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-h);
+      margin: 0 0 8px;
+    }
+
+    &-count {
+      font-size: 13px;
+      color: var(--text);
+      margin: 0 0 20px;
+      font-weight: 500;
+    }
+
+    &-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--jobes-teal);
+    }
+
+    /* Flipped text elements (Back face) */
+    &-back-title {
+      font-family: var(--sans);
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #ffffff;
+      margin: 0 0 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &-back-count {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 0 24px;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &-back-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.7);
+      transition: border-bottom-color 0.2s ease;
+
+      svg {
+        width: 13px;
+        height: 13px;
+        stroke-width: 3px;
+      }
+
+      &:hover {
+        border-bottom-color: #ffffff;
+      }
+    }
+  }
+
+  /* ─── Category List Sidebar Box ─── */
+
+  &__list-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    padding: 30px 12px 30px 24px;
+    box-sizing: border-box;
+    height: 245px; /* match height of flip cards */
+
+    @include respond-to('xs', 'max') {
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      height: auto;
+    }
+
+    &-title {
+      font-family: var(--sans);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--text-h);
+      margin: 0 0 12px;
+    }
+
+    &-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--jobes-teal);
+      text-decoration: none;
+      transition: color 0.25s ease;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2.5px;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      &:hover {
+        color: var(--jobes-teal-hover);
+
+        svg {
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+}
