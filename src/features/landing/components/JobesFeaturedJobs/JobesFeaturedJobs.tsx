@@ -65,6 +65,7 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
       id={`featured-job-card-${job.id}`}
       aria-label={`Job: ${job.title} at ${job.company}`}
     >
+      <Link to={jobDetailPath(job.id)} className='p-featured-jobs__card__mark'></Link>
       {/* ── Top Row ── */}
       <div className={styles['p-featured-jobs__card-top']}>
         <div className={styles['p-featured-jobs__card-list-content']}>

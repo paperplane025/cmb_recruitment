@@ -16,48 +16,18 @@ export function JobesHeader() {
   const navItems = [
     {
       label: 'Home',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Home Page 01', path: '/' },
-        { label: 'Home Page 02', path: '/home-02' },
-        { label: 'Home Page 03', path: '/home-03' },
-      ],
+      hasDropdown: false,
+      path: '/'
     },
     {
-      label: 'Find Jobs',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Job Category', path: '/jobs/category' },
-        { label: 'Job Listing 01', path: '/jobs' },
-        { label: 'Job Listing 02', path: '/jobs-list-2' },
-        { label: 'Job Details', path: '/jobs/1' },
-      ],
-    },
-    {
-      label: 'Pages',
-      hasDropdown: true,
-      subItems: [
-        { label: 'About Us', path: '/about' },
-        { label: 'Services', path: '/services' },
-        { label: 'Pricing', path: '/pricing' },
-        { label: 'FAQs', path: '/faqs' },
-      ],
-    },
-    {
-      label: 'Company',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Company List', path: '/companies' },
-        { label: 'Company Detail', path: '/companies/1' },
-      ],
+      label: 'Job Listing',
+      hasDropdown: false,
+      path: '/jobs'
     },
     {
       label: 'Blog',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Blog Grid', path: '/blog' },
-        { label: 'Blog Detail', path: '/blog/1' },
-      ],
+      hasDropdown: false,
+      path: '/blog'
     },
     {
       label: 'Contact',
