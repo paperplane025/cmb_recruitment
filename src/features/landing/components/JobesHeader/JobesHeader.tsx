@@ -16,48 +16,18 @@ export function JobesHeader() {
   const navItems = [
     {
       label: 'Home',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Home Page 01', path: '/' },
-        { label: 'Home Page 02', path: '/home-02' },
-        { label: 'Home Page 03', path: '/home-03' },
-      ],
+      hasDropdown: false,
+      path: '/'
     },
     {
-      label: 'Find Jobs',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Job Category', path: '/jobs/category' },
-        { label: 'Job Listing 01', path: '/jobs' },
-        { label: 'Job Listing 02', path: '/jobs-list-2' },
-        { label: 'Job Details', path: '/jobs/1' },
-      ],
-    },
-    {
-      label: 'Pages',
-      hasDropdown: true,
-      subItems: [
-        { label: 'About Us', path: '/about' },
-        { label: 'Services', path: '/services' },
-        { label: 'Pricing', path: '/pricing' },
-        { label: 'FAQs', path: '/faqs' },
-      ],
-    },
-    {
-      label: 'Company',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Company List', path: '/companies' },
-        { label: 'Company Detail', path: '/companies/1' },
-      ],
+      label: 'Job Listing',
+      hasDropdown: false,
+      path: '/jobs'
     },
     {
       label: 'Blog',
-      hasDropdown: true,
-      subItems: [
-        { label: 'Blog Grid', path: '/blog' },
-        { label: 'Blog Detail', path: '/blog/1' },
-      ],
+      hasDropdown: false,
+      path: '/blog'
     },
     {
       label: 'Contact',
@@ -70,12 +40,6 @@ export function JobesHeader() {
     const pathname = location.pathname
     if (item.label === 'Home') {
       return pathname === '/' || pathname.startsWith('/home-')
-    }
-    if (item.hasDropdown) {
-      return item.subItems?.some((sub) => {
-        if (sub.path === '/') return false
-        return pathname === sub.path || (sub.path !== '/jobs' && pathname.startsWith(sub.path))
-      }) ?? false
     }
     return pathname === item.path
   }
@@ -137,22 +101,6 @@ export function JobesHeader() {
                           <polyline points="6 9 12 15 18 9" />
                         </svg>
                       </button>
-                      <ul className={styles['p-header__dropdown']}>
-                        {item.subItems?.map((sub, idx) => {
-                          const isSubActive = location.pathname === sub.path
-                          return (
-                            <li key={idx} className={styles['p-header__dropdown-item']}>
-                              <Link
-                                to={sub.path}
-                                className={`${styles['p-header__dropdown-link']} ${isSubActive ? styles['p-header__dropdown-link--active'] : ''
-                                  }`}
-                              >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          )
-                        })}
-                      </ul>
                     </>
                   ) : (
                     <Link
