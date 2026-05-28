@@ -41,12 +41,6 @@ export function JobesHeader() {
     if (item.label === 'Home') {
       return pathname === '/' || pathname.startsWith('/home-')
     }
-    if (item.hasDropdown) {
-      return item.subItems?.some((sub) => {
-        if (sub.path === '/') return false
-        return pathname === sub.path || (sub.path !== '/jobs' && pathname.startsWith(sub.path))
-      }) ?? false
-    }
     return pathname === item.path
   }
 
@@ -107,22 +101,6 @@ export function JobesHeader() {
                           <polyline points="6 9 12 15 18 9" />
                         </svg>
                       </button>
-                      <ul className={styles['p-header__dropdown']}>
-                        {item.subItems?.map((sub, idx) => {
-                          const isSubActive = location.pathname === sub.path
-                          return (
-                            <li key={idx} className={styles['p-header__dropdown-item']}>
-                              <Link
-                                to={sub.path}
-                                className={`${styles['p-header__dropdown-link']} ${isSubActive ? styles['p-header__dropdown-link--active'] : ''
-                                  }`}
-                              >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          )
-                        })}
-                      </ul>
                     </>
                   ) : (
                     <Link
