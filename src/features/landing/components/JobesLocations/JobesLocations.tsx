@@ -3,6 +3,8 @@ import { APP_ROUTES } from '@/shared/constants/index.ts'
 import { useJobLocations } from '@/features/job/index.ts'
 import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import styles from './JobesLocations.module.scss'
+import exploreElliose from '@/assets/images/explore-elliose.svg'
+import exploreArrow from '@/assets/images/explore-arrow.svg'
 
 /* ─── Indices that get the "Popular" badge ─── */
 const POPULAR_INDICES = new Set([0, 2, 5])
@@ -92,19 +94,9 @@ export function JobesLocations() {
             aria-label="View all job locations"
           >
             View All Location
-            <span className={styles['p-locations__explore-badge']} aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+            <span className={styles['p-locations__explore-span']} aria-hidden="true">
+              <img src={exploreElliose} alt="" className={styles['p-locations__explore-circle']} />
+              <img src={exploreArrow} alt="" className={styles['p-locations__explore-arrow']} />
             </span>
           </Link>
         </div>

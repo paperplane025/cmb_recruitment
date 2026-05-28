@@ -17,25 +17,18 @@
     align-items: center;
     justify-content: space-between;
     gap: 0;
-    padding: 36px 48px;
-    background: #fff;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    box-shadow:
-      0 4px 20px rgba(0, 0, 0, 0.05),
-      0 1px 4px rgba(0, 0, 0, 0.04);
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
     width: 100%;
     box-sizing: border-box;
-
-    @include respond-to('xl', 'max') {
-      padding: 28px 32px;
-    }
 
     @include respond-to('md', 'max') {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding: 24px 20px;
-      gap: 0;
+      gap: 30px 20px;
     }
 
     @include respond-to('xs', 'max') {
@@ -49,77 +42,45 @@
     align-items: center;
     gap: 16px;
     flex: 1;
-    padding: 0 32px;
-
-    // Vertical divider between items
-    & + & {
-      border-left: 1.5px solid var(--border);
-    }
-
-    &:first-child {
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
+    justify-content: center;
 
     @include respond-to('xl', 'max') {
-      padding: 0 20px;
       gap: 12px;
     }
 
     @include respond-to('md', 'max') {
-      padding: 16px 12px;
-      border-left: none !important;
-
-      // Add border to 2nd item only on right side
-      &:nth-child(odd) {
-        border-right: 1.5px solid var(--border);
-      }
-
-      // Add border-top to bottom row items
-      &:nth-child(n + 3) {
-        border-top: 1.5px solid var(--border);
-      }
-    }
-
-    @include respond-to('xs', 'max') {
-      border-right: none !important;
-      border-top: none !important;
-
-      & + & {
-        border-top: 1.5px solid var(--border) !important;
-      }
+      justify-content: flex-start;
     }
   }
 
-  /* ─── Icon box ─── */
-  &__icon {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+  /* ─── Icon container + ::after decoration ─── */
+  &__icon-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid var(--jobes-teal-border);
-    border-radius: 14px;
-    background: var(--jobes-teal-light);
-    color: var(--jobes-teal);
+    flex-shrink: 0;
+    padding-right: 25px;
+    transition: 0.35s;
 
-    svg {
-      width: 26px;
-      height: 26px;
+    .p-stats__icon-img {
+      position: relative;
+      z-index: 2;
+      width: 55px;
+      height: 55px;
+      display: block;
     }
 
-    @include respond-to('xl', 'max') {
-      width: 48px;
-      height: 48px;
-
-      svg {
-        width: 22px;
-        height: 22px;
-      }
+    &::after {
+      content: "";
+      position: absolute;
+      height: 44px;
+      width: 44px;
+      border-radius: 50%;
+      background-color: rgba(0, 167, 172, 0.15);
+      bottom: -12px;
+      right: 12px;
+      z-index: 1;
     }
   }
 
@@ -127,54 +88,58 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
+  }
+
+  &__number-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
   }
 
   &__number {
     margin: 0;
-    line-height: 1.1;
-    display: flex;
-    align-items: baseline;
-    gap: 1px;
-  }
-
-  &__count {
-    font-family: var(--heading);
-    font-size: 30px;
-    font-weight: 800;
-    color: var(--text-h);
-    letter-spacing: -1px;
+    font-family: var(--font-exo2, 'Exo 2', sans-serif);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--title-color, #18191C);
+    line-height: 1;
 
     @include respond-to('xl', 'max') {
-      font-size: 26px;
+      font-size: 30px;
     }
 
     @include respond-to('md', 'max') {
-      font-size: 24px;
+      font-size: 28px;
     }
   }
 
   &__suffix {
-    font-family: var(--heading);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--jobes-teal);
-    letter-spacing: -0.5px;
+    font-family: var(--font-exo2, 'Exo 2', sans-serif);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--title-color1, var(--title-color, #18191C));
+    margin-left: 6px;
+    line-height: 1;
+
+    @include respond-to('xl', 'max') {
+      font-size: 30px;
+    }
 
     @include respond-to('md', 'max') {
-      font-size: 18px;
+      font-size: 28px;
     }
   }
 
   &__label {
     margin: 0;
-    font-size: 13.5px;
-    color: var(--text);
+    font-size: 14px;
+    color: var(--text-color, #636A80);
     font-weight: 400;
     line-height: 1.4;
 
     @include respond-to('md', 'max') {
-      font-size: 12.5px;
+      font-size: 13px;
     }
   }
 }

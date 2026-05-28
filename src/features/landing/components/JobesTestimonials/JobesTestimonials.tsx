@@ -1,8 +1,10 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import styles from './JobesTestimonials.module.scss'
+import exploreElliose from '@/assets/images/explore-elliose.svg'
+import exploreArrow from '@/assets/images/explore-arrow.svg'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -45,19 +47,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Mr. John Doe',
     role: 'Backend Engineer',
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop'
-  },
-  {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
-    name: 'Ms. Emily Watson',
-    role: 'Creative Director',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop'
   }
 ]
-
-// Width of inactive bullet + horizontal margin on both sides
-const BULLET_WIDTH = 65
-const BULLET_MARGIN = 24 // 12px on each side (margin: 0 12px)
-const BULLET_STEP = BULLET_WIDTH + BULLET_MARGIN // 89px per inactive bullet step
 
 const QuoteIcon = () => (
   <svg
@@ -78,35 +69,25 @@ const QuoteIcon = () => (
 
 export function JobesTestimonials() {
   const swiperRef = useRef<SwiperType | null>(null)
-  const avatarsRef = useRef<HTMLDivElement>(null)
-  const wrapperRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  /** Translate the avatar strip so the active bullet is centred in the wrapper */
-  const scrollAvatars = (realIndex: number) => {
-    if (!avatarsRef.current || !wrapperRef.current) return
-    const wrapperWidth = wrapperRef.current.clientWidth
-    // Left-edge position of the active bullet's centre
-    const activeCentreX = realIndex * BULLET_STEP + BULLET_WIDTH / 2
-    const translateX = wrapperWidth / 2 - activeCentreX
-    avatarsRef.current.style.transform = `translateX(${translateX}px)`
-  }
-
-  // Set initial position after mount so first bullet is centred
-  useEffect(() => {
-    scrollAvatars(0)
-  }, [])
-
   const handleRealIndexChange = (swiper: SwiperType) => {
-    const idx = swiper.realIndex
-    setActiveIndex(idx)
-    scrollAvatars(idx)
+    setActiveIndex(swiper.realIndex)
   }
 
   const handleSwiperInit = (swiper: SwiperType) => {
     swiperRef.current = swiper
-    // Ensure initial scroll position is correct after Swiper initialises
-    scrollAvatars(swiper.realIndex)
+  }
+
+  // Get the 5 visible avatar indices relative to the activeIndex
+  const getVisibleIndices = (active: number, total: number) => {
+    return [
+      (active - 2 + total) % total,
+      (active - 1 + total) % total,
+      active,
+      (active + 1) % total,
+      (active + 2) % total,
+    ]
   }
 
   return (
@@ -130,42 +111,26 @@ export function JobesTestimonials() {
           {/* ─── Navigation Arrows ─── */}
           <div className={styles['p-testimonials__nav']}>
             <button
-              className={styles['p-testimonials__nav-btn']}
+              className={`${styles['p-testimonials__nav-btn']} ${styles['p-testimonials__nav-btn--prev']}`}
               aria-label="Previous testimonial"
               id="testimonial-prev-btn"
               onClick={() => swiperRef.current?.slidePrev()}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-              </svg>
+              <span className={styles['p-testimonials__nav-span']} aria-hidden="true">
+                <img src={exploreElliose} alt="" className={styles['p-testimonials__nav-circle']} />
+                <img src={exploreArrow} alt="" className={styles['p-testimonials__nav-arrow']} />
+              </span>
             </button>
             <button
-              className={styles['p-testimonials__nav-btn']}
+              className={`${styles['p-testimonials__nav-btn']} ${styles['p-testimonials__nav-btn--next']}`}
               aria-label="Next testimonial"
               id="testimonial-next-btn"
               onClick={() => swiperRef.current?.slideNext()}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+              <span className={styles['p-testimonials__nav-span']} aria-hidden="true">
+                <img src={exploreElliose} alt="" className={styles['p-testimonials__nav-circle']} />
+                <img src={exploreArrow} alt="" className={styles['p-testimonials__nav-arrow']} />
+              </span>
             </button>
           </div>
         </div>
@@ -215,35 +180,38 @@ export function JobesTestimonials() {
 
         {/* ─── Custom Avatar Pagination ─── */}
         <div
-          ref={wrapperRef}
           className={styles['p-testimonials__avatars-wrapper']}
           role="tablist"
           aria-label="Select testimonial slide"
         >
-          <div ref={avatarsRef} className={styles['p-testimonials__avatars']}>
-            {TESTIMONIALS.map((item, idx) => (
-              <button
-                key={idx}
-                className={`${styles['p-testimonials__avatar-bullet']}${
-                  activeIndex === idx ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
-                }`}
-                onClick={() => {
-                  swiperRef.current?.slideToLoop(idx)
-                  setActiveIndex(idx)
-                  scrollAvatars(idx)
-                }}
-                role="tab"
-                aria-selected={activeIndex === idx}
-                aria-label={`Go to slide ${idx + 1}: ${item.name}`}
-                id={`testimonial-bullet-${idx}`}
-              >
-                <img
-                  src={item.avatar}
-                  alt={`${item.name} headshot`}
-                  className={styles['p-testimonials__avatar-img']}
-                />
-              </button>
-            ))}
+          <div className={styles['p-testimonials__avatars']}>
+            {getVisibleIndices(activeIndex, TESTIMONIALS.length).map((originalIdx) => {
+              const item = TESTIMONIALS[originalIdx]
+              if (!item) return null
+              const isActive = activeIndex === originalIdx
+              return (
+                <button
+                  key={originalIdx}
+                  className={`${styles['p-testimonials__avatar-bullet']}${
+                    isActive ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
+                  }`}
+                  onClick={() => {
+                    swiperRef.current?.slideToLoop(originalIdx)
+                    setActiveIndex(originalIdx)
+                  }}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`Go to slide ${originalIdx + 1}: ${item.name}`}
+                  id={`testimonial-bullet-${originalIdx}`}
+                >
+                  <img
+                    src={item.avatar}
+                    alt={`${item.name} headshot`}
+                    className={styles['p-testimonials__avatar-img']}
+                  />
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>

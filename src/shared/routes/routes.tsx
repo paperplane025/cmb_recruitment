@@ -70,24 +70,24 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: 'jobs',
+        element: (
+          <SuspenseWrapper>
+            <JobListingPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'jobs/:id',
+        element: (
+          <SuspenseWrapper>
+            <JobDetailPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: 'jobs',
-            element: (
-              <SuspenseWrapper>
-                <JobListingPage />
-              </SuspenseWrapper>
-            ),
-          },
-          {
-            path: 'jobs/:id',
-            element: (
-              <SuspenseWrapper>
-                <JobDetailPage />
-              </SuspenseWrapper>
-            ),
-          },
         ],
       },
     ],

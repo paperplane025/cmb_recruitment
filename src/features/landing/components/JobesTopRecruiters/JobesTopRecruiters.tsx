@@ -1,6 +1,8 @@
 import { Link } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
 import styles from './JobesTopRecruiters.module.scss'
+import exploreElliose from '@/assets/images/explore-elliose.svg'
+import exploreArrow from '@/assets/images/explore-arrow.svg'
 
 // ─── Custom Company Logo Icons (High-Fidelity representation of mockup) ───
 
@@ -176,7 +178,11 @@ export function JobesTopRecruiters() {
 
               {/* Right: Info & CTA */}
               <div className={styles['p-recruiters__card-body']}>
-                <h3 className={styles['p-recruiters__card-name']}>{recruiter.name}</h3>
+                <h3 className={styles['p-recruiters__card-name']}>
+                  <Link to={`${APP_ROUTES.jobs}?company=${encodeURIComponent(recruiter.name)}`}>
+                    {recruiter.name}
+                  </Link>
+                </h3>
                 
                 {/* Meta stats */}
                 <div className={styles['p-recruiters__card-meta']}>
@@ -225,21 +231,11 @@ export function JobesTopRecruiters() {
                   className={styles['p-recruiters__card-link']}
                   aria-label={`View recruitment details for ${recruiter.name}`}
                 >
-                  <span>View Details</span>
-                  <span className={styles['p-recruiters__card-link-circle']}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
+                  <span className={styles['p-recruiters__card-link-span']} aria-hidden="true">
+                    <img src={exploreElliose} alt="" className={styles['p-recruiters__card-link-circle']} />
+                    <img src={exploreArrow} alt="" className={styles['p-recruiters__card-link-arrow']} />
                   </span>
+                  <span>View Details</span>
                 </Link>
               </div>
             </article>
@@ -255,19 +251,9 @@ export function JobesTopRecruiters() {
             aria-label="View all recruiters list"
           >
             <span>View All Recruiters</span>
-            <span className={styles['p-recruiters__view-all-circle']}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+            <span className={styles['p-recruiters__view-all-span']} aria-hidden="true">
+              <img src={exploreElliose} alt="" className={styles['p-recruiters__view-all-circle']} />
+              <img src={exploreArrow} alt="" className={styles['p-recruiters__view-all-arrow']} />
             </span>
           </Link>
         </div>

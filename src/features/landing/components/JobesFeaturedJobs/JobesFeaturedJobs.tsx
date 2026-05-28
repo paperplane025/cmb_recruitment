@@ -6,6 +6,8 @@ import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import { formatDate } from '@/shared/utils/dateUtils.ts'
 import type { Job } from '@/features/job/types.ts'
 import styles from './JobesFeaturedJobs.module.scss'
+import exploreElliose from '@/assets/images/explore-elliose.svg'
+import exploreArrow from '@/assets/images/explore-arrow.svg'
 
 /* ─── Employment type badge labels (English for design fidelity) ─── */
 const TYPE_LABELS: Record<string, string> = {
@@ -180,20 +182,10 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
           id={`apply-btn-${job.id}`}
           aria-label={`Apply now for ${job.title}`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-            <polyline points="12 8 16 12 12 16" />
-          </svg>
+          <span className={styles['p-featured-jobs__explore-span']} aria-hidden="true">
+            <img src={exploreElliose} alt="" className={styles['p-featured-jobs__explore-circle']} />
+            <img src={exploreArrow} alt="" className={styles['p-featured-jobs__explore-arrow']} />
+          </span>
           Apply Now
         </Link>
       </div>
@@ -227,19 +219,9 @@ export function JobesFeaturedJobs() {
             aria-label="Explore more job listings"
           >
             Explore More
-            <span className={styles['p-featured-jobs__explore-badge']} aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+            <span className={styles['p-featured-jobs__explore-span']} aria-hidden="true">
+              <img src={exploreElliose} alt="" className={styles['p-featured-jobs__explore-circle']} />
+              <img src={exploreArrow} alt="" className={styles['p-featured-jobs__explore-arrow']} />
             </span>
           </Link>
         </div>
