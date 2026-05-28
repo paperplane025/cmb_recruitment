@@ -78,20 +78,18 @@
 
   /* ─── Card ─── */
   &__card {
-    background: #fff;
-    border: 1.5px solid rgba(0, 167, 172, 0.06);
-    border-radius: 24px;
-    padding: 28px 24px;
+    background: #F8F8F8;
+    border: 1px solid rgba(0, 167, 172, 0.15);
+    border-radius: 20px;
+    padding: 30px 28px;
     display: flex;
     gap: 16px;
     align-items: flex-start;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, border-color, box-shadow;
+    will-change: border-color, box-shadow;
 
     &:hover {
-      transform: translateY(-5px);
-      border-color: var(--jobes-teal-border);
+      border-color: #00A7AC;
       box-shadow: 0 15px 35px rgba(0, 167, 172, 0.05);
     }
 
@@ -125,6 +123,16 @@
       margin: 0 0 6px;
       letter-spacing: -0.2px;
       line-height: 1.3;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.25s ease;
+
+        &:hover {
+          color: #00A7AC;
+        }
+      }
     }
 
     &-meta {
@@ -160,59 +168,44 @@
     gap: 8px;
     font-family: var(--heading);
     font-size: 14px;
-    font-weight: 700;
-    color: var(--text-h);
+    font-weight: 500;
+    color: #00A7AC;
     text-decoration: none;
     align-self: flex-start;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
     span {
       position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 1.5px;
-        background: var(--jobes-teal);
-        transition: width 0.25s ease;
-      }
     }
 
-    &-circle {
+    &-span {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 26px;
       height: 26px;
-      border-radius: 50%;
-      border: 1.5px solid var(--jobes-teal-border);
-      color: var(--jobes-teal);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: visible;
+    }
 
-      svg {
-        width: 12px;
-        height: 12px;
-        transition: transform 0.25s ease;
-      }
+    &-circle {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    &-arrow {
+      position: absolute;
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+      transition:
+        left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:hover {
-      color: var(--jobes-teal);
-
-      span::after {
-        width: 100%;
-      }
-
-      .p-recruiters__card-link-circle {
-        background: var(--jobes-teal);
-        border-color: var(--jobes-teal);
-        color: #fff;
-
-        svg {
-          transform: translateX(2px);
-        }
+      .p-recruiters__card-link-arrow {
+        left: -5px;
       }
     }
   }
@@ -229,59 +222,48 @@
   }
 
   &__view-all {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    font-family: var(--heading);
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-h);
+    gap: 20px;
+    font-size: 1.063rem;
+    font-weight: 500;
+    color: var(--title-color1);
+    font-family: var(--font-exo2);
+    line-height: 1;
     text-decoration: none;
-    padding: 12px 28px;
-    border-radius: 30px;
-    border: 1.5px solid var(--border);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
-    &-circle {
+    &-span {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid var(--jobes-teal-border);
-      color: var(--jobes-teal);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 26px;
+      height: 26px;
+      overflow: visible;
+    }
 
-      svg {
-        width: 12px;
-        height: 12px;
-        transition: transform 0.25s ease;
-      }
+    &-circle {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    &-arrow {
+      position: absolute;
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+      transition:
+        left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:hover {
-      border-color: var(--jobes-teal);
       color: var(--jobes-teal);
-      background: var(--jobes-teal-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 167, 172, 0.05);
 
-      .p-recruiters__view-all-circle {
-        background: var(--jobes-teal);
-        border-color: var(--jobes-teal);
-        color: #fff;
-
-        svg {
-          transform: translateX(2px);
-        }
+      .p-recruiters__view-all-arrow {
+        left: -5px;
       }
-    }
-
-    &:active {
-      transform: translateY(0);
     }
   }
 }

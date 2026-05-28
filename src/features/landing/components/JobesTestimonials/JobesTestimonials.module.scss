@@ -5,6 +5,7 @@
   width: 100%;
   padding: 60px 0;
   box-sizing: border-box;
+  background-color: #F8F8F8;
 
   @include respond-to('xl', 'max') {
     padding: 40px 0;
@@ -85,27 +86,46 @@
       justify-content: center;
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid var(--jobes-teal-border);
+      border: none;
       background: transparent;
-      color: var(--jobes-teal);
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0;
+      position: relative;
+      transition: transform 0.2s ease;
 
-      svg {
-        width: 18px;
-        height: 18px;
+      &--prev {
+        .p-testimonials__nav-span {
+          transform: scaleX(-1);
+        }
       }
+    }
 
-      &:hover {
-        background-color: var(--jobes-teal);
-        border-color: var(--jobes-teal);
-        color: #fff;
-        transform: translateY(-2px);
-      }
+    &-span {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      overflow: visible;
+    }
 
-      &:active {
-        transform: translateY(0);
+    &-circle {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    &-arrow {
+      position: absolute;
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+      transition:
+        left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+      .p-testimonials__nav-btn:hover & {
+        left: -5px;
       }
     }
   }
@@ -137,9 +157,9 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    border: 1.5px solid #f4f3ec;
-    border-radius: 24px;
-    padding: 50px 36px;
+    border: 1px solid rgba(0, 167, 172, 0.12);
+    border-radius: 20px;
+    padding: 50px 30px;
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
@@ -151,13 +171,6 @@
       padding: 40px 24px;
     }
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 167, 172, 0.05);
-      border-color: var(--jobes-teal-border);
-    }
-
-    // Active slide styling via Swiper's native active slide class
     :global(.swiper-slide-active) & {
       border-color: var(--jobes-teal) !important;
       box-shadow: 0 15px 35px rgba(0, 167, 172, 0.08) !important;
@@ -207,22 +220,19 @@
   &__avatars-wrapper {
     position: relative;
     width: 100%;
+    margin: 8px auto 0;
     height: 140px;
-    margin-top: 8px;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  // The scrollable flex strip – translated via JS to keep active bullet centred
+  // The flex strip - always centered showing 5 items
   &__avatars {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    justify-content: center;
     height: 100%;
-    // Start at left:0; JS sets transform on mount
-    will-change: transform;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    // Don't let the strip shrink; it must be wider than the wrapper when many items
-    width: max-content;
   }
 
   /* ─── Individual Avatar Bullet ─── */
