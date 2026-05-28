@@ -62,32 +62,35 @@ export function JobesArticles() {
               className={styles['p-articles__card']}
               id={`article-card-${article.id}`}
             >
-              <a href={article.href} className={styles['p-articles__card-link']} aria-label={article.title}>
-                {/* ─── Image Wrapper ─── */}
-                <div className={styles['p-articles__card-image-wrapper']}>
+              {/* ─── Image Wrapper ─── */}
+              <div className={styles['p-articles__card-image-wrapper']}>
+                <a href={article.href} className={styles['p-articles__card-image-link']} aria-label={article.title}>
                   <img
                     src={article.image}
                     alt={article.title}
                     className={styles['p-articles__card-image']}
                     loading="lazy"
                   />
-                  {/* ─── Date Badge ─── */}
-                  <span className={styles['p-articles__card-date']}>
-                    {article.date}
-                  </span>
-                </div>
+                </a>
+              </div>
 
-                {/* ─── Card Content ─── */}
-                <div className={styles['p-articles__card-content']}>
-                  <div className={styles['p-articles__card-author']}>
-                    <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
-                    <span>{article.author}</span>
-                  </div>
-                  <h3 className={styles['p-articles__card-title']}>
-                    {article.title}
-                  </h3>
-                </div>
+              {/* ─── Date Badge ─── */}
+              <a href="#" className={styles['p-articles__card-date']}>
+                {article.date}
               </a>
+
+              {/* ─── Card Content ─── */}
+              <div className={styles['p-articles__card-content']}>
+                <div className={styles['p-articles__card-author']}>
+                  <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
+                  <a href="#" className={styles['p-articles__card-author-link']}>
+                    {article.author}
+                  </a>
+                </div>
+                <h3 className={styles['p-articles__card-title']}>
+                  <a href={article.href}>{article.title}</a>
+                </h3>
+              </div>
             </article>
           ))}
         </div>
@@ -95,3 +98,4 @@ export function JobesArticles() {
     </section>
   )
 }
+
