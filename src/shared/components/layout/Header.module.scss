@@ -1,4 +1,4 @@
-@import "../../../../styles/foundation/mixins";
+@import "../../../styles/foundation/mixins";
 
 .p-header {
   position: sticky;
@@ -201,6 +201,13 @@
     display: flex;
     align-items: center;
     gap: 16px;
+
+    @include respond-to('sm', 'max') {
+      .p-header__btn--signin,
+      .p-header__btn--postjob {
+        display: none !important;
+      }
+    }
   }
 
   &__notification {
@@ -320,12 +327,6 @@
         &::before {
           transform: scaleX(1);
         }
-      }
-    }
-
-    @include respond-to('sm', 'max') {
-      &--signin {
-        display: none;
       }
     }
   }

@@ -49,12 +49,16 @@
 
   &__headline {
     font-family: var(--heading);
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1.15;
     color: #ffffff;
     margin: 0 0 20px;
     letter-spacing: -0.5px;
+
+    @include respond-to('xs') {
+      font-size: 34px;
+    }
 
     @include respond-to('sm') {
       font-size: 54px;
@@ -79,12 +83,16 @@
   }
 
   &__subtitle {
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.6;
     color: var(--white);
     margin-bottom: 40px;
     font-weight: 400;
     max-width: 600px;
+
+    @include respond-to('sm') {
+      font-size: 15px;
+    }
 
     @include respond-to('md') {
       font-size: 17px;

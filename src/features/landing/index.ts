@@ -1,4 +1,3 @@
-export { JobesHeader } from './components/JobesHeader/JobesHeader.tsx'
 export { JobesHero } from './components/JobesHero/JobesHero.tsx'
 export { JobesCategories } from './components/JobesCategories/JobesCategories.tsx'
 export { JobesFeaturedJobs } from './components/JobesFeaturedJobs/JobesFeaturedJobs.tsx'
