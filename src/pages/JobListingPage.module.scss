@@ -69,8 +69,12 @@
     margin: 0 0 10px;
     letter-spacing: -0.5px;
 
+    @include respond-to('sm', 'max') {
+      font-size: 28px;
+    }
+
     @include respond-to('xs', 'max') {
-      font-size: 26px;
+      font-size: 22px;
     }
   }
 

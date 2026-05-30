@@ -2,14 +2,18 @@ import { RegisterForm } from '@/features/auth/index.ts'
 
 export function RegisterPage() {
   return (
-    <section className="py-8">
-      <h1 className="text-center text-3xl">Đăng ký</h1>
-      <p className="mt-2 text-center text-sm text-[var(--text)]">
-        Tạo tài khoản để tham gia tuyển dụng nội bộ.
-      </p>
-      <div className="mt-8">
-        <RegisterForm />
-      </div>
-    </section>
+    <div
+      style={{
+        background: '#f5f5f5',
+        width: '100%',
+        minHeight: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '5rem 1.5rem',
+      }}
+    >
+      <RegisterForm />
+    </div>
   )
 }

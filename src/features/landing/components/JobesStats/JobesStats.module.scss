@@ -32,7 +32,8 @@
     }
 
     @include respond-to('xs', 'max') {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 12px;
     }
   }
 
@@ -50,6 +51,10 @@
 
     @include respond-to('md', 'max') {
       justify-content: flex-start;
+    }
+
+    @include respond-to('xs', 'max') {
+      gap: 8px;
     }
   }
 
@@ -69,6 +74,11 @@
       width: 55px;
       height: 55px;
       display: block;
+
+      @include respond-to('xs', 'max') {
+        width: 38px;
+        height: 38px;
+      }
     }
 
     &::after {
@@ -81,6 +91,17 @@
       bottom: -12px;
       right: 12px;
       z-index: 1;
+
+      @include respond-to('xs', 'max') {
+        height: 30px;
+        width: 30px;
+        bottom: -6px;
+        right: 6px;
+      }
+    }
+
+    @include respond-to('xs', 'max') {
+      padding-right: 16px;
     }
   }
 
@@ -112,6 +133,10 @@
     @include respond-to('md', 'max') {
       font-size: 28px;
     }
+
+    @include respond-to('xs', 'max') {
+      font-size: 22px;
+    }
   }
 
   &__suffix {
@@ -129,6 +154,11 @@
     @include respond-to('md', 'max') {
       font-size: 28px;
     }
+
+    @include respond-to('xs', 'max') {
+      font-size: 22px;
+      margin-left: 3px;
+    }
   }
 
   &__label {
@@ -140,6 +170,10 @@
 
     @include respond-to('md', 'max') {
       font-size: 13px;
+    }
+
+    @include respond-to('xs', 'max') {
+      font-size: 12px;
     }
   }
 }

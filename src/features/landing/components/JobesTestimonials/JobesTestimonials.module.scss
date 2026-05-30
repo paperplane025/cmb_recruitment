@@ -47,8 +47,12 @@
         font-size: 30px;
       }
 
+      @include respond-to('sm', 'max') {
+        font-size: 28px;
+      }
+
       @include respond-to('xs', 'max') {
-        font-size: 26px;
+        font-size: 22px;
       }
     }
 
@@ -258,6 +262,17 @@
     position: relative;
     opacity: 0.6;
 
+    @include respond-to('md', 'max') {
+      margin: 0 8px;
+      width: 50px;
+      height: 50px;
+
+      &:first-child,
+      &:last-child {
+        display: none !important;
+      }
+    }
+
     &:hover {
       opacity: 0.85;
     }
@@ -269,6 +284,12 @@
       height: 102px;
       border-radius: 39px / 51px; // keeps the image in an oval
       cursor: default;
+
+      @include respond-to('md', 'max') {
+        width: 60px;
+        height: 78px;
+        border-radius: 30px / 39px;
+      }
 
       // Top semi-circular arc: a full ellipse clipped to show only its top half
       &::before {

@@ -1,9 +1,16 @@
+@import '../foundation/mixins';
+
 .l-container {
   width: 100%;
-  max-width: 1368px; /* 1320px content + 24px * 2 side padding */
+  max-width: 1360px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 20px;
+  padding-right: 20px;
   box-sizing: border-box;
-}
+
+  @include respond-to('xs', 'max') {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
