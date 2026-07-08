@@ -2,40 +2,40 @@ import styles from './Footer.module.scss'
 
 const FOOTER_COLUMNS = [
   {
-    heading: "About Company",
+    heading: "Về công ty",
     links: [
-      { label: 'Contact Us', href: '#' },
-      { label: 'Terms & Condition', href: '#' },
-      { label: 'Privacy & Policy', href: '#' },
-      { label: 'Candidate Listing', href: '#' },
+      { label: 'Liên hệ', href: '#' },
+      { label: 'Điều khoản & Điều kiện', href: '#' },
+      { label: 'Quyền riêng tư & Chính sách', href: '#' },
+      { label: 'Danh sách ứng viên', href: '#' },
     ],
   },
   {
-    heading: "For Candidate's",
+    heading: "Dành cho ứng viên",
     links: [
-      { label: 'Create Resume', href: '#' },
-      { label: 'Browse Categories', href: '#' },
-      { label: 'Save Jobs List', href: '#' },
-      { label: 'Browse Jobs', href: '#' },
-      { label: 'Candidate Dashboard', href: '#' },
+      { label: 'Tạo hồ sơ', href: '#' },
+      { label: 'Duyệt danh mục', href: '#' },
+      { label: 'Danh sách việc đã lưu', href: '#' },
+      { label: 'Duyệt việc làm', href: '#' },
+      { label: 'Bảng điều khiển ứng viên', href: '#' },
     ],
   },
   {
-    heading: "For Employer's",
+    heading: "Dành cho nhà tuyển dụng",
     links: [
-      { label: 'Post A Job', href: '#' },
-      { label: 'Browse Candidates', href: '#' },
-      { label: 'Job Packages', href: '#' },
-      { label: 'Jobs Featured', href: '#' },
-      { label: 'Employer Dashboard', href: '#' },
+      { label: 'Đăng tin tuyển dụng', href: '#' },
+      { label: 'Duyệt ứng viên', href: '#' },
+      { label: 'Gói việc làm', href: '#' },
+      { label: 'Việc làm nổi bật', href: '#' },
+      { label: 'Bảng điều khiển nhà tuyển dụng', href: '#' },
     ],
   },
 ]
 
 const BOTTOM_NAV = [
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Services', href: '#' },
-  { label: 'Our Sitemap', href: '#' },
+  { label: 'Chính sách bảo mật', href: '#' },
+  { label: 'Điều khoản dịch vụ', href: '#' },
+  { label: 'Sơ đồ trang web', href: '#' },
 ]
 
 export function Footer() {
@@ -62,12 +62,12 @@ export function Footer() {
 
             {/* ─── Download App Column ─── */}
             <div className={styles['p-footer__col']}>
-              <h3 className={styles['p-footer__col-heading']}>Download App</h3>
+              <h3 className={styles['p-footer__col-heading']}>Tải ứng dụng</h3>
               <div className={styles['p-footer__app-buttons']}>
                 <a
                   href="#"
                   className={styles['p-footer__app-btn']}
-                  aria-label="Download on the App Store"
+                  aria-label="Tải trên App Store"
                   id="footer-appstore-btn"
                 >
                   <span className={styles['p-footer__app-btn-icon']}>
@@ -76,14 +76,14 @@ export function Footer() {
                     </svg>
                   </span>
                   <span className={styles['p-footer__app-btn-text']}>
-                    <span className={styles['p-footer__app-btn-text-small']}>Download on the</span>
+                    <span className={styles['p-footer__app-btn-text-small']}>Tải trên</span>
                     <span className={styles['p-footer__app-btn-text-large']}>App Store</span>
                   </span>
                 </a>
                 <a
                   href="#"
                   className={styles['p-footer__app-btn']}
-                  aria-label="Get it on Google Play"
+                  aria-label="Tải trên Google Play"
                   id="footer-googleplay-btn"
                 >
                   <span className={styles['p-footer__app-btn-icon']}>
@@ -92,7 +92,7 @@ export function Footer() {
                     </svg>
                   </span>
                   <span className={styles['p-footer__app-btn-text']}>
-                    <span className={styles['p-footer__app-btn-text-small']}>Get in</span>
+                    <span className={styles['p-footer__app-btn-text-small']}>Có trên</span>
                     <span className={styles['p-footer__app-btn-text-large']}>Google Play</span>
                   </span>
                 </a>
@@ -114,15 +114,15 @@ export function Footer() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                 </span>
-                <span className={styles['p-footer__support-label']}>Support Line:</span>
+                <span className={styles['p-footer__support-label']}>Đường dây hỗ trợ:</span>
                 <a href="tel:+0990357398-3465" className={styles['p-footer__support-number']}>
                   +099-035 7398 3465
                 </a>
               </div>
               <p className={styles['p-footer__copyright']}>
-                ©Copyright {new Date().getFullYear()}{' '}
+                ©Bản quyền {new Date().getFullYear()}{' '}
                 <span className={styles['p-footer__copyright-brand']}>JOBES</span>
-                {' | Design By '}
+                {' | Thiết kế bởi '}
                 <a href="#" className={styles['p-footer__copyright-link']}>Egenslab</a>
               </p>
             </div>
@@ -132,12 +132,12 @@ export function Footer() {
               <span className={styles['p-footer__logo-brand']}>
                 JO<span>BES</span>
               </span>
-              <span className={styles['p-footer__logo-tagline']}>Job Portal</span>
+              <span className={styles['p-footer__logo-tagline']}>Cổng thông tin việc làm</span>
             </div>
 
             {/* ─── Right: Nav + Social ─── */}
             <div className={styles['p-footer__bottom-right']}>
-              <nav aria-label="Footer navigation">
+              <nav aria-label="Điều hướng chân trang">
                 <ul className={styles['p-footer__bottom-nav']}>
                   {BOTTOM_NAV.map((item) => (
                     <li key={item.label}>
@@ -150,7 +150,7 @@ export function Footer() {
               </nav>
 
               <div className={styles['p-footer__social']}>
-                <span className={styles['p-footer__social-label']}>Follow JOBES:</span>
+                <span className={styles['p-footer__social-label']}>Theo dõi JOBES:</span>
                 <a href="#" className={styles['p-footer__social-link']} aria-label="Facebook" id="footer-facebook">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
                 </a>

@@ -34,7 +34,7 @@
     transform: translate(-50%, -50%);
     width: 280px;
     height: 280px;
-    border: 1px dashed rgba(0, 167, 172, 0.15);
+    border: 1px dashed rgba(0, 81, 152, 0.15);
     border-radius: 50%;
     pointer-events: none;
     z-index: 1;
@@ -47,7 +47,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      border: 1px solid rgba(0, 167, 172, 0.08);
+      border: 1px solid rgba(0, 81, 152, 0.08);
     }
 
     &::before {
@@ -469,7 +469,7 @@
 
   &:hover {
     border-color: var(--jobes-teal);
-    box-shadow: 0 6px 20px rgba(0, 167, 172, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 81, 152, 0.08);
   }
 
   &__top {
@@ -627,7 +627,7 @@
 
     &--remote {
       background-color: #e6f8f8;
-      color: #00898d;
+      color: #003f74;
       border-color: #b8e8e9;
     }
 
@@ -719,7 +719,7 @@
 
   &:hover {
     border-color: var(--jobes-teal);
-    box-shadow: 0 6px 20px rgba(0, 167, 172, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 81, 152, 0.08);
   }
 
   /* 3D Illustration banner at top of the card */

@@ -83,7 +83,7 @@
   /* ─── Card ─── */
   &__card {
     background: #F8F8F8;
-    border: 1px solid rgba(0, 167, 172, 0.15);
+    border: 1px solid rgba(0, 81, 152, 0.15);
     border-radius: 20px;
     padding: 30px 28px;
     display: flex;
@@ -93,8 +93,8 @@
     will-change: border-color, box-shadow;
 
     &:hover {
-      border-color: #00A7AC;
-      box-shadow: 0 15px 35px rgba(0, 167, 172, 0.05);
+      border-color: #005198;
+      box-shadow: 0 15px 35px rgba(0, 81, 152, 0.05);
     }
 
     &-logo {
@@ -134,7 +134,7 @@
         transition: color 0.25s ease;
 
         &:hover {
-          color: #00A7AC;
+          color: #005198;
         }
       }
     }
@@ -173,7 +173,7 @@
     font-family: var(--heading);
     font-size: 14px;
     font-weight: 500;
-    color: #00A7AC;
+    color: #005198;
     text-decoration: none;
     align-self: flex-start;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);

@@ -161,7 +161,7 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    border: 1px solid rgba(0, 167, 172, 0.12);
+    border: 1px solid rgba(0, 81, 152, 0.12);
     border-radius: 20px;
     padding: 50px 30px;
     box-sizing: border-box;
@@ -177,7 +177,7 @@
 
     :global(.swiper-slide-active) & {
       border-color: var(--jobes-teal) !important;
-      box-shadow: 0 15px 35px rgba(0, 167, 172, 0.08) !important;
+      box-shadow: 0 15px 35px rgba(0, 81, 152, 0.08) !important;
     }
 
     &-quote-wrapper {

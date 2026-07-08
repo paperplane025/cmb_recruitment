@@ -14,32 +14,32 @@ import cardBanner2 from '@/assets/images/card_banner_2.png'
 
 /* ─── Breadcrumb and Page Constants ─── */
 const MOCK_CATEGORIES = [
-  { label: 'Health Care', count: 80, val: 'hr' as JobCategory },
-  { label: 'Account & Finance', count: 80, val: 'finance' as JobCategory },
-  { label: 'Transportation', count: 100, val: 'operations' as JobCategory },
-  { label: 'Medical & Finance', count: 120, val: 'finance' as JobCategory },
-  { label: 'Development', count: 30, val: 'engineering' as JobCategory },
-  { label: 'Engineering', count: 10, val: 'engineering' as JobCategory },
-  { label: 'Receptionist', count: 70, val: 'hr' as JobCategory },
-  { label: 'Non-Profit Org.', count: 100, val: 'product' as JobCategory },
+  { label: 'Y tế', count: 80, val: 'hr' as JobCategory },
+  { label: 'Kế toán & Tài chính', count: 80, val: 'finance' as JobCategory },
+  { label: 'Vận tải', count: 100, val: 'operations' as JobCategory },
+  { label: 'Y tế & Tài chính', count: 120, val: 'finance' as JobCategory },
+  { label: 'Phát triển phần mềm', count: 30, val: 'engineering' as JobCategory },
+  { label: 'Kỹ thuật', count: 10, val: 'engineering' as JobCategory },
+  { label: 'Lễ tân', count: 70, val: 'hr' as JobCategory },
+  { label: 'Tổ chức phi lợi nhuận', count: 100, val: 'product' as JobCategory },
 ]
 
 const MOCK_EMPLOYMENTS = [
-  { label: 'Full Time', count: 30, val: 'full-time' as EmploymentType },
-  { label: 'Freelance', count: 10, val: 'contract' as EmploymentType },
-  { label: 'Part Time', count: 100, val: 'part-time' as EmploymentType },
-  { label: 'Remote', count: 60, val: 'contract' as EmploymentType },
-  { label: 'Temporary', count: 40, val: 'contract' as EmploymentType },
-  { label: 'Permanent', count: 30, val: 'full-time' as EmploymentType },
-  { label: 'Internship', count: 80, val: 'internship' as EmploymentType },
+  { label: 'Toàn thời gian', count: 30, val: 'full-time' as EmploymentType },
+  { label: 'Tự do', count: 10, val: 'contract' as EmploymentType },
+  { label: 'Bán thời gian', count: 100, val: 'part-time' as EmploymentType },
+  { label: 'Từ xa', count: 60, val: 'contract' as EmploymentType },
+  { label: 'Tạm thời', count: 40, val: 'contract' as EmploymentType },
+  { label: 'Lâu dài', count: 30, val: 'full-time' as EmploymentType },
+  { label: 'Thực tập', count: 80, val: 'internship' as EmploymentType },
 ]
 
 const MOCK_POST_DATES = [
-  { label: 'Today', count: 80, val: 'today' as const },
-  { label: 'Last week ago', count: 100, val: 'this-week' as const },
-  { label: 'Last month ago', count: 100, val: 'this-month' as const },
-  { label: '3 month ago', count: 30, val: 'all' as const },
-  { label: '1 year ago', count: 30, val: 'all' as const },
+  { label: 'Hôm nay', count: 80, val: 'today' as const },
+  { label: 'Tuần trước', count: 100, val: 'this-week' as const },
+  { label: 'Tháng trước', count: 100, val: 'this-month' as const },
+  { label: '3 tháng trước', count: 30, val: 'all' as const },
+  { label: '1 năm trước', count: 30, val: 'all' as const },
 ]
 
 const MOCK_SALARIES = [
@@ -71,9 +71,9 @@ const LOGO_COLORS: Record<string, string> = {
 /* ─── Local custom formatter to match mockup USD/VND style ─── */
 function formatJobSalary(min: number, max: number, currency: string) {
   if (currency === 'VND') {
-    return `$${min / 1_000_000}K-$${max / 1_000_000}K / Per Month`
+    return `$${min / 1_000_000}K-$${max / 1_000_000}K / Tháng`
   }
-  return `$${min / 1000}K-$${max / 1000}K / Per Month`
+  return `$${min / 1000}K-$${max / 1000}K / Tháng`
 }
 
 function getInitials(company: string) {
@@ -148,13 +148,13 @@ export function JobListingPage() {
       <header className={styles['p-job-listing-banner']}>
         <div className={styles['p-job-listing-banner__ripple']} aria-hidden="true" />
         <div className={styles['p-job-listing-banner__content']}>
-          <h1 className={styles['p-job-listing-banner__title']}>Job Listing</h1>
+          <h1 className={styles['p-job-listing-banner__title']}>Danh sách việc làm</h1>
           <nav className={styles['p-job-listing-banner__breadcrumbs']} aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
+            <Link to="/">Trang chủ</Link>
             <span className={styles['p-job-listing-banner__breadcrumbs-separator']} aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
             </span>
-            <span className={styles['p-job-listing-banner__breadcrumbs-current']}>Job Listing</span>
+            <span className={styles['p-job-listing-banner__breadcrumbs-current']}>Danh sách việc làm</span>
           </nav>
         </div>
       </header>
@@ -166,7 +166,7 @@ export function JobListingPage() {
           <aside className={styles['p-job-filter-sidebar']}>
             {/* Job Category */}
             <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Job Category</h2>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Danh mục việc làm</h2>
               <ul className={`${styles['p-job-filter-sidebar__list']} ${styles['p-job-filter-sidebar__list--scrollable']}`}>
                 {MOCK_CATEGORIES.map((cat, idx) => {
                   const isActive = filters.category === cat.val
@@ -189,7 +189,7 @@ export function JobListingPage() {
 
             {/* Type of Employments */}
             <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Type of Employments</h2>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Loại hình công việc</h2>
               <ul className={styles['p-job-filter-sidebar__list']}>
                 {MOCK_EMPLOYMENTS.map((emp, idx) => {
                   const isActive = filters.employmentType === emp.val
@@ -212,7 +212,7 @@ export function JobListingPage() {
 
             {/* Date of Post */}
             <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Date of Post</h2>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Ngày đăng</h2>
               <ul className={styles['p-job-filter-sidebar__list']}>
                 {MOCK_POST_DATES.map((post, idx) => {
                   const isActive = filters.datePosted === post.val
@@ -235,7 +235,7 @@ export function JobListingPage() {
 
             {/* Salary Range Slider */}
             <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Salary Range</h2>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Mức lương</h2>
               <div className={styles['p-job-filter-sidebar__slider-wrap']}>
                 <div className={styles['p-job-filter-sidebar__slider-range']}>
                   $10K-${salaryRangeVal}K
@@ -271,7 +271,7 @@ export function JobListingPage() {
 
             {/* Popular Tags / Date of Post bottom */}
             <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Date of Post</h2>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Ngày đăng</h2>
               <div className={styles['p-job-filter-sidebar__tags-container']}>
                 {SIDEBAR_TAGS.map((tag) => (
                   <span
@@ -289,7 +289,7 @@ export function JobListingPage() {
             </div>
 
             <button className={styles['p-job-filter-sidebar__alert-btn']}>
-              Go to Job Alert
+              Đến trang thông báo việc làm
             </button>
           </aside>
 
@@ -299,7 +299,7 @@ export function JobListingPage() {
             {/* Header / Top Control Row */}
             <div className={styles['p-job-listing-content__header']}>
               <p className={styles['p-job-listing-content__results-count']}>
-                Showing results <strong>{data?.items.length ?? 0}</strong> in <strong>{data?.total ?? 0}</strong> jobs list
+                Hiển thị <strong>{data?.items.length ?? 0}</strong> trên tổng <strong>{data?.total ?? 0}</strong> việc làm
               </p>
               
               <div className={styles['p-job-listing-content__controls']}>
@@ -308,23 +308,23 @@ export function JobListingPage() {
                   onChange={(e) => setSortOption(e.target.value)}
                   className={styles['p-job-listing-content__sort-select']}
                 >
-                  <option value="default">Sort By(Default)</option>
-                  <option value="salary">Sort By Salary</option>
-                  <option value="newest">Sort By Newest</option>
+                  <option value="default">Sắp xếp (Mặc định)</option>
+                  <option value="salary">Sắp xếp theo lương</option>
+                  <option value="newest">Sắp xếp mới nhất</option>
                 </select>
 
                 <div className={styles['p-job-listing-content__view-toggle']}>
                   <button
                     onClick={() => setViewMode('grid')}
                     className={`${styles['p-job-listing-content__layout-btn']} ${viewMode === 'grid' ? styles['p-job-listing-content__layout-btn--active'] : ''}`}
-                    aria-label="Grid View"
+                    aria-label="Xem dạng lưới"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
                     className={`${styles['p-job-listing-content__layout-btn']} ${viewMode === 'list' ? styles['p-job-listing-content__layout-btn--active'] : ''}`}
-                    aria-label="List View"
+                    aria-label="Xem dạng danh sách"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
                   </button>
@@ -337,7 +337,7 @@ export function JobListingPage() {
 
             {isError && (
               <ErrorState
-                message={getErrorMessage(error, 'Could not load job listings.')}
+                message={getErrorMessage(error, 'Không tải được danh sách việc làm.')}
                 onRetry={() => refetch()}
               />
             )}
@@ -348,7 +348,7 @@ export function JobListingPage() {
                   viewMode === 'list' ? (
                     <div className={styles['p-job-listing-content__list']}>
                       {data.items.map((job) => {
-                        const logoColor = LOGO_COLORS[job.category] ?? '#00a7ac'
+                        const logoColor = LOGO_COLORS[job.category] ?? '#005198'
                         const isPartTime = job.employmentType === 'part-time'
                         const isRemote = job.employmentType === 'contract'
                         const formattedDate = new Date(job.postedAt).toLocaleDateString('en-GB', {
@@ -378,31 +378,31 @@ export function JobListingPage() {
                               <div className={styles['c-job-card-list__middle']}>
                                 <div className={styles['c-job-card-list__meta-item']}>
                                   <span className={styles['c-job-card-list__dot']} />
-                                  <span>Salary: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
+                                  <span>Mức lương: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
                                 </div>
                                 <div className={styles['c-job-card-list__meta-item']}>
                                   <span className={styles['c-job-card-list__dot']} />
-                                  <span>Deadline: <strong>{formattedDate}</strong></span>
+                                  <span>Hạn nộp: <strong>{formattedDate}</strong></span>
                                 </div>
                               </div>
 
-                              <button className={styles['c-job-card-list__bookmark']} aria-label="Bookmark">
+                              <button className={styles['c-job-card-list__bookmark']} aria-label="Lưu tin">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
                               </button>
                             </div>
 
                             <div className={styles['c-job-card-list__bottom']}>
                               <div className={styles['c-job-card-list__tags']}>
-                                <span className={styles['c-job-card-list__tag']}>Full Time</span>
-                                {isPartTime && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--part-time']}`}>Part Time</span>}
-                                {isRemote && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--remote']}`}>Remote</span>}
+                                <span className={styles['c-job-card-list__tag']}>Toàn thời gian</span>
+                                {isPartTime && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--part-time']}`}>Bán thời gian</span>}
+                                {isRemote && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--remote']}`}>Từ xa</span>}
                               </div>
                               <Link to={`/jobs/${job.id}`} className={styles['c-job-card-list__apply']}>
                                 <span className={styles['c-job-card-list__explore-span']}>
                                   <img src={exploreElliose} alt="" className={styles['c-job-card-list__explore-circle']} />
                                   <img src={exploreArrow} alt="" className={styles['c-job-card-list__explore-arrow']} />
                                 </span>
-                                Apply Now
+                                Ứng tuyển ngay
                               </Link>
                             </div>
                           </article>
@@ -412,7 +412,7 @@ export function JobListingPage() {
                   ) : (
                     <div className={styles['p-job-listing-content__grid-layout']}>
                       {data.items.map((job, idx) => {
-                        const logoColor = LOGO_COLORS[job.category] ?? '#00a7ac'
+                        const logoColor = LOGO_COLORS[job.category] ?? '#005198'
                         const bannerSrc = idx % 2 === 0 ? cardBanner1 : cardBanner2
                         const formattedDate = new Date(job.postedAt).toLocaleDateString('en-GB', {
                           day: '2-digit',
@@ -424,12 +424,12 @@ export function JobListingPage() {
                           <article key={job.id} className={styles['c-job-card-grid']}>
                             <div className={styles['c-job-card-grid__banner-wrap']}>
                               <img src={bannerSrc} alt="" className={styles['c-job-card-grid__banner']} />
-                              <button className={styles['c-job-card-grid__bookmark']} aria-label="Bookmark">
+                              <button className={styles['c-job-card-grid__bookmark']} aria-label="Lưu tin">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
                               </button>
                               {job.isFeatured && (
                                 <div className={styles['c-job-card-grid__urgent-badge']}>
-                                  Urgent
+                                  Gấp
                                 </div>
                               )}
                             </div>
@@ -446,7 +446,7 @@ export function JobListingPage() {
                                   <h3 className={styles['c-job-card-grid__title']}>
                                     <Link to={`/jobs/${job.id}`}>{job.title}</Link>
                                   </h3>
-                                  <p className={styles['c-job-card-grid__company']}>{job.company} | Deadline: {formattedDate}</p>
+                                  <p className={styles['c-job-card-grid__company']}>{job.company} | Hạn nộp: {formattedDate}</p>
                                 </div>
                               </div>
 
@@ -455,26 +455,26 @@ export function JobListingPage() {
                               <ul className={styles['c-job-card-grid__meta']}>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Salary: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
+                                  <span>Mức lương: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Experience: <strong>2-2.5 Years</strong></span>
+                                  <span>Kinh nghiệm: <strong>2-2.5 năm</strong></span>
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Location: <strong>{job.location}</strong></span>
+                                  <span>Địa điểm: <strong>{job.location}</strong></span>
                                 </li>
                               </ul>
 
                               <div className={styles['c-job-card-grid__footer']}>
-                                <span className={styles['c-job-card-grid__tag']}>Full Time</span>
+                                <span className={styles['c-job-card-grid__tag']}>Toàn thời gian</span>
                                 <Link to={`/jobs/${job.id}`} className={styles['c-job-card-grid__apply']}>
                                   <span className={styles['c-job-card-grid__explore-span']}>
                                     <img src={exploreElliose} alt="" className={styles['c-job-card-grid__explore-circle']} />
                                     <img src={exploreArrow} alt="" className={styles['c-job-card-grid__explore-arrow']} />
                                   </span>
-                                  Apply Now
+                                  Ứng tuyển ngay
                                 </Link>
                               </div>
                             </div>
@@ -484,17 +484,17 @@ export function JobListingPage() {
                     </div>
                   )
                 ) : (
-                  <p>No jobs found matching your criteria.</p>
+                  <p>Không tìm thấy việc làm phù hợp với tiêu chí của bạn.</p>
                 )}
 
                 {/* Styled Pagination Controls */}
                 {data && data.totalPages > 1 && (
-                  <nav className={styles['c-pagination']} aria-label="Pagination Navigation">
+                  <nav className={styles['c-pagination']} aria-label="Điều hướng phân trang">
                     <button
                       className={`${styles['c-pagination__btn']} ${styles['c-pagination__btn--prev']}`}
                       onClick={() => setPage((prev) => Math.max(1, prev - 1))}
                       disabled={page === 1}
-                      aria-label="Previous Page"
+                      aria-label="Trang trước"
                     >
                       <span className={styles['c-pagination__explore-span']} aria-hidden="true">
                         <img src={exploreElliose} alt="" className={styles['c-pagination__explore-circle']} />
@@ -508,7 +508,7 @@ export function JobListingPage() {
                           key={p}
                           onClick={() => setPage(p)}
                           className={`${styles['c-pagination__btn']} ${page === p ? styles['c-pagination__btn--active'] : ''}`}
-                          aria-label={`Go to page ${p}`}
+                          aria-label={`Đi đến trang ${p}`}
                         >
                           {String(p).padStart(2, '0')}
                         </button>
@@ -518,7 +518,7 @@ export function JobListingPage() {
                       className={`${styles['c-pagination__btn']} ${styles['c-pagination__btn--next']}`}
                       onClick={() => setPage((prev) => Math.min(data.totalPages, prev + 1))}
                       disabled={page === data.totalPages}
-                      aria-label="Next Page"
+                      aria-label="Trang sau"
                     >
                       <span className={styles['c-pagination__explore-span']} aria-hidden="true">
                         <img src={exploreElliose} alt="" className={styles['c-pagination__explore-circle']} />

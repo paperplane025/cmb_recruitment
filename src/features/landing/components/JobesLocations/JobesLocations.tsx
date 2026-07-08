@@ -32,13 +32,13 @@ function LocationCard({ name, count, index }: LocationCardProps) {
       to={`${APP_ROUTES.jobs}?location=${encodeURIComponent(name)}`}
       className={styles['p-locations__card']}
       id={`location-card-${index}`}
-      aria-label={`Browse jobs in ${name}, ${count} jobs available`}
+      aria-label={`Xem việc làm tại ${name}, ${count} việc làm`}
     >
       {/* ── City photo (only this scales on card hover) ── */}
       <img
         className={styles['p-locations__card-img']}
         src={imgSrc}
-        alt={`${name} cityscape`}
+        alt={`Khung cảnh thành phố ${name}`}
         loading="lazy"
         width={600}
         height={400}
@@ -46,8 +46,8 @@ function LocationCard({ name, count, index }: LocationCardProps) {
 
       {/* ── Popular badge ── */}
       {isPopular && (
-        <span className={styles['p-locations__card-badge']} aria-label="Popular location">
-          Popular
+        <span className={styles['p-locations__card-badge']} aria-label="Địa điểm phổ biến">
+          Phổ biến
         </span>
       )}
 
@@ -55,7 +55,7 @@ function LocationCard({ name, count, index }: LocationCardProps) {
       <div className={styles['p-locations__card-overlay']} aria-hidden="true">
         <h3 className={styles['p-locations__card-city']}>{name}</h3>
         <p className={styles['p-locations__card-count']}>
-          Job Available:{' '}
+          Việc làm:{' '}
           <span className={styles['p-locations__card-count-num']}>{count}</span>
         </p>
       </div>
@@ -79,11 +79,11 @@ export function JobesLocations() {
         <div className={styles['p-locations__header']}>
           <div className={styles['p-locations__header-left']}>
             <h2 className={styles['p-locations__header-title']} id="locations-heading">
-              Job By Your{' '}
-              <span className={styles['p-locations__header-accent']}>Location</span>
+              Việc làm theo{' '}
+              <span className={styles['p-locations__header-accent']}>khu vực</span>
             </h2>
             <p className={styles['p-locations__header-subtitle']}>
-              To choose your trending job dream &amp; to make future bright.
+              Chọn công việc mơ ước và xây dựng tương lai tươi sáng của bạn.
             </p>
           </div>
 
@@ -91,9 +91,9 @@ export function JobesLocations() {
             to={APP_ROUTES.jobs}
             className={styles['p-locations__explore-link']}
             id="locations-view-all"
-            aria-label="View all job locations"
+            aria-label="Xem tất cả khu vực việc làm"
           >
-            View All Location
+            Xem tất cả khu vực
             <span className={styles['p-locations__explore-span']} aria-hidden="true">
               <img src={exploreElliose} alt="" className={styles['p-locations__explore-circle']} />
               <img src={exploreArrow} alt="" className={styles['p-locations__explore-arrow']} />
@@ -108,7 +108,7 @@ export function JobesLocations() {
           <div
             className={styles['p-locations__grid']}
             role="list"
-            aria-label="Job locations"
+            aria-label="Khu vực việc làm"
           >
             {locations?.slice(0, 6).map((loc, idx) => (
               <div key={loc.name} role="listitem">

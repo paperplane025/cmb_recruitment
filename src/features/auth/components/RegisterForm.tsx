@@ -38,12 +38,12 @@ export function RegisterForm() {
     setValidationError(null)
 
     if (password !== confirmPassword) {
-      setValidationError('Passwords do not match.')
+      setValidationError('Mật khẩu xác nhận không khớp.')
       return
     }
 
     if (!agreeTerms) {
-      setValidationError('You must agree to the terms and conditions.')
+      setValidationError('Bạn phải đồng ý với các điều khoản và điều kiện.')
       return
     }
 
@@ -54,13 +54,13 @@ export function RegisterForm() {
   }
 
   const errorMessage = validationError || (register.error
-    ? getErrorMessage(register.error, 'Registration failed.')
+    ? getErrorMessage(register.error, 'Đăng ký thất bại.')
     : null)
 
   return (
     <div className={styles['p-register']}>
       <div className={styles['p-register__title-wrap']}>
-        <h1 className={styles['p-register__title']}>Register Account</h1>
+        <h1 className={styles['p-register__title']}>Đăng ký tài khoản</h1>
       </div>
 
       {/* Tabs */}
@@ -75,7 +75,7 @@ export function RegisterForm() {
             setValidationError(null)
           }}
         >
-          Candidate
+          Ứng viên
         </button>
         <button
           type="button"
@@ -87,7 +87,7 @@ export function RegisterForm() {
             setValidationError(null)
           }}
         >
-          Company
+          Nhà tuyển dụng
         </button>
       </div>
 
@@ -98,7 +98,7 @@ export function RegisterForm() {
             {/* First Name */}
             <div className={styles['p-register__field']}>
               <label htmlFor="reg-first-name" className={styles['p-register__label']}>
-                First Name<span>*</span>
+                Tên<span>*</span>
               </label>
               <div className={styles['p-register__input-wrapper']}>
                 <svg
@@ -129,7 +129,7 @@ export function RegisterForm() {
             {/* Last Name */}
             <div className={styles['p-register__field']}>
               <label htmlFor="reg-last-name" className={styles['p-register__label']}>
-                Last Name<span>*</span>
+                Họ<span>*</span>
               </label>
               <div className={styles['p-register__input-wrapper']}>
                 <svg
@@ -160,7 +160,7 @@ export function RegisterForm() {
             {/* User Name */}
             <div className={styles['p-register__field']}>
               <label htmlFor="reg-username" className={styles['p-register__label']}>
-                User Name<span>*</span>
+                Tên đăng nhập<span>*</span>
               </label>
               <div className={styles['p-register__input-wrapper']}>
                 <svg
@@ -225,7 +225,7 @@ export function RegisterForm() {
                 {/* Company Name */}
                 <div className={styles['p-register__field']}>
                   <label htmlFor="reg-company-name" className={styles['p-register__label']}>
-                    Company Name<span>*</span>
+                    Tên công ty<span>*</span>
                   </label>
                   <div className={styles['p-register__input-wrapper']}>
                     <svg
@@ -256,7 +256,7 @@ export function RegisterForm() {
                 {/* Company Type */}
                 <div className={styles['p-register__field']}>
                   <label htmlFor="reg-company-type" className={styles['p-register__label']}>
-                    Company Type<span>*</span>
+                    Loại hình công ty<span>*</span>
                   </label>
                   <div className={styles['p-register__select-wrapper']}>
                     <svg
@@ -277,10 +277,10 @@ export function RegisterForm() {
                       onChange={(e) => setCompanyType(e.target.value)}
                       className={styles['p-register__select']}
                     >
-                      <option value="Digital Agency">Digital Agency</option>
-                      <option value="Product Company">Product Company</option>
-                      <option value="Outsourcing">Outsourcing</option>
-                      <option value="Consulting">Consulting</option>
+                      <option value="Digital Agency">Công ty truyền thông số</option>
+                      <option value="Product Company">Công ty sản phẩm</option>
+                      <option value="Outsourcing">Gia công phần mềm</option>
+                      <option value="Consulting">Tư vấn</option>
                     </select>
                   </div>
                 </div>
@@ -290,13 +290,13 @@ export function RegisterForm() {
             {/* Password */}
             <div className={styles['p-register__field']}>
               <label htmlFor="reg-password" className={styles['p-register__label']}>
-                Password<span>*</span>
+                Mật khẩu<span>*</span>
               </label>
               <div className={styles['p-register__input-wrapper']}>
                 <input
                   id="reg-password"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -306,7 +306,7 @@ export function RegisterForm() {
                   type="button"
                   className={styles['p-register__toggle-password']}
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                 >
                   {showPassword ? (
                     <svg
@@ -340,13 +340,13 @@ export function RegisterForm() {
             {/* Confirm Password */}
             <div className={styles['p-register__field']}>
               <label htmlFor="reg-confirm-password" className={styles['p-register__label']}>
-                Confirm Password<span>*</span>
+                Xác nhận mật khẩu<span>*</span>
               </label>
               <div className={styles['p-register__input-wrapper']}>
                 <input
                   id="reg-confirm-password"
                   type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="Confirm Password"
+                  placeholder="Xác nhận mật khẩu"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -356,7 +356,7 @@ export function RegisterForm() {
                   type="button"
                   className={styles['p-register__toggle-password']}
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                  aria-label={showConfirmPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                 >
                   {showConfirmPassword ? (
                     <svg
@@ -398,7 +398,7 @@ export function RegisterForm() {
                 required
                 onChange={(e) => setAgreeTerms(e.target.checked)}
               />
-              <span>Here, I will agree company terms & conditions.</span>
+              <span>Tôi đồng ý với các điều khoản và điều kiện của công ty.</span>
             </label>
           </div>
 
@@ -410,13 +410,13 @@ export function RegisterForm() {
             className={styles['p-register__button']}
             disabled={register.isPending}
           >
-            {register.isPending ? 'Signing up...' : 'Sign Up'}
+            {register.isPending ? 'Đang đăng ký...' : 'Đăng ký'}
           </button>
         </form>
 
         <p className={styles['p-register__login-prompt']}>
-          Already have an account?{' '}
-          <Link to={APP_ROUTES.login}>Login</Link> Here
+          Bạn đã có tài khoản?{' '}
+          <Link to={APP_ROUTES.login}>Đăng nhập</Link> tại đây
         </p>
 
         {/* Social Register */}
@@ -441,7 +441,7 @@ export function RegisterForm() {
                 d="M12 4.75c1.77 0 3.35.6 4.6 1.8l3.43-3.43C17.95 1.19 15.22 0 12 0 7.37 0 3.24 2.86 1.22 6.9l3.83 2.9c.98-2.95 3.71-5.05 6.95-5.05z"
               />
             </svg>
-            <span>Log in with Google</span>
+            <span>Đăng nhập bằng Google</span>
           </button>
           
           <button type="button" className={styles['p-register__social-btn']}>
@@ -449,7 +449,7 @@ export function RegisterForm() {
             <svg viewBox="0 0 24 24" width="18" height="18" fill="#1877F2">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
-            <span>Log in with Facebook</span>
+            <span>Đăng nhập bằng Facebook</span>
           </button>
         </div>
       </div>

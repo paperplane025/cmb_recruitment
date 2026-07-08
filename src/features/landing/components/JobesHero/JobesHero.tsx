@@ -5,6 +5,10 @@ import { useAuth } from '@/shared/hooks/useAuth.ts'
 import { useJobCategories } from '@/features/job/index.ts'
 import styles from './JobesHero.module.scss'
 import heroWoman from '@/assets/images/jobes_hero_woman.png'
+import bannerImage from '@/assets/images/banner.jpg'
+
+// Tạm thời tắt banner cũ, hiển thị ảnh banner mới
+const SHOW_OLD_HERO_BANNER = false
 
 export function JobesHero() {
   const { isAuthenticated } = useAuth()
@@ -53,19 +57,31 @@ export function JobesHero() {
   ]
 
   return (
-    <section className={styles['p-hero']}>
+    <section
+      className={`${styles['p-hero']} ${!SHOW_OLD_HERO_BANNER ? styles['p-hero--banner-only'] : ''}`}
+    >
+      {!SHOW_OLD_HERO_BANNER && (
+        <div className={styles['p-hero__banner']}>
+          <img
+            src={bannerImage}
+            alt="CMB Recruitment"
+            className={styles['p-hero__banner-img']}
+          />
+        </div>
+      )}
+      {SHOW_OLD_HERO_BANNER && (
       <div className={`${styles['p-hero__container']} l-container`}>
         {/* Left Side Info */}
         <div className={styles['p-hero__content']}>
           <h1 className={styles['p-hero__headline']}>
-            To The Make Sure Job
-            <span className={styles['p-hero__headline-stroke']}>Opportunity.</span>
+            Đảm bảo cho bạn
+            <span className={styles['p-hero__headline-stroke']}>Cơ hội việc làm.</span>
           </h1>
 
           <p className={styles['p-hero__subtitle']}>
-            2400 Peoples are daily search in this portal, 100 user added job portal!
-            Explore the most refined and high-paying jobs in technology, management,
-            design, and marketing. Take control of your career today.
+            2400 người tìm kiếm mỗi ngày trên cổng thông tin này, 100 người dùng đăng việc làm mỗi ngày!
+            Khám phá những công việc chất lượng và mức lương hấp dẫn nhất trong lĩnh vực công nghệ, quản lý,
+            thiết kế và marketing. Nắm quyền kiểm soát sự nghiệp của bạn ngay hôm nay.
           </p>
 
           {/* Search Form Box */}
@@ -87,7 +103,7 @@ export function JobesHero() {
               <input
                 id="hero-search-title"
                 type="text"
-                placeholder="Job Title"
+                placeholder="Vị trí tuyển dụng"
                 value={searchTitle}
                 onChange={(e) => setSearchTitle(e.target.value)}
               />
@@ -119,7 +135,7 @@ export function JobesHero() {
                   id="hero-search-category-trigger"
                 >
                   <span>
-                    {categories?.find((cat) => cat.key === searchCategory)?.label || 'Category'}
+                    {categories?.find((cat) => cat.key === searchCategory)?.label || 'Danh mục'}
                   </span>
                   <svg
                     className={`${styles['p-hero__custom-select-chevron']} ${isDropdownOpen ? styles['p-hero__custom-select-chevron--open'] : ''
@@ -143,7 +159,7 @@ export function JobesHero() {
                         setIsDropdownOpen(false)
                       }}
                     >
-                      Category
+                      Danh mục
                     </li>
                     {categories?.map((cat) => (
                       <li
@@ -181,7 +197,7 @@ export function JobesHero() {
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <span>24 Jobs</span>
+              <span>24 việc làm</span>
             </button>
           </form>
 
@@ -200,7 +216,7 @@ export function JobesHero() {
                 <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                 <line x1="7" y1="7" x2="7.01" y2="7" />
               </svg>
-              Suggested Tag:
+              Gợi ý từ khóa:
             </span>
             <ul className={styles['p-hero__tags-list']}>
               {suggestedTags.map((tag, index) => (
@@ -228,7 +244,7 @@ export function JobesHero() {
             <div className={styles['p-hero__frame-inner']}>
               <img
                 src={heroWoman}
-                alt="Smiling professional woman working on tablet"
+                alt="Nữ nhân viên chuyên nghiệp mỉm cười khi làm việc trên máy tính bảng"
                 className={styles['p-hero__frame-img']}
               />
             </div>
@@ -273,6 +289,7 @@ export function JobesHero() {
           </div>
         </div>
       </div>
+      )}
     </section>
   )
 }

@@ -44,10 +44,10 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-  { id: 'stat-recruiters', iconSrc: counterIcon1, value: 800, suffix: 'K+', label: 'Total Recruiters' },
-  { id: 'stat-users', iconSrc: counterIcon2, value: 600, suffix: 'K+', label: 'Daily User Visited' },
-  { id: 'stat-jobs', iconSrc: counterIcon3, value: 10, suffix: 'K+', label: 'Daily Job Posted' },
-  { id: 'stat-applied', iconSrc: counterIcon4, value: 700, suffix: 'K+', label: 'Total Applied' },
+  { id: 'stat-recruiters', iconSrc: counterIcon1, value: 800, suffix: 'K+', label: 'Tổng nhà tuyển dụng' },
+  { id: 'stat-users', iconSrc: counterIcon2, value: 600, suffix: 'K+', label: 'Lượt truy cập mỗi ngày' },
+  { id: 'stat-jobs', iconSrc: counterIcon3, value: 10, suffix: 'K+', label: 'Việc làm đăng mỗi ngày' },
+  { id: 'stat-applied', iconSrc: counterIcon4, value: 700, suffix: 'K+', label: 'Tổng lượt ứng tuyển' },
 ]
 
 /* ─── Single stat card ─── */
@@ -98,7 +98,7 @@ export function JobesStats() {
       ref={ref}
       className={styles['p-stats']}
       id="platform-stats-section"
-      aria-label="Platform statistics"
+      aria-label="Thống kê nền tảng"
     >
       <div className={`${styles['p-stats__container']} l-container`}>
         {STATS.map((stat) => (

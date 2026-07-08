@@ -13,25 +13,25 @@ const ARTICLES: Article[] = [
   {
     id: 1,
     image: '/images/articles/article-career.png',
-    date: '05 January, 2023',
-    author: 'Mr. Rakhab',
-    title: 'To Be Continue Redesign & Build Up Your Career Opportunity.',
+    date: '05 Tháng 1, 2023',
+    author: 'Ông Rakhab',
+    title: 'Tiếp tục tái thiết kế và xây dựng cơ hội nghề nghiệp của bạn.',
     href: '#',
   },
   {
     id: 2,
     image: '/images/articles/article-interview.png',
-    date: '05 March, 2023',
-    author: 'Mr. Rakhab',
-    title: 'To Make Your Smartness & Speak To Smartly In Interviewing.',
+    date: '05 Tháng 3, 2023',
+    author: 'Ông Rakhab',
+    title: 'Thể hiện sự thông minh và trả lời khéo léo khi phỏng vấn.',
     href: '#',
   },
   {
     id: 3,
     image: '/images/articles/article-skills.png',
-    date: '07 January, 2023',
-    author: 'Mr. Rakhab',
-    title: 'How To Improve Your Skills & Speak Fluently Any Job Viva.',
+    date: '07 Tháng 1, 2023',
+    author: 'Ông Rakhab',
+    title: 'Cách cải thiện kỹ năng và giao tiếp trôi chảy trong mọi buổi phỏng vấn.',
     href: '#',
   },
 ]
@@ -47,10 +47,10 @@ export function JobesArticles() {
         {/* ─── Section Header ─── */}
         <div className={styles['p-articles__header']}>
           <h2 className={styles['p-articles__header-title']} id="articles-heading">
-            Our Recent <span className={styles['p-articles__header-accent']}>Article</span>
+            Bài viết <span className={styles['p-articles__header-accent']}>mới nhất</span> của chúng tôi
           </h2>
           <p className={styles['p-articles__header-subtitle']}>
-            To much valuable feed from our trusted users in world-wide.
+            Những chia sẻ giá trị từ người dùng tin cậy của chúng tôi trên toàn thế giới.
           </p>
         </div>
 

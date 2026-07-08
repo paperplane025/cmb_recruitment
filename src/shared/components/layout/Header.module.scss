@@ -27,6 +27,12 @@
     text-decoration: none;
     cursor: pointer;
 
+    &-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
     &-icon {
       display: flex;
       align-items: center;
@@ -143,7 +149,7 @@
     width: 220px;
     background-color: #061215;
     /* Dark background matching user screenshot */
-    border: 1px solid rgba(0, 167, 172, 0.15);
+    border: 1px solid rgba(0, 81, 152, 0.15);
     /* Premium glowing dark teal border */
     border-radius: 8px;
     /* Clean look */
@@ -183,14 +189,14 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
       &:hover {
-        color: var(--jobes-teal);
+        color: var(--jobes-teal-on-dark);
         /* Teal glow on hover */
         transform: translateX(4px);
         /* Modern slide-right effect */
       }
 
       &--active {
-        color: var(--jobes-teal) !important;
+        color: var(--jobes-teal-on-dark) !important;
         transform: translateX(4px) !important;
       }
     }
@@ -303,7 +309,7 @@
       &:hover {
         color: #ffffff;
         border-color: var(--jobes-teal);
-        box-shadow: 0 6px 18px rgba(0, 167, 172, 0.2);
+        box-shadow: 0 6px 18px rgba(0, 81, 152, 0.2);
 
         &::before {
           transform: scaleX(1);

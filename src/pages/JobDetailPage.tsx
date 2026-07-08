@@ -108,7 +108,7 @@ export function JobDetailPage() {
     return <ErrorState message="Không tìm thấy tin tuyển dụng." />
   }
 
-  const logoColor = LOGO_COLORS[job.category] ?? '#00a7ac'
+  const logoColor = LOGO_COLORS[job.category] ?? '#005198'
   
   // Format dates
   const postedDateFormatted = new Date(job.postedAt).toLocaleDateString('en-GB', {
@@ -131,15 +131,15 @@ export function JobDetailPage() {
       <header className={styles['p-job-detail-banner']}>
         <div className={styles['p-job-detail-banner__ripple']} aria-hidden="true" />
         <div className={styles['p-job-detail-banner__content']}>
-          <h1 className={styles['p-job-detail-banner__title']}>Job Details</h1>
+          <h1 className={styles['p-job-detail-banner__title']}>Chi tiết việc làm</h1>
           <nav className={styles['p-job-detail-banner__breadcrumbs']} aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
+            <Link to="/">Trang chủ</Link>
             <span className={styles['p-job-detail-banner__breadcrumbs-separator']} aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M9 18l6-6-6-6"/>
               </svg>
             </span>
-            <span className={styles['p-job-detail-banner__breadcrumbs-current']}>Job Details</span>
+            <span className={styles['p-job-detail-banner__breadcrumbs-current']}>Chi tiết việc làm</span>
           </nav>
         </div>
       </header>
@@ -168,14 +168,14 @@ export function JobDetailPage() {
                 </div>
 
                 <div className={styles['p-job-detail-header-card__actions']}>
-                  <button className={styles['p-job-detail-header-card__bookmark']} aria-label="Save Job">
-                    <span>Save Job</span>
+                  <button className={styles['p-job-detail-header-card__bookmark']} aria-label="Lưu tin tuyển dụng">
+                    <span>Lưu tin</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
                     </svg>
                   </button>
                   <button className={styles['p-job-detail-header-card__apply']}>
-                    Apply Position
+                    Ứng tuyển ngay
                   </button>
                 </div>
               </div>
@@ -186,41 +186,41 @@ export function JobDetailPage() {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span>Location: <strong>{job.location}</strong></span>
+                  <span>Địa điểm: <strong>{job.location}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
-                  <span>Job Type: <strong>{getEmploymentTypeLabel(job.employmentType)}</strong></span>
+                  <span>Loại hình: <strong>{getEmploymentTypeLabel(job.employmentType)}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
                   </svg>
-                  <span>Category: <strong>{getCategoryLabel(job.category)}</strong></span>
+                  <span>Danh mục: <strong>{getCategoryLabel(job.category)}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="1" x2="12" y2="23" />
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                   </svg>
-                  <span>Salary: <strong>{formatSalary(job.salary.min, job.salary.max, job.salary.currency)} / Per Month</strong></span>
+                  <span>Mức lương: <strong>{formatSalary(job.salary.min, job.salary.max, job.salary.currency)} / Tháng</strong></span>
                 </div>
               </div>
             </article>
 
             {/* Description */}
             <section className={styles['p-job-detail-main__section']}>
-              <h3 className={styles['p-job-detail-main__section-title']}>Job Description:</h3>
+              <h3 className={styles['p-job-detail-main__section-title']}>Mô tả công việc:</h3>
               <p className={styles['p-job-detail-main__text']}>{job.description}</p>
             </section>
 
             {/* Responsibilities / Requirements */}
             {job.requirements.length > 0 && (
               <section className={styles['p-job-detail-main__section']}>
-                <h3 className={styles['p-job-detail-main__section-title']}>Job Responsibility:</h3>
+                <h3 className={styles['p-job-detail-main__section-title']}>Trách nhiệm công việc:</h3>
                 <ul className={styles['p-job-detail-main__list']}>
                   {job.requirements.map((req, idx) => (
                     <li key={idx} className={styles['p-job-detail-main__list-item']}>
@@ -234,26 +234,26 @@ export function JobDetailPage() {
 
             {/* Educational Requirements */}
             <section className={styles['p-job-detail-main__section']}>
-              <h3 className={styles['p-job-detail-main__section-title']}>Educational Requirements:</h3>
+              <h3 className={styles['p-job-detail-main__section-title']}>Yêu cầu học vấn:</h3>
               <ul className={styles['p-job-detail-main__list']}>
                 <li className={styles['p-job-detail-main__list-item']}>
                   <span className={styles['p-job-detail-main__bullet']} />
-                  <span>Bachelor degree to complete any reputational university.</span>
+                  <span>Tốt nghiệp đại học tại các trường có uy tín.</span>
                 </li>
                 <li className={styles['p-job-detail-main__list-item']}>
                   <span className={styles['p-job-detail-main__bullet']} />
-                  <span>Professional training or certification in relevant field is highly preferred.</span>
+                  <span>Ưu tiên có chứng chỉ hoặc đào tạo chuyên môn liên quan.</span>
                 </li>
               </ul>
             </section>
 
             {/* Experience Requirements */}
             <section className={styles['p-job-detail-main__section']}>
-              <h3 className={styles['p-job-detail-main__section-title']}>Experiences:</h3>
+              <h3 className={styles['p-job-detail-main__section-title']}>Kinh nghiệm:</h3>
               <ul className={styles['p-job-detail-main__list']}>
                 <li className={styles['p-job-detail-main__list-item']}>
                   <span className={styles['p-job-detail-main__bullet']} />
-                  <span>2-3 Years in this field.</span>
+                  <span>2-3 năm trong lĩnh vực này.</span>
                 </li>
               </ul>
             </section>
@@ -261,7 +261,7 @@ export function JobDetailPage() {
             {/* Benefits */}
             {job.benefits.length > 0 && (
               <section className={styles['p-job-detail-main__section']}>
-                <h3 className={styles['p-job-detail-main__section-title']}>Extra Benefits:</h3>
+                <h3 className={styles['p-job-detail-main__section-title']}>Quyền lợi khác:</h3>
                 <ul className={styles['p-job-detail-main__list']}>
                   {job.benefits.map((benefit, idx) => (
                     <li key={idx} className={styles['p-job-detail-main__list-item']}>
@@ -279,37 +279,37 @@ export function JobDetailPage() {
             
             {/* Job Summary Panel */}
             <div className={styles['p-job-summary-card']}>
-              <h3 className={styles['p-job-summary-card__title']}>Job Summary:</h3>
+              <h3 className={styles['p-job-summary-card__title']}>Tóm tắt công việc:</h3>
               <ul className={styles['p-job-summary-card__list']}>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Job Posted:</span>
+                  <span className={styles['p-job-summary-card__label']}>Ngày đăng:</span>
                   <span className={styles['p-job-summary-card__value']}>{postedDateFormatted}</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Expiration:</span>
+                  <span className={styles['p-job-summary-card__label']}>Hết hạn:</span>
                   <span className={styles['p-job-summary-card__value']}>{expiryDateFormatted}</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Vacancy:</span>
-                  <span className={styles['p-job-summary-card__value']}>07 Person.</span>
+                  <span className={styles['p-job-summary-card__label']}>Số lượng tuyển:</span>
+                  <span className={styles['p-job-summary-card__value']}>07 người.</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Experiences:</span>
-                  <span className={styles['p-job-summary-card__value']}>2-3 Years.</span>
+                  <span className={styles['p-job-summary-card__label']}>Kinh nghiệm:</span>
+                  <span className={styles['p-job-summary-card__value']}>2-3 năm.</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Education:</span>
-                  <span className={styles['p-job-summary-card__value']}>Bachelor Degree.</span>
+                  <span className={styles['p-job-summary-card__label']}>Học vấn:</span>
+                  <span className={styles['p-job-summary-card__value']}>Đại học.</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
-                  <span className={styles['p-job-summary-card__label']}>Gender:</span>
-                  <span className={styles['p-job-summary-card__value']}>Both.</span>
+                  <span className={styles['p-job-summary-card__label']}>Giới tính:</span>
+                  <span className={styles['p-job-summary-card__value']}>Không yêu cầu.</span>
                 </li>
               </ul>
             </div>
@@ -320,15 +320,15 @@ export function JobDetailPage() {
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-              <span>View All Jobs In This Company</span>
+              <span>Xem tất cả việc làm của công ty này</span>
             </Link>
 
             {/* Social Link Share */}
             <div className={styles['p-job-detail-share']}>
-              <span className={styles['p-job-detail-share__title']}>Job Link Share:</span>
+              <span className={styles['p-job-detail-share__title']}>Chia sẻ tin tuyển dụng:</span>
               <ul className={styles['p-job-detail-share__list']}>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Share Link">
+                  <a href="#" aria-label="Chia sẻ liên kết">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
@@ -336,21 +336,21 @@ export function JobDetailPage() {
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Share Facebook">
+                  <a href="#" aria-label="Chia sẻ Facebook">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                     </svg>
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Share Twitter">
+                  <a href="#" aria-label="Chia sẻ Twitter">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
                     </svg>
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Share LinkedIn">
+                  <a href="#" aria-label="Chia sẻ LinkedIn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                       <rect x="2" y="9" width="4" height="12" />
@@ -359,7 +359,7 @@ export function JobDetailPage() {
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Share Instagram">
+                  <a href="#" aria-label="Chia sẻ Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -378,18 +378,18 @@ export function JobDetailPage() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <h4 className={styles['p-job-detail-email-card__title']}>Email Now</h4>
+              <h4 className={styles['p-job-detail-email-card__title']}>Gửi email ngay</h4>
               <p className={styles['p-job-detail-email-card__subtitle']}>
-                Send your resume at <a href="mailto:info@example.com">info@example.com</a>
+                Gửi CV của bạn đến <a href="mailto:info@example.com">info@example.com</a>
               </p>
             </div>
 
             {/* Map Widget */}
             <div className={styles['p-job-detail-map']}>
-              <h4 className={styles['p-job-detail-map__title']}>Get Location:</h4>
+              <h4 className={styles['p-job-detail-map__title']}>Xem vị trí:</h4>
               <div className={styles['p-job-detail-map__wrapper']}>
                 <iframe
-                  title="Google Map Location"
+                  title="Vị trí trên Google Maps"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(job.location || 'Dhaka, Bangladesh')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                   allowFullScreen
                   loading="lazy"
@@ -401,7 +401,7 @@ export function JobDetailPage() {
 
         {/* ─── Company Gallery (Full Width - Outside Grid) ─── */}
         <section className={styles['p-job-detail-gallery']}>
-          <h3 className={styles['p-job-detail-gallery__title']}>Company Gallery View</h3>
+          <h3 className={styles['p-job-detail-gallery__title']}>Hình ảnh công ty</h3>
           <Swiper
             spaceBetween={16}
             slidesPerView={2}
@@ -421,7 +421,7 @@ export function JobDetailPage() {
                   onClick={() => setLightboxIndex(idx)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <img src={src} alt={`Office Gallery ${idx + 1}`} />
+                  <img src={src} alt={`Hình ảnh văn phòng ${idx + 1}`} />
                 </div>
               </SwiperSlide>
             ))}
@@ -432,12 +432,12 @@ export function JobDetailPage() {
         {relatedJobs.length > 0 && (
           <footer className={styles['p-job-detail-related']}>
             <div className={styles['p-job-detail-related__header']}>
-              <h3 className={styles['p-job-detail-related__title']}>Related Jobs:</h3>
+              <h3 className={styles['p-job-detail-related__title']}>Việc làm liên quan:</h3>
               <div className={styles['p-job-detail-related__nav']}>
                 <button
                   className={`${styles['p-job-detail-related__nav-btn']} ${styles['p-job-detail-related__nav-btn--prev']}`}
                   onClick={() => relatedSwiperRef.current?.slidePrev()}
-                  aria-label="Previous Related Job"
+                  aria-label="Việc làm liên quan trước"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -446,7 +446,7 @@ export function JobDetailPage() {
                 <button
                   className={`${styles['p-job-detail-related__nav-btn']} ${styles['p-job-detail-related__nav-btn--next']}`}
                   onClick={() => relatedSwiperRef.current?.slideNext()}
-                  aria-label="Next Related Job"
+                  aria-label="Việc làm liên quan tiếp theo"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -469,7 +469,7 @@ export function JobDetailPage() {
               className={styles['p-job-detail-related__slider']}
             >
               {relatedJobs.map((relJob) => {
-                const relLogoColor = LOGO_COLORS[relJob.category] ?? '#00a7ac'
+                const relLogoColor = LOGO_COLORS[relJob.category] ?? '#005198'
                 const relDeadline = new Date(new Date(relJob.postedAt).getTime() + 30 * 24 * 60 * 60 * 1000)
                 const relDeadlineFormatted = relDeadline.toLocaleDateString('en-GB', {
                   day: '2-digit',
@@ -496,7 +496,7 @@ export function JobDetailPage() {
                           </div>
                         </div>
 
-                        <button className={styles['c-related-job-card__bookmark']} aria-label="Bookmark Job">
+                        <button className={styles['c-related-job-card__bookmark']} aria-label="Lưu tin">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                           </svg>
@@ -506,15 +506,15 @@ export function JobDetailPage() {
                       <ul className={styles['c-related-job-card__meta']}>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Salary: <strong>{formatSalary(relJob.salary.min, relJob.salary.max, relJob.salary.currency)} / Per month</strong></span>
+                          <span>Mức lương: <strong>{formatSalary(relJob.salary.min, relJob.salary.max, relJob.salary.currency)} / Tháng</strong></span>
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Vacancy: <strong>05 Person (Both)</strong></span>
+                          <span>Số lượng: <strong>05 người (không yêu cầu)</strong></span>
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Deadline: <strong>{relDeadlineFormatted}</strong></span>
+                          <span>Hạn nộp: <strong>{relDeadlineFormatted}</strong></span>
                         </li>
                       </ul>
 
@@ -523,7 +523,7 @@ export function JobDetailPage() {
                           <img src={exploreElliose} alt="" className={styles['c-related-job-card__explore-circle']} />
                           <img src={exploreArrow} alt="" className={styles['c-related-job-card__explore-arrow']} />
                         </span>
-                        Apply Now
+                        Ứng tuyển ngay
                       </Link>
                     </article>
                   </SwiperSlide>
@@ -554,7 +554,7 @@ export function JobDetailPage() {
             </button>
             <img
               src={GALLERY_IMAGES[lightboxIndex]}
-              alt={`Gallery Zoomed ${lightboxIndex + 1}`}
+              alt={`Hình ảnh phóng to ${lightboxIndex + 1}`}
               className={styles['p-job-detail-lightbox__img']}
             />
             <button

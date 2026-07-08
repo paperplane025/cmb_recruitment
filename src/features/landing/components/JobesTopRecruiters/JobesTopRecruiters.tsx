@@ -155,15 +155,15 @@ export function JobesTopRecruiters() {
         {/* ─── Section Header ─── */}
         <div className={styles['p-recruiters__header']}>
           <h2 className={styles['p-recruiters__header-title']} id="recruiters-heading">
-            Our Top <span className={styles['p-recruiters__header-accent']}>Recruiters</span>
+            <span className={styles['p-recruiters__header-accent']}>Nhà tuyển dụng</span> hàng đầu
           </h2>
           <p className={styles['p-recruiters__header-subtitle']}>
-            To choose your trending job dream &amp; to make future bright.
+            Chọn công việc mơ ước và xây dựng tương lai tươi sáng của bạn.
           </p>
         </div>
 
         {/* ─── Grid of Recruiter Cards ─── */}
-        <div className={styles['p-recruiters__grid']} role="list" aria-label="Top recruiters">
+        <div className={styles['p-recruiters__grid']} role="list" aria-label="Nhà tuyển dụng hàng đầu">
           {RECRUITERS.map((recruiter) => (
             <article
               key={recruiter.id}
@@ -203,7 +203,7 @@ export function JobesTopRecruiters() {
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <span>{recruiter.peopleCount} People</span>
+                    <span>{recruiter.peopleCount} nhân viên</span>
                   </div>
 
                   <div className={styles['p-recruiters__meta-item']}>
@@ -229,13 +229,13 @@ export function JobesTopRecruiters() {
                 <Link
                   to={`${APP_ROUTES.jobs}?company=${encodeURIComponent(recruiter.name)}`}
                   className={styles['p-recruiters__card-link']}
-                  aria-label={`View recruitment details for ${recruiter.name}`}
+                  aria-label={`Xem chi tiết tuyển dụng của ${recruiter.name}`}
                 >
                   <span className={styles['p-recruiters__card-link-span']} aria-hidden="true">
                     <img src={exploreElliose} alt="" className={styles['p-recruiters__card-link-circle']} />
                     <img src={exploreArrow} alt="" className={styles['p-recruiters__card-link-arrow']} />
                   </span>
-                  <span>View Details</span>
+                  <span>Xem chi tiết</span>
                 </Link>
               </div>
             </article>
@@ -248,9 +248,9 @@ export function JobesTopRecruiters() {
             to={APP_ROUTES.jobs}
             className={styles['p-recruiters__view-all']}
             id="recruiters-view-all"
-            aria-label="View all recruiters list"
+            aria-label="Xem tất cả nhà tuyển dụng"
           >
-            <span>View All Recruiters</span>
+            <span>Xem tất cả nhà tuyển dụng</span>
             <span className={styles['p-recruiters__view-all-span']} aria-hidden="true">
               <img src={exploreElliose} alt="" className={styles['p-recruiters__view-all-circle']} />
               <img src={exploreArrow} alt="" className={styles['p-recruiters__view-all-arrow']} />

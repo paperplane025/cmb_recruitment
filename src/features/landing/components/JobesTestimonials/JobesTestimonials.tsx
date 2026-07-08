@@ -19,33 +19,33 @@ interface Testimonial {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
-    name: 'Mr. Jacoline Frankly',
-    role: 'UI/UX Engineer',
+    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
+    name: 'Ông Jacoline Frankly',
+    role: 'Kỹ sư UI/UX',
     avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop'
   },
   {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
-    name: 'Mr. Robertson Maike',
-    role: 'PHP Developer',
+    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
+    name: 'Ông Robertson Maike',
+    role: 'Lập trình viên PHP',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop'
   },
   {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
+    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
     name: 'David Williumson',
-    role: 'WordPress Developer',
+    role: 'Lập trình viên WordPress',
     avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop'
   },
   {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
-    name: 'Ms. Sarah Jenkins',
-    role: 'Product Designer',
+    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
+    name: 'Bà Sarah Jenkins',
+    role: 'Nhà thiết kế sản phẩm',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop'
   },
   {
-    quote: 'On the other hand, we denounce with righteous indignation and to the dislike men who are so the beguiled and demoralized.',
-    name: 'Mr. John Doe',
-    role: 'Backend Engineer',
+    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
+    name: 'Ông John Doe',
+    role: 'Kỹ sư Backend',
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop'
   }
 ]
@@ -101,10 +101,10 @@ export function JobesTestimonials() {
         <div className={styles['p-testimonials__header']}>
           <div className={styles['p-testimonials__header-left']}>
             <h2 className={styles['p-testimonials__header-title']} id="testimonials-heading">
-              <span className={styles['p-testimonials__header-accent']}>Feedback</span> From Our Clients
+              <span className={styles['p-testimonials__header-accent']}>Phản hồi</span> từ khách hàng của chúng tôi
             </h2>
             <p className={styles['p-testimonials__header-subtitle']}>
-              To choose your trending job dream &amp; to make future bright.
+              Chọn công việc mơ ước và xây dựng tương lai tươi sáng của bạn.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export function JobesTestimonials() {
           <div className={styles['p-testimonials__nav']}>
             <button
               className={`${styles['p-testimonials__nav-btn']} ${styles['p-testimonials__nav-btn--prev']}`}
-              aria-label="Previous testimonial"
+              aria-label="Đánh giá trước"
               id="testimonial-prev-btn"
               onClick={() => swiperRef.current?.slidePrev()}
             >
@@ -123,7 +123,7 @@ export function JobesTestimonials() {
             </button>
             <button
               className={`${styles['p-testimonials__nav-btn']} ${styles['p-testimonials__nav-btn--next']}`}
-              aria-label="Next testimonial"
+              aria-label="Đánh giá tiếp theo"
               id="testimonial-next-btn"
               onClick={() => swiperRef.current?.slideNext()}
             >
@@ -161,7 +161,7 @@ export function JobesTestimonials() {
               <SwiperSlide key={idx} className={styles['p-testimonials__slide']}>
                 <article
                   className={styles['p-testimonials__card']}
-                  aria-label={`Testimonial from ${item.name}`}
+                  aria-label={`Đánh giá từ ${item.name}`}
                   id={`testimonial-card-${idx}`}
                 >
                   <div className={styles['p-testimonials__card-quote-wrapper']}>
@@ -182,7 +182,7 @@ export function JobesTestimonials() {
         <div
           className={styles['p-testimonials__avatars-wrapper']}
           role="tablist"
-          aria-label="Select testimonial slide"
+          aria-label="Chọn đánh giá"
         >
           <div className={styles['p-testimonials__avatars']}>
             {getVisibleIndices(activeIndex, TESTIMONIALS.length).map((originalIdx) => {
@@ -201,12 +201,12 @@ export function JobesTestimonials() {
                   }}
                   role="tab"
                   aria-selected={isActive}
-                  aria-label={`Go to slide ${originalIdx + 1}: ${item.name}`}
+                  aria-label={`Đi đến slide ${originalIdx + 1}: ${item.name}`}
                   id={`testimonial-bullet-${originalIdx}`}
                 >
                   <img
                     src={item.avatar}
-                    alt={`${item.name} headshot`}
+                    alt={`Ảnh chân dung ${item.name}`}
                     className={styles['p-testimonials__avatar-img']}
                   />
                 </button>

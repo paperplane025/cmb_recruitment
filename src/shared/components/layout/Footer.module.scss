@@ -3,8 +3,8 @@
 /* ─── Footer Block ─── */
 .p-footer {
   width: 100%;
-  background: #1a1a2e;
-  color: #c4c4cc;
+  background: var(--jobes-teal);
+  color: rgba(255, 255, 255, 0.85);
   font-family: var(--sans);
   margin-top: auto;
 
@@ -47,7 +47,7 @@
         display: block;
         width: 32px;
         height: 2px;
-        background: var(--jobes-teal);
+        background: #ffffff;
         margin-top: 10px;
         border-radius: 1px;
       }
@@ -68,7 +68,7 @@
     }
 
     &-anchor {
-      color: #9e9ea8;
+      color: rgba(255, 255, 255, 0.75);
       text-decoration: none;
       font-size: 14.5px;
       font-weight: 400;
@@ -84,12 +84,12 @@
         left: 0;
         width: 0;
         height: 1px;
-        background: var(--jobes-teal);
+        background: #ffffff;
         transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       &:hover {
-        color: var(--jobes-teal);
+        color: #ffffff;
 
         &::after {
           width: 100%;
@@ -121,10 +121,10 @@
     max-width: 200px;
 
     &:hover {
-      border-color: var(--jobes-teal);
-      background: rgba(0, 167, 172, 0.08);
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 167, 172, 0.15);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     &-icon {
@@ -149,7 +149,7 @@
       &-small {
         font-size: 10px;
         font-weight: 400;
-        color: #9e9ea8;
+        color: rgba(255, 255, 255, 0.65);
         letter-spacing: 0.3px;
         text-transform: uppercase;
       }
@@ -164,7 +164,7 @@
 
   /* ─── Bottom Bar ─── */
   &__bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding: 24px 0;
   }
 
@@ -188,7 +188,7 @@
     align-items: center;
     gap: 12px;
     font-size: 14px;
-    color: #c4c4cc;
+    color: rgba(255, 255, 255, 0.85);
 
     &-icon {
       display: flex;
@@ -197,8 +197,8 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1.5px solid rgba(0, 167, 172, 0.3);
-      color: var(--jobes-teal);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
       flex-shrink: 0;
 
       svg {
@@ -213,14 +213,14 @@
     }
 
     &-number {
-      color: var(--jobes-teal);
+      color: #ffffff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
       margin-left: 4px;
 
       &:hover {
-        color: #00d4da;
+        color: rgba(255, 255, 255, 0.75);
       }
     }
   }
@@ -247,11 +247,11 @@
 
     &-tagline {
       font-size: 11px;
-      color: #9e9ea8;
+      color: rgba(255, 255, 255, 0.65);
       letter-spacing: 1.5px;
       text-transform: uppercase;
       font-weight: 500;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
       padding-top: 4px;
       margin-top: 2px;
     }
@@ -279,14 +279,14 @@
     padding: 0;
 
     &-link {
-      color: #9e9ea8;
+      color: rgba(255, 255, 255, 0.75);
       text-decoration: none;
       font-size: 13.5px;
       font-weight: 400;
       transition: color 0.2s ease;
 
       &:hover {
-        color: var(--jobes-teal);
+        color: #ffffff;
       }
     }
   }
@@ -313,8 +313,8 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.12);
-      color: #c4c4cc;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -324,9 +324,9 @@
       }
 
       &:hover {
-        background: var(--jobes-teal);
-        border-color: var(--jobes-teal);
-        color: #fff;
+        background: #ffffff;
+        border-color: #ffffff;
+        color: var(--jobes-teal);
         transform: translateY(-2px);
       }
     }
@@ -335,22 +335,22 @@
   /* ─── Copyright ─── */
   &__copyright {
     font-size: 13px;
-    color: #9e9ea8;
+    color: rgba(255, 255, 255, 0.7);
     margin: 0;
 
     &-brand {
-      color: var(--jobes-teal);
+      color: #ffffff;
       font-weight: 600;
     }
 
     &-link {
-      color: var(--jobes-teal);
+      color: #ffffff;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s ease;
 
       &:hover {
-        color: #00d4da;
+        color: rgba(255, 255, 255, 0.75);
       }
     }
   }

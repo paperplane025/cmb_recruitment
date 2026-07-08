@@ -19,13 +19,13 @@ export function LoginForm() {
   }
 
   const errorMessage = login.error
-    ? getErrorMessage(login.error, 'Login failed.')
+    ? getErrorMessage(login.error, 'Đăng nhập thất bại.')
     : null
 
   return (
     <div className={styles['p-login']}>
       <div className={styles['p-login__title-wrap']}>
-        <h1 className={styles['p-login__title']}>Log In Here!</h1>
+        <h1 className={styles['p-login__title']}>Đăng nhập tại đây!</h1>
       </div>
 
       <div className={styles['p-login__card']}>
@@ -65,13 +65,13 @@ export function LoginForm() {
           {/* Password field */}
           <div className={styles['p-login__field']}>
             <label htmlFor="login-password" className={styles['p-login__label']}>
-              Password<span>*</span>
+              Mật khẩu<span>*</span>
             </label>
             <div className={styles['p-login__input-wrapper']}>
               <input
                 id="login-password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 required
                 autoComplete="current-password"
                 value={password}
@@ -82,7 +82,7 @@ export function LoginForm() {
                 type="button"
                 className={styles['p-login__toggle-password']}
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
                 {showPassword ? (
                   // Eye-off icon
@@ -123,10 +123,10 @@ export function LoginForm() {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <span>Remember Me</span>
+              <span>Ghi nhớ đăng nhập</span>
             </label>
             <a href="#" className={styles['p-login__forgot']}>
-              Forget Password?
+              Quên mật khẩu?
             </a>
           </div>
 
@@ -138,13 +138,13 @@ export function LoginForm() {
             className={styles['p-login__button']}
             disabled={login.isPending}
           >
-            {login.isPending ? 'Logging in...' : 'Login'}
+            {login.isPending ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </button>
         </form>
 
         <p className={styles['p-login__signup-prompt']}>
-          Don't have an account?{' '}
-          <Link to={APP_ROUTES.register}>Sign Up</Link>
+          Bạn chưa có tài khoản?{' '}
+          <Link to={APP_ROUTES.register}>Đăng ký</Link>
         </p>
       </div>
     </div>

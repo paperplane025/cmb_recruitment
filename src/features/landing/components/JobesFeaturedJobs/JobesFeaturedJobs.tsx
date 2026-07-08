@@ -9,12 +9,12 @@ import styles from './JobesFeaturedJobs.module.scss'
 import exploreElliose from '@/assets/images/explore-elliose.svg'
 import exploreArrow from '@/assets/images/explore-arrow.svg'
 
-/* ─── Employment type badge labels (English for design fidelity) ─── */
+/* ─── Employment type badge labels ─── */
 const TYPE_LABELS: Record<string, string> = {
-  'full-time': 'Full Time',
-  'part-time': 'Part Time',
-  contract: 'Remote',
-  internship: 'Internship',
+  'full-time': 'Toàn thời gian',
+  'part-time': 'Bán thời gian',
+  contract: 'Từ xa',
+  internship: 'Thực tập',
 }
 
 /* ─── Category → company logo colour (seeded) ─── */
@@ -42,16 +42,16 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
     .join('')
     .toUpperCase()
 
-  const logoColor = LOGO_COLORS[job.category] ?? '#00a7ac'
+  const logoColor = LOGO_COLORS[job.category] ?? '#005198'
   const types = [job.employmentType]
   // Add "Remote" badge for contract, otherwise show at most 2 relevant tags
-  const tags = types.flatMap((t) => {
+  const tags: Array<{ key: string; label: string }> = types.flatMap((t) => {
     const label = TYPE_LABELS[t]
-    return label ? [label] : []
+    return label ? [{ key: t, label }] : []
   })
   // Simulate extra tags from design (up to 3 pills)
-  if (job.employmentType === 'full-time') tags.push('Part Time')
-  if (job.employmentType === 'full-time') tags.push('Remote')
+  if (job.employmentType === 'full-time') tags.push({ key: 'part-time', label: TYPE_LABELS['part-time']! })
+  if (job.employmentType === 'full-time') tags.push({ key: 'remote', label: TYPE_LABELS['contract']! })
 
   const salaryText = formatSalary(job.salary.min, job.salary.max, job.salary.currency)
   const dateText = formatDate(job.postedAt)
@@ -63,7 +63,7 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
     <article
       className={styles['p-featured-jobs__card']}
       id={`featured-job-card-${job.id}`}
-      aria-label={`Job: ${job.title} at ${job.company}`}
+      aria-label={`Việc làm: ${job.title} tại ${job.company}`}
     >
       <Link to={jobDetailPath(job.id)} className='p-featured-jobs__card__mark'></Link>
       {/* ── Top Row ── */}
@@ -87,29 +87,29 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
           </div>
 
           {/* Meta dots — in the centre column */}
-          <ul className={styles['p-featured-jobs__card-meta']} aria-label="Job details">
+          <ul className={styles['p-featured-jobs__card-meta']} aria-label="Chi tiết việc làm">
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Location: <strong>{job.location}</strong>
+                Địa điểm: <strong>{job.location}</strong>
               </span>
             </li>
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Salary: <strong>{salaryText}</strong>
+                Mức lương: <strong>{salaryText}</strong>
               </span>
             </li>
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Experience: <strong>1.5–3 Years</strong>
+                Kinh nghiệm: <strong>1.5–3 Năm</strong>
               </span>
             </li>
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Published: <strong>{dateText}</strong>
+                Ngày đăng: <strong>{dateText}</strong>
               </span>
             </li>
           </ul>
@@ -118,7 +118,7 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
         {/* Bookmark */}
         <button
           className={styles['p-featured-jobs__card-bookmark']}
-          aria-label={`Bookmark ${job.title}`}
+          aria-label={`Lưu tin ${job.title}`}
           id={`bookmark-btn-${job.id}`}
           type="button"
         >
@@ -159,19 +159,19 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          Job Applied:{' '}
-          <strong>{appliedCount} Person</strong>
+          Đã ứng tuyển:{' '}
+          <strong>{appliedCount} người</strong>
         </span>
 
         {/* Type tags */}
-        <div className={styles['p-featured-jobs__card-tags']} role="list" aria-label="Employment types">
+        <div className={styles['p-featured-jobs__card-tags']} role="list" aria-label="Loại hình công việc">
           {tags.map((tag) => (
             <span
-              key={tag}
-              className={`${styles['p-featured-jobs__card-tag']} ${styles[`p-featured-jobs__card-tag--${tag.toLowerCase().replace(' ', '-')}`] ?? ''}`}
+              key={tag.key}
+              className={`${styles['p-featured-jobs__card-tag']} ${styles[`p-featured-jobs__card-tag--${tag.key}`] ?? ''}`}
               role="listitem"
             >
-              {tag}
+              {tag.label}
             </span>
           ))}
         </div>
@@ -181,13 +181,13 @@ function FeaturedJobCard({ job, index }: FeaturedJobCardProps) {
           to={jobDetailPath(job.id)}
           className={styles['p-featured-jobs__card-apply']}
           id={`apply-btn-${job.id}`}
-          aria-label={`Apply now for ${job.title}`}
+          aria-label={`Ứng tuyển ngay cho ${job.title}`}
         >
           <span className={styles['p-featured-jobs__explore-span']} aria-hidden="true">
             <img src={exploreElliose} alt="" className={styles['p-featured-jobs__explore-circle']} />
             <img src={exploreArrow} alt="" className={styles['p-featured-jobs__explore-arrow']} />
           </span>
-          Apply Now
+          Ứng tuyển ngay
         </Link>
       </div>
     </article>
@@ -206,10 +206,10 @@ export function JobesFeaturedJobs() {
         <div className={styles['p-featured-jobs__header']}>
           <div className={styles['p-featured-jobs__header-left']}>
             <h2 className={styles['p-featured-jobs__header-title']} id="featured-jobs-heading">
-              <span className={styles['p-featured-jobs__header-accent']}>Featured</span> Job List
+              Danh sách việc làm <span className={styles['p-featured-jobs__header-accent']}>nổi bật</span>
             </h2>
             <p className={styles['p-featured-jobs__header-subtitle']}>
-              To choose your trending job dream &amp; to make future bright.
+              Chọn công việc mơ ước và xây dựng tương lai tươi sáng của bạn.
             </p>
           </div>
 
@@ -217,9 +217,9 @@ export function JobesFeaturedJobs() {
             to={APP_ROUTES.jobs}
             className={styles['p-featured-jobs__explore-link']}
             id="featured-jobs-explore-more"
-            aria-label="Explore more job listings"
+            aria-label="Xem thêm danh sách việc làm"
           >
-            Explore More
+            Xem thêm
             <span className={styles['p-featured-jobs__explore-span']} aria-hidden="true">
               <img src={exploreElliose} alt="" className={styles['p-featured-jobs__explore-circle']} />
               <img src={exploreArrow} alt="" className={styles['p-featured-jobs__explore-arrow']} />
@@ -231,7 +231,7 @@ export function JobesFeaturedJobs() {
         {isLoading ? (
           <LoadingState />
         ) : (
-          <div className={styles['p-featured-jobs__list']} role="list" aria-label="Featured jobs">
+          <div className={styles['p-featured-jobs__list']} role="list" aria-label="Việc làm nổi bật">
             {jobs?.slice(0, 4).map((job, idx) => (
               <FeaturedJobCard key={job.id} job={job} index={idx} />
             ))}

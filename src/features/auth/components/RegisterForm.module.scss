@@ -42,7 +42,7 @@
   &__tabs {
     display: flex;
     background-color: #f1f8f9;
-    border: 1px solid rgba(0, 167, 172, 0.1);
+    border: 1px solid rgba(0, 81, 152, 0.1);
     padding: 6px;
     border-radius: 30px;
     margin-bottom: 2.5rem;
@@ -67,18 +67,18 @@
     &--active {
       background-color: var(--jobes-teal);
       color: var(--white);
-      box-shadow: 0 4px 10px rgba(0, 167, 172, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 81, 152, 0.15);
     }
 
     &:hover:not(&--active) {
       color: var(--jobes-teal);
-      background-color: rgba(0, 167, 172, 0.05);
+      background-color: rgba(0, 81, 152, 0.05);
     }
   }
 
   &__card {
     background-color: var(--white);
-    border: 1px solid rgba(0, 167, 172, 0.1);
+    border: 1px solid rgba(0, 81, 152, 0.1);
     border-radius: 16px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
     padding: 2.5rem 2rem;
@@ -90,7 +90,7 @@
     }
 
     &:hover {
-      box-shadow: 0 20px 45px rgba(0, 167, 172, 0.06);
+      box-shadow: 0 20px 45px rgba(0, 81, 152, 0.06);
     }
   }
 
@@ -328,7 +328,7 @@
     overflow: hidden;
     isolation: isolate;
     transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 167, 172, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 81, 152, 0.2);
 
     &::before {
       content: '';
@@ -417,7 +417,7 @@
     &:hover {
       background-color: #fcfdfe;
       border-color: var(--jobes-teal);
-      box-shadow: 0 4px 12px rgba(0, 167, 172, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 81, 152, 0.05);
     }
 
     svg {
