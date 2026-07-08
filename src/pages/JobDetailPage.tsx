@@ -9,6 +9,7 @@ import { ErrorState } from '@/shared/components/ui/ErrorState.tsx'
 import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import { getErrorMessage } from '@/shared/lib/getErrorMessage.ts'
 import { jobDetailPath } from '@/shared/constants/index.ts'
+import { ApplyJobModal } from '@/features/job/components/ApplyJobModal.tsx'
 
 import { useRef, useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -62,6 +63,9 @@ export function JobDetailPage() {
   
   // Lightbox Modal state
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  // Apply job modal state
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false)
 
   // Fetch related jobs by same category (exclude current job)
   const { data: relatedData } = useJobs(
@@ -174,7 +178,10 @@ export function JobDetailPage() {
                       <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
                     </svg>
                   </button>
-                  <button className={styles['p-job-detail-header-card__apply']}>
+                  <button
+                    className={styles['p-job-detail-header-card__apply']}
+                    onClick={() => setIsApplyModalOpen(true)}
+                  >
                     Ứng tuyển ngay
                   </button>
                 </div>
@@ -568,6 +575,15 @@ export function JobDetailPage() {
           </div>
         )}
       </div>
+
+      {/* ─── Apply Job Modal ─── */}
+      {isApplyModalOpen && (
+        <ApplyJobModal
+          jobTitle={job.title}
+          company={job.company}
+          onClose={() => setIsApplyModalOpen(false)}
+        />
+      )}
     </section>
   )
 }

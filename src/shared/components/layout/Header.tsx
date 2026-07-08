@@ -52,6 +52,10 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className={styles['p-header__logo']} id="header-logo">
             <img src={companyLogo} alt="CMB Recruitment" className={styles['p-header__logo-img']} />
+            <div className={styles['p-header__logo-text']}>
+              <span className={styles['p-header__logo-title']}>Công ty Cổ phần Tư vấn</span>
+              <span className={styles['p-header__logo-subtitle']}>Xây dựng công trình hàng hải</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -221,6 +225,10 @@ export function Header() {
           {/* Drawer Logo */}
           <Link to="/" className={styles['p-header__logo']} onClick={closeMobileMenu}>
             <img src={companyLogo} alt="CMB Recruitment" className={styles['p-header__logo-img']} />
+            <div className={styles['p-header__logo-text']}>
+              <span className={styles['p-header__logo-title']}>Công ty Cổ phần Tư vấn</span>
+              <span className={styles['p-header__logo-subtitle']}>Xây dựng công trình hàng hải</span>
+            </div>
           </Link>
 
           {/* Close Button */}
