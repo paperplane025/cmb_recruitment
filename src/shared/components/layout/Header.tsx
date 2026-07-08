@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
 import { useAuth } from '@/shared/hooks/useAuth.ts'
 import styles from './Header.module.scss'
+import companyLogo from '@/assets/images/Company Logo.svg'
 
 export function Header() {
   const { isAuthenticated, logout, user } = useAuth()
@@ -15,12 +16,12 @@ export function Header() {
   // Navigation Links structure
   const navItems = [
     {
-      label: 'Home',
+      label: 'Trang chủ',
       hasDropdown: false,
       path: '/'
     },
     {
-      label: 'Job Listing',
+      label: 'Danh sách việc làm',
       hasDropdown: false,
       path: '/jobs'
     },
@@ -30,7 +31,7 @@ export function Header() {
       path: '/blog'
     },
     {
-      label: 'Contact',
+      label: 'Liên hệ',
       hasDropdown: false,
       path: '/contact',
     },
@@ -38,7 +39,7 @@ export function Header() {
 
   const isNavItemActive = (item: typeof navItems[0]) => {
     const pathname = location.pathname
-    if (item.label === 'Home') {
+    if (item.label === 'Trang chủ') {
       return pathname === '/' || pathname.startsWith('/home-')
     }
     return pathname === item.path
@@ -50,31 +51,11 @@ export function Header() {
         <div className={`${styles['p-header__container']} l-container`}>
           {/* Logo */}
           <Link to="/" className={styles['p-header__logo']} id="header-logo">
-            <div className={styles['p-header__logo-icon']}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                <line x1="12" y1="22.08" x2="12" y2="12" />
-              </svg>
-            </div>
-            <div className={styles['p-header__logo-text']}>
-              <span className={styles['p-header__logo-title']}>
-                JOB<span>ES</span>
-              </span>
-              <span className={styles['p-header__logo-subtitle']}>Job Portal</span>
-            </div>
+            <img src={companyLogo} alt="CMB Recruitment" className={styles['p-header__logo-img']} />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className={styles['p-header__nav']} aria-label="Main Navigation">
+          <nav className={styles['p-header__nav']} aria-label="Điều hướng chính">
             {navItems.map((item, index) => {
               const isActive = isNavItemActive(item)
               return (
@@ -122,7 +103,7 @@ export function Header() {
             {/* Notification Bell */}
             <button
               className={styles['p-header__notification']}
-              aria-label="View notifications"
+              aria-label="Xem thông báo"
               id="notification-bell"
             >
               <svg
@@ -172,7 +153,7 @@ export function Header() {
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
-                Sign In
+                Đăng nhập
               </Link>
             )}
 
@@ -194,14 +175,14 @@ export function Header() {
                 <line x1="12" y1="11" x2="12" y2="17" />
                 <line x1="9" y1="14" x2="15" y2="14" />
               </svg>
-              Post Job
+              Đăng tuyển
             </Link>
 
             {/* Mobile Hamburger Button */}
             <button
               className={styles['p-header__toggle']}
               onClick={toggleMobileMenu}
-              aria-label="Toggle Mobile Menu"
+              aria-label="Bật/tắt menu di động"
               aria-expanded={isMobileMenuOpen}
               id="mobile-menu-toggle"
             >
@@ -239,31 +220,14 @@ export function Header() {
         <div className={styles['p-header__drawer-header']}>
           {/* Drawer Logo */}
           <Link to="/" className={styles['p-header__logo']} onClick={closeMobileMenu}>
-            <div className={styles['p-header__logo-icon']}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                <line x1="12" y1="22.08" x2="12" y2="12" />
-              </svg>
-            </div>
-            <div className={styles['p-header__logo-text']}>
-              <span className={styles['p-header__logo-title']}>
-                JOB<span>ES</span>
-              </span>
-            </div>
+            <img src={companyLogo} alt="CMB Recruitment" className={styles['p-header__logo-img']} />
           </Link>
 
           {/* Close Button */}
           <button
             className={styles['p-header__drawer-close']}
             onClick={closeMobileMenu}
-            aria-label="Close menu"
+            aria-label="Đóng menu"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +305,7 @@ export function Header() {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              Sign In
+              Đăng nhập
             </Link>
           )}
 
@@ -361,7 +325,7 @@ export function Header() {
               <line x1="12" y1="11" x2="12" y2="17" />
               <line x1="9" y1="14" x2="15" y2="14" />
             </svg>
-            Post Job
+            Đăng tuyển
           </Link>
         </div>
       </div>

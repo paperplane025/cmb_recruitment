@@ -147,7 +147,7 @@
       height: 100%;
       background: linear-gradient(135deg,
           rgba(3, 10, 10, 0.88) 0%,
-          rgba(0, 167, 172, 0.72) 100%);
+          rgba(0, 81, 152, 0.72) 100%);
       z-index: 1;
     }
 
@@ -197,7 +197,7 @@
       transition: all 0.2s ease;
 
       &:hover {
-        color: var(--jobes-teal);
+        color: var(--jobes-teal-on-dark);
       }
     }
 
@@ -227,8 +227,8 @@
       }
 
       &:hover {
-        color: var(--jobes-teal);
-        border-bottom-color: var(--jobes-teal);
+        color: var(--jobes-teal-on-dark);
+        border-bottom-color: var(--jobes-teal-on-dark);
       }
     }
   }

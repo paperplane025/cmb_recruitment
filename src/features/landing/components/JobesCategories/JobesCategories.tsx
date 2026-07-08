@@ -20,7 +20,7 @@ export function JobesCategories() {
   const displayCards: CategoryCardItem[] = [
     {
       id: 'marketing-sales',
-      title: 'Marketing & Sales',
+      title: 'Marketing & Kinh doanh',
       defaultCount: 50,
       keys: ['marketing', 'sales'],
       primaryCategoryKey: 'marketing',
@@ -28,7 +28,7 @@ export function JobesCategories() {
     },
     {
       id: 'technology',
-      title: 'Technology',
+      title: 'Công nghệ',
       defaultCount: 55,
       keys: ['engineering'],
       primaryCategoryKey: 'engineering',
@@ -36,7 +36,7 @@ export function JobesCategories() {
     },
     {
       id: 'finance-account',
-      title: 'Finance & Account',
+      title: 'Tài chính & Kế toán',
       defaultCount: 110,
       keys: ['finance'],
       primaryCategoryKey: 'finance',
@@ -44,7 +44,7 @@ export function JobesCategories() {
     },
     {
       id: 'medical-nurse',
-      title: 'Medical & Nurse',
+      title: 'Y tế & Điều dưỡng',
       defaultCount: 14,
       keys: [],
       primaryCategoryKey: 'medical',
@@ -52,7 +52,7 @@ export function JobesCategories() {
     },
     {
       id: 'designing-part',
-      title: 'Designing Part',
+      title: 'Thiết kế',
       defaultCount: 33,
       keys: ['design'],
       primaryCategoryKey: 'design',
@@ -60,7 +60,7 @@ export function JobesCategories() {
     },
     {
       id: 'transportation',
-      title: 'Transportation',
+      title: 'Vận tải',
       defaultCount: 5,
       keys: [],
       primaryCategoryKey: 'transportation',
@@ -68,7 +68,7 @@ export function JobesCategories() {
     },
     {
       id: 'non-profit',
-      title: 'Non Profit Org.',
+      title: 'Tổ chức phi lợi nhuận',
       defaultCount: 23,
       keys: ['operations'],
       primaryCategoryKey: 'operations',
@@ -76,7 +76,7 @@ export function JobesCategories() {
     },
     {
       id: 'architecture',
-      title: 'Architecture',
+      title: 'Kiến trúc',
       defaultCount: 67,
       keys: [],
       primaryCategoryKey: 'architecture',
@@ -84,7 +84,7 @@ export function JobesCategories() {
     },
     {
       id: 'development',
-      title: 'Development',
+      title: 'Phát triển phần mềm',
       defaultCount: 56,
       keys: ['engineering', 'product'],
       primaryCategoryKey: 'engineering',
@@ -95,7 +95,7 @@ export function JobesCategories() {
   // Helper to format counts, e.g. 5 -> "05 Jobs Available"
   const formatCount = (count: number) => {
     const padded = count < 10 ? `0${count}` : `${count}`
-    return `${padded} Jobs Available`
+    return `${padded} việc làm`
   }
 
   // Sum live database category counts if available, otherwise use design defaults
@@ -118,10 +118,10 @@ export function JobesCategories() {
         {/* Header Info */}
         <div className={styles['p-categories__header']}>
           <h2 className={styles['p-categories__title']}>
-            Jobs <span className={styles['p-categories__title-accent']}>Category</span> List
+            Danh sách <span className={styles['p-categories__title-accent']}>danh mục</span> việc làm
           </h2>
           <p className={styles['p-categories__subtitle']}>
-            To choose your trending job dream & to make future bright.
+            Chọn công việc mơ ước và xây dựng tương lai tươi sáng của bạn.
           </p>
         </div>
         {isLoading ? (
@@ -142,7 +142,7 @@ export function JobesCategories() {
                     <span className={styles['p-categories__card-count']}>
                       {getCategoryCountText(card)}
                     </span>
-                    <span className={styles['p-categories__card-link']}>View All Jobs</span>
+                    <span className={styles['p-categories__card-link']}>Xem tất cả việc làm</span>
                   </div>
 
                   {/* Back Side: Photo Background with teal-dark overlay */}
@@ -158,7 +158,7 @@ export function JobesCategories() {
                         {getCategoryCountText(card)}
                       </span>
                       <span className={styles['p-categories__card-back-link']}>
-                        View All Jobs
+                        Xem tất cả việc làm
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
@@ -180,13 +180,13 @@ export function JobesCategories() {
 
             {/* Render the 10th special text link box */}
             <div className={styles['p-categories__list-box']} id="cat-card-list-box">
-              <h3 className={styles['p-categories__list-box-title']}>Category List</h3>
+              <h3 className={styles['p-categories__list-box-title']}>Danh sách danh mục</h3>
               <Link
                 to={APP_ROUTES.jobs}
                 className={styles['p-categories__list-box-link']}
                 id="cat-view-all-link"
               >
-                View All Category
+                Xem tất cả danh mục
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

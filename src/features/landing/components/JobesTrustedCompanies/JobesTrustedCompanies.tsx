@@ -128,7 +128,7 @@ export function JobesTrustedCompanies() {
         {/* Left Side Label */}
         <div className={styles['p-companies__label-wrapper']}>
           <h2 className={styles['p-companies__label']} id="companies-heading">
-            Our Trusted Company
+            Công ty đối tác tin cậy
           </h2>
           <div className={styles['p-companies__label-line']} aria-hidden="true" />
         </div>
