@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router'
-import { useJobs } from '@/features/job/index.ts'
+import { Link, useLocation, useSearchParams } from 'react-router'
+import { useJobs, useJobFacets, getSalaryDisplayWithPeriod, getEmploymentTypeLabel } from '@/features/job/index.ts'
 import { ErrorState } from '@/shared/components/ui/ErrorState.tsx'
 import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import { getErrorMessage } from '@/shared/lib/getErrorMessage.ts'
-import type { JobFilters, JobCategory, EmploymentType } from '@/features/job/types.ts'
+import type { JobFilters } from '@/features/job/types.ts'
 
 import styles from './JobListingPage.module.scss'
 import exploreElliose from '@/assets/images/explore-elliose.svg'
@@ -13,50 +13,6 @@ import cardBanner1 from '@/assets/images/card_banner_1.png'
 import cardBanner2 from '@/assets/images/card_banner_2.png'
 
 /* ─── Breadcrumb and Page Constants ─── */
-const MOCK_CATEGORIES = [
-  { label: 'Y tế', count: 80, val: 'hr' as JobCategory },
-  { label: 'Kế toán & Tài chính', count: 80, val: 'finance' as JobCategory },
-  { label: 'Vận tải', count: 100, val: 'operations' as JobCategory },
-  { label: 'Y tế & Tài chính', count: 120, val: 'finance' as JobCategory },
-  { label: 'Phát triển phần mềm', count: 30, val: 'engineering' as JobCategory },
-  { label: 'Kỹ thuật', count: 10, val: 'engineering' as JobCategory },
-  { label: 'Lễ tân', count: 70, val: 'hr' as JobCategory },
-  { label: 'Tổ chức phi lợi nhuận', count: 100, val: 'product' as JobCategory },
-]
-
-const MOCK_EMPLOYMENTS = [
-  { label: 'Toàn thời gian', count: 30, val: 'full-time' as EmploymentType },
-  { label: 'Tự do', count: 10, val: 'contract' as EmploymentType },
-  { label: 'Bán thời gian', count: 100, val: 'part-time' as EmploymentType },
-  { label: 'Từ xa', count: 60, val: 'contract' as EmploymentType },
-  { label: 'Tạm thời', count: 40, val: 'contract' as EmploymentType },
-  { label: 'Lâu dài', count: 30, val: 'full-time' as EmploymentType },
-  { label: 'Thực tập', count: 80, val: 'internship' as EmploymentType },
-]
-
-const MOCK_POST_DATES = [
-  { label: 'Hôm nay', count: 80, val: 'today' as const },
-  { label: 'Tuần trước', count: 100, val: 'this-week' as const },
-  { label: 'Tháng trước', count: 100, val: 'this-month' as const },
-  { label: '3 tháng trước', count: 30, val: 'all' as const },
-  { label: '1 năm trước', count: 30, val: 'all' as const },
-]
-
-const MOCK_SALARIES = [
-  { label: '$5K-$15K', count: 80, min: 5_000_000, max: 15_000_000 },
-  { label: '$20K-$30K', count: 100, min: 20_000_000, max: 30_000_000 },
-  { label: '$35K-$50K', count: 100, min: 35_000_000, max: 50_000_000 },
-  { label: '$55K-$70K', count: 120, min: 55_000_000, max: 70_000_000 },
-  { label: '$75K-$100K', count: 30, min: 75_000_000, max: 100_000_000 },
-]
-
-const SIDEBAR_TAGS = [
-  'Technology', 'Marketing', 'Sales',
-  'Transport', 'Medical', 'Design',
-  'Data Analyst', 'Development',
-  'Non-Profit', 'Manager', 'Health'
-]
-
 const LOGO_COLORS: Record<string, string> = {
   engineering: '#5b2d8e',
   design: '#c0392b',
@@ -68,14 +24,6 @@ const LOGO_COLORS: Record<string, string> = {
   product: '#d35400',
 }
 
-/* ─── Local custom formatter to match mockup USD/VND style ─── */
-function formatJobSalary(min: number, max: number, currency: string) {
-  if (currency === 'VND') {
-    return `$${min / 1_000_000}K-$${max / 1_000_000}K / Tháng`
-  }
-  return `$${min / 1000}K-$${max / 1000}K / Tháng`
-}
-
 function getInitials(company: string) {
   return company
     .split(' ')
@@ -85,7 +33,9 @@ function getInitials(company: string) {
     .toUpperCase()
 }
 
-function parseInitialFilters(params: URLSearchParams): JobFilters {
+type JobListingNavState = { category?: string; location?: string } | null | undefined
+
+function parseInitialFilters(params: URLSearchParams, navState: JobListingNavState): JobFilters {
   const filters: JobFilters = {}
   const search = params.get('search')
   const category = params.get('category')
@@ -93,21 +43,35 @@ function parseInitialFilters(params: URLSearchParams): JobFilters {
   if (search) filters.search = search
   if (category) filters.category = category as JobFilters['category']
   if (location) filters.location = location
+  // Danh mục/khu vực chọn từ trang chủ được truyền qua location.state để không lộ trên URL.
+  if (navState?.category) filters.category = navState.category as JobFilters['category']
+  if (navState?.location) filters.location = navState.location
   return filters
 }
 
 export function JobListingPage() {
   const [searchParams] = useSearchParams()
+  const routerLocation = useLocation()
   const [filters, setFilters] = useState<JobFilters>(() =>
-    parseInitialFilters(searchParams),
+    parseInitialFilters(searchParams, routerLocation.state as JobListingNavState),
   )
   const [page, setPage] = useState(1)
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list')
-  const [salaryRangeVal, setSalaryRangeVal] = useState<number>(350)
-  const [selectedTag, setSelectedTag] = useState<string>('')
   const [sortOption, setSortOption] = useState<string>('default')
 
-  const { data, isLoading, isError, error, refetch } = useJobs(filters, page)
+  // React Router không remount lại trang khi vẫn ở cùng route (VD: bấm danh mục ở
+  // trang chủ trong lúc đã đang ở /jobs) — cần đồng bộ lại filter mỗi khi có điều
+  // hướng mới tới trang này, chứ không chỉ đọc một lần lúc mount. `location.key` đổi
+  // ở mọi lần điều hướng (kể cả khi URL không đổi, chỉ khác location.state).
+  const [syncedLocationKey, setSyncedLocationKey] = useState(routerLocation.key)
+  if (routerLocation.key !== syncedLocationKey) {
+    setSyncedLocationKey(routerLocation.key)
+    setFilters(parseInitialFilters(searchParams, routerLocation.state as JobListingNavState))
+    setPage(1)
+  }
+
+  const { data, isLoading, isFetching, isError, error, refetch } = useJobs(filters, page)
+  const { data: facets } = useJobFacets()
 
   const handleFilterSelect = <K extends keyof JobFilters>(key: K, value: JobFilters[K]) => {
     setFilters((prev) => {
@@ -122,13 +86,15 @@ export function JobListingPage() {
     setPage(1)
   }
 
-  const handleSalaryRangeChange = (val: number) => {
-    setSalaryRangeVal(val)
-    setFilters((prev) => ({
-      ...prev,
-      salaryMin: undefined,
-      salaryMax: val * 1_000_000
-    }))
+  // Loại hình công việc cho phép chọn nhiều cùng lúc — lưu dạng chuỗi cách nhau bởi dấu phẩy, khớp job có BẤT KỲ loại hình nào trong danh sách.
+  const handleEmploymentTypeToggle = (key: string) => {
+    setFilters((prev) => {
+      const current = prev.employmentType?.split(',').filter(Boolean) ?? []
+      const next = current.includes(key)
+        ? current.filter((k) => k !== key)
+        : [...current, key]
+      return { ...prev, employmentType: next.length ? next.join(',') : undefined }
+    })
     setPage(1)
   }
 
@@ -168,13 +134,15 @@ export function JobListingPage() {
             <div className={styles['p-job-filter-sidebar__group']}>
               <h2 className={styles['p-job-filter-sidebar__title']}>Danh mục việc làm</h2>
               <ul className={`${styles['p-job-filter-sidebar__list']} ${styles['p-job-filter-sidebar__list--scrollable']}`}>
-                {MOCK_CATEGORIES.map((cat, idx) => {
-                  const isActive = filters.category === cat.val
+                {facets?.categories.map((cat) => {
+                  // filters.category có thể chứa nhiều danh mục cách nhau bởi dấu phẩy
+                  // (VD: "marketing,sales" khi vào từ card gộp ở trang chủ)
+                  const isActive = (filters.category?.split(',') ?? []).includes(cat.key)
                   return (
                     <li
-                      key={idx}
+                      key={cat.key}
                       className={styles['p-job-filter-sidebar__item']}
-                      onClick={() => handleFilterSelect('category', cat.val)}
+                      onClick={() => handleFilterSelect('category', cat.key as JobFilters['category'])}
                     >
                       <div className={styles['p-job-filter-sidebar__label-area']}>
                         <span className={`${styles['p-job-filter-sidebar__circle']} ${isActive ? styles['p-job-filter-sidebar__circle--active'] : ''}`} />
@@ -187,17 +155,41 @@ export function JobListingPage() {
               </ul>
             </div>
 
+            {/* Khu vực */}
+            <div className={styles['p-job-filter-sidebar__group']}>
+              <h2 className={styles['p-job-filter-sidebar__title']}>Khu vực</h2>
+              <ul className={`${styles['p-job-filter-sidebar__list']} ${styles['p-job-filter-sidebar__list--scrollable']}`}>
+                {facets?.locations.map((loc) => {
+                  // filters.location có thể chứa nhiều khu vực cách nhau bởi dấu phẩy
+                  const isActive = (filters.location?.split(',') ?? []).includes(loc.key)
+                  return (
+                    <li
+                      key={loc.key}
+                      className={styles['p-job-filter-sidebar__item']}
+                      onClick={() => handleFilterSelect('location', loc.key)}
+                    >
+                      <div className={styles['p-job-filter-sidebar__label-area']}>
+                        <span className={`${styles['p-job-filter-sidebar__circle']} ${isActive ? styles['p-job-filter-sidebar__circle--active'] : ''}`} />
+                        <span>{loc.label}</span>
+                      </div>
+                      <span className={styles['p-job-filter-sidebar__count']}>({loc.count})</span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+
             {/* Type of Employments */}
             <div className={styles['p-job-filter-sidebar__group']}>
               <h2 className={styles['p-job-filter-sidebar__title']}>Loại hình công việc</h2>
               <ul className={styles['p-job-filter-sidebar__list']}>
-                {MOCK_EMPLOYMENTS.map((emp, idx) => {
-                  const isActive = filters.employmentType === emp.val
+                {facets?.employmentTypes.map((emp) => {
+                  const isActive = (filters.employmentType?.split(',') ?? []).includes(emp.key)
                   return (
                     <li
-                      key={idx}
+                      key={emp.key}
                       className={styles['p-job-filter-sidebar__item']}
-                      onClick={() => handleFilterSelect('employmentType', emp.val)}
+                      onClick={() => handleEmploymentTypeToggle(emp.key)}
                     >
                       <div className={styles['p-job-filter-sidebar__label-area']}>
                         <span className={`${styles['p-job-filter-sidebar__circle']} ${isActive ? styles['p-job-filter-sidebar__circle--active'] : ''}`} />
@@ -214,13 +206,15 @@ export function JobListingPage() {
             <div className={styles['p-job-filter-sidebar__group']}>
               <h2 className={styles['p-job-filter-sidebar__title']}>Ngày đăng</h2>
               <ul className={styles['p-job-filter-sidebar__list']}>
-                {MOCK_POST_DATES.map((post, idx) => {
-                  const isActive = filters.datePosted === post.val
+                {facets?.datePosted.map((post) => {
+                  const isActive = filters.datePosted === post.key
                   return (
                     <li
-                      key={idx}
+                      key={post.key}
                       className={styles['p-job-filter-sidebar__item']}
-                      onClick={() => handleFilterSelect('datePosted', post.val)}
+                      onClick={() =>
+                        handleFilterSelect('datePosted', post.key as JobFilters['datePosted'])
+                      }
                     >
                       <div className={styles['p-job-filter-sidebar__label-area']}>
                         <span className={`${styles['p-job-filter-sidebar__circle']} ${isActive ? styles['p-job-filter-sidebar__circle--active'] : ''}`} />
@@ -236,25 +230,12 @@ export function JobListingPage() {
             {/* Salary Range Slider */}
             <div className={styles['p-job-filter-sidebar__group']}>
               <h2 className={styles['p-job-filter-sidebar__title']}>Mức lương</h2>
-              <div className={styles['p-job-filter-sidebar__slider-wrap']}>
-                <div className={styles['p-job-filter-sidebar__slider-range']}>
-                  $10K-${salaryRangeVal}K
-                </div>
-                <input
-                  type="range"
-                  min="10"
-                  max="700"
-                  value={salaryRangeVal}
-                  onChange={(e) => handleSalaryRangeChange(Number(e.target.value))}
-                  className={styles['p-job-filter-sidebar__slider']}
-                />
-              </div>
               <ul className={styles['p-job-filter-sidebar__list']}>
-                {MOCK_SALARIES.map((sal, idx) => {
+                {facets?.salaryRanges.map((sal) => {
                   const isActive = filters.salaryMin === sal.min && filters.salaryMax === sal.max
                   return (
                     <li
-                      key={idx}
+                      key={sal.label}
                       className={styles['p-job-filter-sidebar__item']}
                       onClick={() => handleSalaryOptionSelect(sal.min, sal.max)}
                     >
@@ -267,25 +248,6 @@ export function JobListingPage() {
                   )
                 })}
               </ul>
-            </div>
-
-            {/* Popular Tags / Date of Post bottom */}
-            <div className={styles['p-job-filter-sidebar__group']}>
-              <h2 className={styles['p-job-filter-sidebar__title']}>Ngày đăng</h2>
-              <div className={styles['p-job-filter-sidebar__tags-container']}>
-                {SIDEBAR_TAGS.map((tag) => (
-                  <span
-                    key={tag}
-                    onClick={() => {
-                      setSelectedTag((prev) => (prev === tag ? '' : tag))
-                      setFilters((prev) => ({ ...prev, search: selectedTag === tag ? undefined : tag }))
-                    }}
-                    className={`${styles['p-job-filter-sidebar__tag']} ${selectedTag === tag ? styles['p-job-filter-sidebar__tag--active'] : ''}`}
-                  >
-                    {tag},
-                  </span>
-                ))}
-              </div>
             </div>
 
             <button className={styles['p-job-filter-sidebar__alert-btn']}>
@@ -333,7 +295,11 @@ export function JobListingPage() {
             </div>
 
             {/* Core Listing Content */}
-            {isLoading && <LoadingState />}
+            {(isLoading || isFetching) && (
+              <div className={styles['p-job-listing-content__loading']}>
+                <LoadingState />
+              </div>
+            )}
 
             {isError && (
               <ErrorState
@@ -342,16 +308,14 @@ export function JobListingPage() {
               />
             )}
 
-            {!isLoading && !isError && (
-              <>
+            {!isLoading && !isFetching && !isError && (
+              <div className={styles['p-job-listing-content__results']}>
                 {data?.items.length ? (
                   viewMode === 'list' ? (
                     <div className={styles['p-job-listing-content__list']}>
                       {data.items.map((job) => {
                         const logoColor = LOGO_COLORS[job.category] ?? '#005198'
-                        const isPartTime = job.employmentType === 'part-time'
-                        const isRemote = job.employmentType === 'contract'
-                        const formattedDate = new Date(job.postedAt).toLocaleDateString('en-GB', {
+                        const formattedDate = new Date(job.postedAt).toLocaleDateString('vi-VN', {
                           day: '2-digit',
                           month: 'long',
                           year: 'numeric'
@@ -378,7 +342,7 @@ export function JobListingPage() {
                               <div className={styles['c-job-card-list__middle']}>
                                 <div className={styles['c-job-card-list__meta-item']}>
                                   <span className={styles['c-job-card-list__dot']} />
-                                  <span>Mức lương: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
+                                  <span>Mức lương: <strong>{getSalaryDisplayWithPeriod(job)}</strong></span>
                                 </div>
                                 <div className={styles['c-job-card-list__meta-item']}>
                                   <span className={styles['c-job-card-list__dot']} />
@@ -386,16 +350,18 @@ export function JobListingPage() {
                                 </div>
                               </div>
 
-                              <button className={styles['c-job-card-list__bookmark']} aria-label="Lưu tin">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                              </button>
                             </div>
 
                             <div className={styles['c-job-card-list__bottom']}>
                               <div className={styles['c-job-card-list__tags']}>
-                                <span className={styles['c-job-card-list__tag']}>Toàn thời gian</span>
-                                {isPartTime && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--part-time']}`}>Bán thời gian</span>}
-                                {isRemote && <span className={`${styles['c-job-card-list__tag']} ${styles['c-job-card-list__tag--remote']}`}>Từ xa</span>}
+                                {job.employmentType.map((type) => (
+                                  <span
+                                    key={type}
+                                    className={`${styles['c-job-card-list__tag']} ${styles[`c-job-card-list__tag--${type}`] ?? ''}`}
+                                  >
+                                    {getEmploymentTypeLabel(type)}
+                                  </span>
+                                ))}
                               </div>
                               <Link to={`/jobs/${job.id}`} className={styles['c-job-card-list__apply']}>
                                 <span className={styles['c-job-card-list__explore-span']}>
@@ -414,7 +380,7 @@ export function JobListingPage() {
                       {data.items.map((job, idx) => {
                         const logoColor = LOGO_COLORS[job.category] ?? '#005198'
                         const bannerSrc = idx % 2 === 0 ? cardBanner1 : cardBanner2
-                        const formattedDate = new Date(job.postedAt).toLocaleDateString('en-GB', {
+                        const formattedDate = new Date(job.postedAt).toLocaleDateString('vi-VN', {
                           day: '2-digit',
                           month: 'long',
                           year: 'numeric'
@@ -424,9 +390,6 @@ export function JobListingPage() {
                           <article key={job.id} className={styles['c-job-card-grid']}>
                             <div className={styles['c-job-card-grid__banner-wrap']}>
                               <img src={bannerSrc} alt="" className={styles['c-job-card-grid__banner']} />
-                              <button className={styles['c-job-card-grid__bookmark']} aria-label="Lưu tin">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                              </button>
                               {job.isFeatured && (
                                 <div className={styles['c-job-card-grid__urgent-badge']}>
                                   Gấp
@@ -455,7 +418,7 @@ export function JobListingPage() {
                               <ul className={styles['c-job-card-grid__meta']}>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Mức lương: <strong>{formatJobSalary(job.salary.min, job.salary.max, job.salary.currency)}</strong></span>
+                                  <span>Mức lương: <strong>{getSalaryDisplayWithPeriod(job)}</strong></span>
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
@@ -463,12 +426,18 @@ export function JobListingPage() {
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Địa điểm: <strong>{job.location}</strong></span>
+                                  <span>Địa điểm: <strong>{job.locationLabel ?? job.location}</strong></span>
                                 </li>
                               </ul>
 
                               <div className={styles['c-job-card-grid__footer']}>
-                                <span className={styles['c-job-card-grid__tag']}>Toàn thời gian</span>
+                                <div className={styles['c-job-card-grid__tags']}>
+                                  {job.employmentType.map((type) => (
+                                    <span key={type} className={styles['c-job-card-grid__tag']}>
+                                      {getEmploymentTypeLabel(type)}
+                                    </span>
+                                  ))}
+                                </div>
                                 <Link to={`/jobs/${job.id}`} className={styles['c-job-card-grid__apply']}>
                                   <span className={styles['c-job-card-grid__explore-span']}>
                                     <img src={exploreElliose} alt="" className={styles['c-job-card-grid__explore-circle']} />
@@ -527,7 +496,7 @@ export function JobListingPage() {
                     </button>
                   </nav>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>

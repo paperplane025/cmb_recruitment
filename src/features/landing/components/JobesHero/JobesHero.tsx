@@ -1,7 +1,6 @@
 import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
-import { useAuth } from '@/shared/hooks/useAuth.ts'
 import { useJobCategories } from '@/features/job/index.ts'
 import styles from './JobesHero.module.scss'
 import heroWoman from '@/assets/images/jobes_hero_woman.png'
@@ -11,7 +10,6 @@ import bannerImage from '@/assets/images/banner.png'
 const SHOW_OLD_HERO_BANNER = false
 
 export function JobesHero() {
-  const { isAuthenticated } = useAuth()
   const [searchTitle, setSearchTitle] = useState('')
   const [searchCategory, setSearchCategory] = useState('')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -37,15 +35,13 @@ export function JobesHero() {
     const params = new URLSearchParams()
     if (searchTitle) params.set('search', searchTitle)
     if (searchCategory) params.set('category', searchCategory)
-    const target = isAuthenticated ? APP_ROUTES.jobs : APP_ROUTES.login
-    navigate(`${target}?${params.toString()}`)
+    navigate(`${APP_ROUTES.jobs}?${params.toString()}`)
   }
 
   const handleTagClick = (tag: string) => {
     const params = new URLSearchParams()
     params.set('search', tag)
-    const target = isAuthenticated ? APP_ROUTES.jobs : APP_ROUTES.login
-    navigate(`${target}?${params.toString()}`)
+    navigate(`${APP_ROUTES.jobs}?${params.toString()}`)
   }
 
   const suggestedTags = [
@@ -72,10 +68,7 @@ export function JobesHero() {
             <p className={styles['p-hero__banner-subtitle']}>
               Để có nhiều cơ hội phát triển nghề nghiệp
             </p>
-            <Link
-              to={isAuthenticated ? APP_ROUTES.jobs : APP_ROUTES.register}
-              className={styles['p-hero__banner-cta']}
-            >
+            <Link to={APP_ROUTES.jobs} className={styles['p-hero__banner-cta']}>
               Tham gia ngay
             </Link>
           </div>

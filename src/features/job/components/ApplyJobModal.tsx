@@ -1,8 +1,12 @@
 import { type ChangeEvent, type FormEvent, useEffect, useState } from 'react'
+import { FieldError } from '@/shared/components/ui/FieldError.tsx'
 import { FormError } from '@/shared/components/ui/FormError.tsx'
+import { applicationService } from '@/services/applicationService.ts'
+import { isValidEmail, isValidPhone } from '@/shared/utils/validation.ts'
 import styles from './ApplyJobModal.module.scss'
 
 type ApplyJobModalProps = {
+  jobId: string
   jobTitle: string
   company: string
   onClose: () => void
@@ -15,6 +19,8 @@ type FormState = {
   email: string
 }
 
+type FieldErrors = Partial<Record<keyof FormState | 'cvFile', string>>
+
 const INITIAL_FORM: FormState = {
   fullName: '',
   address: '',
@@ -25,10 +31,11 @@ const INITIAL_FORM: FormState = {
 const MAX_FILE_SIZE = 5 * 1024 * 1024
 const ACCEPTED_FILE_TYPES = '.pdf,.doc,.docx'
 
-export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps) {
+export function ApplyJobModal({ jobId, jobTitle, company, onClose }: ApplyJobModalProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM)
   const [cvFile, setCvFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -46,40 +53,53 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
 
   const handleChange = (field: keyof FormState) => (e: ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }))
+    setFieldErrors((prev) => ({ ...prev, [field]: undefined }))
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null
     if (file && file.size > MAX_FILE_SIZE) {
-      setError('Dung lượng CV không được vượt quá 5MB.')
+      setFieldErrors((prev) => ({ ...prev, cvFile: 'Dung lượng CV không được vượt quá 5MB.' }))
       e.target.value = ''
       setCvFile(null)
       return
     }
-    setError(null)
+    setFieldErrors((prev) => ({ ...prev, cvFile: undefined }))
     setCvFile(file)
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const validate = (): FieldErrors => {
+    const errors: FieldErrors = {}
+    if (!form.fullName) errors.fullName = 'Vui lòng nhập họ tên.'
+    if (!form.phone) errors.phone = 'Vui lòng nhập số điện thoại.'
+    else if (!isValidPhone(form.phone)) errors.phone = 'Số điện thoại không đúng định dạng.'
+    if (!form.email) errors.email = 'Vui lòng nhập email.'
+    else if (!isValidEmail(form.email)) errors.email = 'Email không đúng định dạng.'
+    if (!cvFile) errors.cvFile = 'Vui lòng tải lên CV của bạn.'
+    return errors
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!form.fullName || !form.address || !form.phone || !form.email) {
-      setError('Vui lòng điền đầy đủ thông tin bắt buộc.')
-      return
-    }
-    if (!cvFile) {
-      setError('Vui lòng tải lên CV của bạn.')
+    const errors = validate()
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
       return
     }
 
+    setFieldErrors({})
     setError(null)
     setIsSubmitting(true)
 
-    // Simulate submission — no apply endpoint exists yet.
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      await applicationService.submit({ jobId, cvFile: cvFile as File, ...form })
       setIsSubmitted(true)
-    }, 900)
+    } catch {
+      setError('Gửi hồ sơ thất bại. Vui lòng thử lại sau.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -123,7 +143,7 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className={styles['c-apply-modal__form']}>
+            <form onSubmit={handleSubmit} noValidate className={styles['c-apply-modal__form']}>
               <div className={styles['c-apply-modal__field']}>
                 <label htmlFor="apply-fullname" className={styles['c-apply-modal__label']}>
                   Họ tên<span>*</span>
@@ -132,22 +152,23 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
                   id="apply-fullname"
                   type="text"
                   placeholder="Nguyễn Văn A"
-                  required
+                  spellCheck={false}
                   value={form.fullName}
                   onChange={handleChange('fullName')}
                   className={styles['c-apply-modal__input']}
                 />
+                <FieldError message={fieldErrors.fullName} />
               </div>
 
               <div className={styles['c-apply-modal__field']}>
                 <label htmlFor="apply-address" className={styles['c-apply-modal__label']}>
-                  Địa chỉ<span>*</span>
+                  Địa chỉ
                 </label>
                 <input
                   id="apply-address"
                   type="text"
                   placeholder="Số nhà, đường, quận/huyện, tỉnh/thành phố"
-                  required
+                  spellCheck={false}
                   value={form.address}
                   onChange={handleChange('address')}
                   className={styles['c-apply-modal__input']}
@@ -163,11 +184,12 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
                     id="apply-phone"
                     type="tel"
                     placeholder="09xxxxxxxx"
-                    required
+                    spellCheck={false}
                     value={form.phone}
                     onChange={handleChange('phone')}
                     className={styles['c-apply-modal__input']}
                   />
+                  <FieldError message={fieldErrors.phone} />
                 </div>
 
                 <div className={styles['c-apply-modal__field']}>
@@ -178,11 +200,12 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
                     id="apply-email"
                     type="email"
                     placeholder="info@example.com"
-                    required
+                    spellCheck={false}
                     value={form.email}
                     onChange={handleChange('email')}
                     className={styles['c-apply-modal__input']}
                   />
+                  <FieldError message={fieldErrors.email} />
                 </div>
               </div>
 
@@ -205,6 +228,7 @@ export function ApplyJobModal({ jobTitle, company, onClose }: ApplyJobModalProps
                     className={styles['c-apply-modal__upload-input']}
                   />
                 </label>
+                <FieldError message={fieldErrors.cvFile} />
               </div>
 
               <FormError message={error} />

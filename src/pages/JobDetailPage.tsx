@@ -1,12 +1,14 @@
 import { useParams, Link } from 'react-router'
 import { useJob, useJobs } from '@/features/job/index.ts'
+import { useCompanyGallery } from '@/features/landing/index.ts'
 import {
-  getEmploymentTypeLabel,
+  getEmploymentTypeLabels,
   getCategoryLabel,
-  formatSalary,
+  getSalaryDisplayWithPeriod,
+  getGenderLabel,
 } from '@/features/job/utils.ts'
 import { ErrorState } from '@/shared/components/ui/ErrorState.tsx'
-import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
+import { PageLoadingOverlay } from '@/shared/components/ui/PageLoadingOverlay.tsx'
 import { getErrorMessage } from '@/shared/lib/getErrorMessage.ts'
 import { jobDetailPath } from '@/shared/constants/index.ts'
 import { ApplyJobModal } from '@/features/job/components/ApplyJobModal.tsx'
@@ -35,17 +37,6 @@ const LOGO_COLORS: Record<string, string> = {
   product: '#d35400',
 }
 
-const GALLERY_IMAGES = [
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
-]
-
 function getInitials(company: string) {
   return company
     .split(' ')
@@ -58,7 +49,8 @@ function getInitials(company: string) {
 export function JobDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { data: job, isLoading, isError, error, refetch } = useJob(id)
-  
+  const { data: galleryImages } = useCompanyGallery()
+
   const relatedSwiperRef = useRef<SwiperType | null>(null)
   
   // Lightbox Modal state
@@ -79,21 +71,22 @@ export function JobDetailPage() {
 
   // Close lightbox on escape key
   useEffect(() => {
+    const galleryLength = galleryImages?.length ?? 0
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setLightboxIndex(null)
-      } else if (e.key === 'ArrowLeft' && lightboxIndex !== null) {
-        setLightboxIndex((prev) => (prev !== null ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length : null))
-      } else if (e.key === 'ArrowRight' && lightboxIndex !== null) {
-        setLightboxIndex((prev) => (prev !== null ? (prev + 1) % GALLERY_IMAGES.length : null))
+      } else if (e.key === 'ArrowLeft' && lightboxIndex !== null && galleryLength > 0) {
+        setLightboxIndex((prev) => (prev !== null ? (prev - 1 + galleryLength) % galleryLength : null))
+      } else if (e.key === 'ArrowRight' && lightboxIndex !== null && galleryLength > 0) {
+        setLightboxIndex((prev) => (prev !== null ? (prev + 1) % galleryLength : null))
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxIndex])
+  }, [lightboxIndex, galleryImages])
 
   if (isLoading) {
-    return <LoadingState />
+    return <PageLoadingOverlay />
   }
 
   if (isError) {
@@ -113,21 +106,22 @@ export function JobDetailPage() {
   }
 
   const logoColor = LOGO_COLORS[job.category] ?? '#005198'
-  
-  // Format dates
-  const postedDateFormatted = new Date(job.postedAt).toLocaleDateString('en-GB', {
+
+  const postedDateFormatted = new Date(job.postedAt).toLocaleDateString('vi-VN', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
   })
-  
-  // Expiry date (posted date + 30 days)
-  const expiryDate = new Date(new Date(job.postedAt).getTime() + 30 * 24 * 60 * 60 * 1000)
-  const expiryDateFormatted = expiryDate.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  })
+
+  const deadlineFormatted = job.deadline
+    ? new Date(job.deadline).toLocaleDateString('vi-VN', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      })
+    : 'Không giới hạn'
+
+  const genderLabel = getGenderLabel(job.gender)
 
   return (
     <section>
@@ -172,12 +166,6 @@ export function JobDetailPage() {
                 </div>
 
                 <div className={styles['p-job-detail-header-card__actions']}>
-                  <button className={styles['p-job-detail-header-card__bookmark']} aria-label="Lưu tin tuyển dụng">
-                    <span>Lưu tin</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                    </svg>
-                  </button>
                   <button
                     className={styles['p-job-detail-header-card__apply']}
                     onClick={() => setIsApplyModalOpen(true)}
@@ -193,27 +181,27 @@ export function JobDetailPage() {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span>Địa điểm: <strong>{job.location}</strong></span>
+                  <span>Địa điểm: <strong>{job.locationLabel ?? job.location}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
-                  <span>Loại hình: <strong>{getEmploymentTypeLabel(job.employmentType)}</strong></span>
+                  <span>Loại hình: <strong>{getEmploymentTypeLabels(job.employmentType)}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
                   </svg>
-                  <span>Danh mục: <strong>{getCategoryLabel(job.category)}</strong></span>
+                  <span>Danh mục: <strong>{job.categoryLabel ?? getCategoryLabel(job.category)}</strong></span>
                 </div>
                 <div className={styles['p-job-detail-header-card__meta-item']}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="1" x2="12" y2="23" />
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                   </svg>
-                  <span>Mức lương: <strong>{formatSalary(job.salary.min, job.salary.max, job.salary.currency)} / Tháng</strong></span>
+                  <span>Mức lương: <strong>{getSalaryDisplayWithPeriod(job)}</strong></span>
                 </div>
               </div>
             </article>
@@ -221,7 +209,10 @@ export function JobDetailPage() {
             {/* Description */}
             <section className={styles['p-job-detail-main__section']}>
               <h3 className={styles['p-job-detail-main__section-title']}>Mô tả công việc:</h3>
-              <p className={styles['p-job-detail-main__text']}>{job.description}</p>
+              <div
+                className={styles['p-job-detail-main__text']}
+                dangerouslySetInnerHTML={{ __html: job.description }}
+              />
             </section>
 
             {/* Responsibilities / Requirements */}
@@ -245,11 +236,7 @@ export function JobDetailPage() {
               <ul className={styles['p-job-detail-main__list']}>
                 <li className={styles['p-job-detail-main__list-item']}>
                   <span className={styles['p-job-detail-main__bullet']} />
-                  <span>Tốt nghiệp đại học tại các trường có uy tín.</span>
-                </li>
-                <li className={styles['p-job-detail-main__list-item']}>
-                  <span className={styles['p-job-detail-main__bullet']} />
-                  <span>Ưu tiên có chứng chỉ hoặc đào tạo chuyên môn liên quan.</span>
+                  <span>{job.education || 'Không yêu cầu'}</span>
                 </li>
               </ul>
             </section>
@@ -260,7 +247,7 @@ export function JobDetailPage() {
               <ul className={styles['p-job-detail-main__list']}>
                 <li className={styles['p-job-detail-main__list-item']}>
                   <span className={styles['p-job-detail-main__bullet']} />
-                  <span>2-3 năm trong lĩnh vực này.</span>
+                  <span>{job.experience || 'Không yêu cầu'}</span>
                 </li>
               </ul>
             </section>
@@ -296,39 +283,30 @@ export function JobDetailPage() {
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
                   <span className={styles['p-job-summary-card__label']}>Hết hạn:</span>
-                  <span className={styles['p-job-summary-card__value']}>{expiryDateFormatted}</span>
+                  <span className={styles['p-job-summary-card__value']}>{deadlineFormatted}</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
                   <span className={styles['p-job-summary-card__label']}>Số lượng tuyển:</span>
-                  <span className={styles['p-job-summary-card__value']}>07 người.</span>
+                  <span className={styles['p-job-summary-card__value']}>{job.vacancies ?? 1} người.</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
                   <span className={styles['p-job-summary-card__label']}>Kinh nghiệm:</span>
-                  <span className={styles['p-job-summary-card__value']}>2-3 năm.</span>
+                  <span className={styles['p-job-summary-card__value']}>{job.experience || 'Không yêu cầu'}</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
                   <span className={styles['p-job-summary-card__label']}>Học vấn:</span>
-                  <span className={styles['p-job-summary-card__value']}>Đại học.</span>
+                  <span className={styles['p-job-summary-card__value']}>{job.education || 'Không yêu cầu'}</span>
                 </li>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
                   <span className={styles['p-job-summary-card__label']}>Giới tính:</span>
-                  <span className={styles['p-job-summary-card__value']}>Không yêu cầu.</span>
+                  <span className={styles['p-job-summary-card__value']}>{genderLabel}</span>
                 </li>
               </ul>
             </div>
-
-            {/* View All Company Jobs */}
-            <Link to={`/jobs?search=${encodeURIComponent(job.company)}`} className={styles['p-job-detail-sidebar__link']}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              <span>Xem tất cả việc làm của công ty này</span>
-            </Link>
 
             {/* Social Link Share */}
             <div className={styles['p-job-detail-share']}>
@@ -377,63 +355,39 @@ export function JobDetailPage() {
               </ul>
             </div>
 
-            {/* Email card CTA */}
-            <div className={styles['p-job-detail-email-card']}>
-              <div className={styles['p-job-detail-email-card__icon']}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
-              <h4 className={styles['p-job-detail-email-card__title']}>Gửi email ngay</h4>
-              <p className={styles['p-job-detail-email-card__subtitle']}>
-                Gửi CV của bạn đến <a href="mailto:info@example.com">info@example.com</a>
-              </p>
-            </div>
-
-            {/* Map Widget */}
-            <div className={styles['p-job-detail-map']}>
-              <h4 className={styles['p-job-detail-map__title']}>Xem vị trí:</h4>
-              <div className={styles['p-job-detail-map__wrapper']}>
-                <iframe
-                  title="Vị trí trên Google Maps"
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(job.location || 'Dhaka, Bangladesh')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
-                  allowFullScreen
-                  loading="lazy"
-                />
-              </div>
-            </div>
           </aside>
         </div>
 
         {/* ─── Company Gallery (Full Width - Outside Grid) ─── */}
-        <section className={styles['p-job-detail-gallery']}>
-          <h3 className={styles['p-job-detail-gallery__title']}>Hình ảnh công ty</h3>
-          <Swiper
-            spaceBetween={16}
-            slidesPerView={2}
-            grabCursor={true}
-            loop={true}
-            breakpoints={{
-              480: { slidesPerView: 3 },
-              768: { slidesPerView: 4 },
-              1024: { slidesPerView: 5 },
-            }}
-            className={styles['p-job-detail-gallery__slider']}
-          >
-            {GALLERY_IMAGES.map((src, idx) => (
-              <SwiperSlide key={idx}>
-                <div
-                  className={styles['p-job-detail-gallery__img-wrap']}
-                  onClick={() => setLightboxIndex(idx)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <img src={src} alt={`Hình ảnh văn phòng ${idx + 1}`} />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
+        {galleryImages && galleryImages.length > 0 && (
+          <section className={styles['p-job-detail-gallery']}>
+            <h3 className={styles['p-job-detail-gallery__title']}>Hình ảnh công ty</h3>
+            <Swiper
+              spaceBetween={16}
+              slidesPerView={2}
+              grabCursor={true}
+              loop={galleryImages.length > 5}
+              breakpoints={{
+                480: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 },
+              }}
+              className={styles['p-job-detail-gallery__slider']}
+            >
+              {galleryImages.map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <div
+                    className={styles['p-job-detail-gallery__img-wrap']}
+                    onClick={() => setLightboxIndex(idx)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <img src={src} alt={`Hình ảnh văn phòng ${idx + 1}`} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
 
         {/* ─── Related Jobs Grid (Full Width - Outside Grid) ─── */}
         {relatedJobs.length > 0 && (
@@ -477,12 +431,13 @@ export function JobDetailPage() {
             >
               {relatedJobs.map((relJob) => {
                 const relLogoColor = LOGO_COLORS[relJob.category] ?? '#005198'
-                const relDeadline = new Date(new Date(relJob.postedAt).getTime() + 30 * 24 * 60 * 60 * 1000)
-                const relDeadlineFormatted = relDeadline.toLocaleDateString('en-GB', {
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric',
-                })
+                const relDeadlineFormatted = relJob.deadline
+                  ? new Date(relJob.deadline).toLocaleDateString('vi-VN', {
+                      day: '2-digit',
+                      month: 'long',
+                      year: 'numeric',
+                    })
+                  : 'Không giới hạn'
 
                 return (
                   <SwiperSlide key={relJob.id}>
@@ -499,25 +454,19 @@ export function JobDetailPage() {
                             <Link to={jobDetailPath(relJob.id)}>{relJob.title}</Link>
                           </h4>
                           <div className={styles['c-related-job-card__types']}>
-                            {getEmploymentTypeLabel(relJob.employmentType)}
+                            {getEmploymentTypeLabels(relJob.employmentType)}
                           </div>
                         </div>
-
-                        <button className={styles['c-related-job-card__bookmark']} aria-label="Lưu tin">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                          </svg>
-                        </button>
                       </div>
 
                       <ul className={styles['c-related-job-card__meta']}>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Mức lương: <strong>{formatSalary(relJob.salary.min, relJob.salary.max, relJob.salary.currency)} / Tháng</strong></span>
+                          <span>Mức lương: <strong>{getSalaryDisplayWithPeriod(relJob)}</strong></span>
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Số lượng: <strong>05 người (không yêu cầu)</strong></span>
+                          <span>Số lượng: <strong>{relJob.vacancies ?? 1} người ({getGenderLabel(relJob.gender)})</strong></span>
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
@@ -546,27 +495,27 @@ export function JobDetailPage() {
         className={`${styles['p-job-detail-lightbox']} ${lightboxIndex !== null ? styles['p-job-detail-lightbox--active'] : ''}`}
         onClick={() => setLightboxIndex(null)}
       >
-        {lightboxIndex !== null && (
+        {lightboxIndex !== null && galleryImages && (
           <div className={styles['p-job-detail-lightbox__content']} onClick={(e) => e.stopPropagation()}>
             <button className={styles['p-job-detail-lightbox__close']} onClick={() => setLightboxIndex(null)}>
               &times;
             </button>
             <button
               className={`${styles['p-job-detail-lightbox__btn']} ${styles['p-job-detail-lightbox__btn--prev']}`}
-              onClick={() => setLightboxIndex((prev) => (prev !== null ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length : null))}
+              onClick={() => setLightboxIndex((prev) => (prev !== null ? (prev - 1 + galleryImages.length) % galleryImages.length : null))}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                 <path d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <img
-              src={GALLERY_IMAGES[lightboxIndex]}
+              src={galleryImages[lightboxIndex]}
               alt={`Hình ảnh phóng to ${lightboxIndex + 1}`}
               className={styles['p-job-detail-lightbox__img']}
             />
             <button
               className={`${styles['p-job-detail-lightbox__btn']} ${styles['p-job-detail-lightbox__btn--next']}`}
-              onClick={() => setLightboxIndex((prev) => (prev !== null ? (prev + 1) % GALLERY_IMAGES.length : null))}
+              onClick={() => setLightboxIndex((prev) => (prev !== null ? (prev + 1) % galleryImages.length : null))}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                 <path d="M9 5l7 7-7 7" />
@@ -579,6 +528,7 @@ export function JobDetailPage() {
       {/* ─── Apply Job Modal ─── */}
       {isApplyModalOpen && (
         <ApplyJobModal
+          jobId={job.id}
           jobTitle={job.title}
           company={job.company}
           onClose={() => setIsApplyModalOpen(false)}

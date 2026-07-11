@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
+import { useTestimonials } from '../../hooks/useTestimonials.ts'
+import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import styles from './JobesTestimonials.module.scss'
 import exploreElliose from '@/assets/images/explore-elliose.svg'
 import exploreArrow from '@/assets/images/explore-arrow.svg'
@@ -10,45 +12,14 @@ import exploreArrow from '@/assets/images/explore-arrow.svg'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-interface Testimonial {
-  quote: string
-  name: string
-  role: string
-  avatar: string
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .slice(-2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase()
 }
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    name: 'Ông Jacoline Frankly',
-    role: 'Kỹ sư UI/UX',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop'
-  },
-  {
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    name: 'Ông Robertson Maike',
-    role: 'Lập trình viên PHP',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop'
-  },
-  {
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    name: 'David Williumson',
-    role: 'Lập trình viên WordPress',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop'
-  },
-  {
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    name: 'Bà Sarah Jenkins',
-    role: 'Nhà thiết kế sản phẩm',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop'
-  },
-  {
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    name: 'Ông John Doe',
-    role: 'Kỹ sư Backend',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop'
-  }
-]
 
 const QuoteIcon = () => (
   <svg
@@ -69,7 +40,18 @@ const QuoteIcon = () => (
 
 export function JobesTestimonials() {
   const swiperRef = useRef<SwiperType | null>(null)
+  const { data: testimonials, isLoading } = useTestimonials()
+  const items = testimonials ?? []
   const [activeIndex, setActiveIndex] = useState(0)
+
+  // Bắt đầu ở giữa danh sách khi dữ liệu vừa tải xong — nếu bắt đầu ở phần tử đầu
+  // (index 0), Swiper không đủ chỗ để căn giữa (bị chặn ở biên) nên khi vừa load
+  // xong sẽ thấy lệch trái. Đồng bộ lại mỗi khi số lượng đánh giá thay đổi.
+  const [syncedItemsCount, setSyncedItemsCount] = useState(0)
+  if (items.length > 0 && items.length !== syncedItemsCount) {
+    setSyncedItemsCount(items.length)
+    setActiveIndex(Math.floor((items.length - 1) / 2))
+  }
 
   const handleRealIndexChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex)
@@ -79,15 +61,15 @@ export function JobesTestimonials() {
     swiperRef.current = swiper
   }
 
-  // Get the 5 visible avatar indices relative to the activeIndex
+  // Cửa sổ tối đa 5 avatar xoay quanh activeIndex, luôn đối xứng để active nằm giữa
+  // (kể cả khi total < 5, VD 3 đánh giá) — windowSize <= total nên không bị trùng index.
   const getVisibleIndices = (active: number, total: number) => {
-    return [
-      (active - 2 + total) % total,
-      (active - 1 + total) % total,
-      active,
-      (active + 1) % total,
-      (active + 2) % total,
-    ]
+    const windowSize = Math.min(5, total)
+    const start = -Math.floor((windowSize - 1) / 2)
+    return Array.from({ length: windowSize }, (_, i) => {
+      const offset = start + i
+      return ((active + offset) % total + total) % total
+    })
   }
 
   return (
@@ -135,85 +117,109 @@ export function JobesTestimonials() {
           </div>
         </div>
 
-        {/* ─── Swiper Slider ─── */}
-        <div className={styles['p-testimonials__slider-wrapper']}>
-          <Swiper
-            modules={[Navigation]}
-            onSwiper={handleSwiperInit}
-            onRealIndexChange={handleRealIndexChange}
-            loop={true}
-            spaceBetween={24}
-            slidesPerView={1}
-            centeredSlides={true}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-                centeredSlides: false,
-              },
-              1024: {
-                slidesPerView: 3,
-                centeredSlides: true,
-              },
-            }}
-            className={styles['p-testimonials__slider']}
-          >
-            {TESTIMONIALS.map((item, idx) => (
-              <SwiperSlide key={idx} className={styles['p-testimonials__slide']}>
-                <article
-                  className={styles['p-testimonials__card']}
-                  aria-label={`Đánh giá từ ${item.name}`}
-                  id={`testimonial-card-${idx}`}
-                >
-                  <div className={styles['p-testimonials__card-quote-wrapper']}>
-                    <QuoteIcon />
-                  </div>
-                  <p className={styles['p-testimonials__card-quote']}>{item.quote}</p>
-                  <div className={styles['p-testimonials__card-meta']}>
-                    <h3 className={styles['p-testimonials__card-name']}>{item.name}</h3>
-                    <p className={styles['p-testimonials__card-role']}>{item.role}</p>
-                  </div>
-                </article>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-
-        {/* ─── Custom Avatar Pagination ─── */}
-        <div
-          className={styles['p-testimonials__avatars-wrapper']}
-          role="tablist"
-          aria-label="Chọn đánh giá"
-        >
-          <div className={styles['p-testimonials__avatars']}>
-            {getVisibleIndices(activeIndex, TESTIMONIALS.length).map((originalIdx) => {
-              const item = TESTIMONIALS[originalIdx]
-              if (!item) return null
-              const isActive = activeIndex === originalIdx
-              return (
-                <button
-                  key={originalIdx}
-                  className={`${styles['p-testimonials__avatar-bullet']}${
-                    isActive ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
-                  }`}
-                  onClick={() => {
-                    swiperRef.current?.slideToLoop(originalIdx)
-                    setActiveIndex(originalIdx)
-                  }}
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-label={`Đi đến slide ${originalIdx + 1}: ${item.name}`}
-                  id={`testimonial-bullet-${originalIdx}`}
-                >
-                  <img
-                    src={item.avatar}
-                    alt={`Ảnh chân dung ${item.name}`}
-                    className={styles['p-testimonials__avatar-img']}
-                  />
-                </button>
-              )
-            })}
+        {isLoading && (
+          <div className={styles['p-testimonials__loading']}>
+            <LoadingState />
           </div>
-        </div>
+        )}
+
+        {!isLoading && items.length > 0 && (
+          <>
+            {/* ─── Swiper Slider ─── */}
+            <div className={styles['p-testimonials__slider-wrapper']}>
+              <Swiper
+                modules={[Navigation]}
+                onSwiper={handleSwiperInit}
+                onRealIndexChange={handleRealIndexChange}
+                initialSlide={activeIndex}
+                // Loop cần nhiều slide hơn slidesPerView tối đa (3 ở breakpoint 1024) mới
+                // hoạt động đúng — quá ít đánh giá (VD 3) sẽ báo lỗi khi kéo.
+                loop={items.length > 3}
+                spaceBetween={24}
+                slidesPerView={1}
+                centeredSlides={true}
+                breakpoints={{
+                  768: {
+                    slidesPerView: 2,
+                    centeredSlides: true,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    centeredSlides: true,
+                  },
+                }}
+                className={styles['p-testimonials__slider']}
+              >
+                {items.map((item, idx) => (
+                  <SwiperSlide key={idx} className={styles['p-testimonials__slide']}>
+                    <article
+                      className={styles['p-testimonials__card']}
+                      aria-label={`Đánh giá từ ${item.name}`}
+                      id={`testimonial-card-${idx}`}
+                    >
+                      <div className={styles['p-testimonials__card-quote-wrapper']}>
+                        <QuoteIcon />
+                      </div>
+                      <p className={styles['p-testimonials__card-quote']}>{item.quote}</p>
+                      <div className={styles['p-testimonials__card-meta']}>
+                        <h3 className={styles['p-testimonials__card-name']}>{item.name}</h3>
+                        <p className={styles['p-testimonials__card-role']}>{item.role}</p>
+                      </div>
+                    </article>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* ─── Custom Avatar Pagination ─── */}
+            <div
+              className={styles['p-testimonials__avatars-wrapper']}
+              role="tablist"
+              aria-label="Chọn đánh giá"
+            >
+              <div className={styles['p-testimonials__avatars']}>
+                {getVisibleIndices(activeIndex, items.length).map((originalIdx) => {
+                  const item = items[originalIdx]
+                  if (!item) return null
+                  const isActive = activeIndex === originalIdx
+                  return (
+                    <button
+                      key={originalIdx}
+                      className={`${styles['p-testimonials__avatar-bullet']}${
+                        isActive ? ` ${styles['p-testimonials__avatar-bullet--active']}` : ''
+                      }`}
+                      onClick={() => {
+                        // slideToLoop chỉ dùng được khi Swiper bật loop; đủ ít đánh giá thì loop tắt.
+                        if (items.length > 3) {
+                          swiperRef.current?.slideToLoop(originalIdx)
+                        } else {
+                          swiperRef.current?.slideTo(originalIdx)
+                        }
+                        setActiveIndex(originalIdx)
+                      }}
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-label={`Đi đến slide ${originalIdx + 1}: ${item.name}`}
+                      id={`testimonial-bullet-${originalIdx}`}
+                    >
+                      {item.avatarUrl ? (
+                        <img
+                          src={item.avatarUrl}
+                          alt={`Ảnh chân dung ${item.name}`}
+                          className={styles['p-testimonials__avatar-img']}
+                        />
+                      ) : (
+                        <span className={styles['p-testimonials__avatar-fallback']}>
+                          {getInitials(item.name)}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   )

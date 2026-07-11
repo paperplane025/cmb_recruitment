@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
+import styles from './Input.module.scss'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
@@ -13,16 +14,12 @@ export function Input({
   ...props
 }: InputProps) {
   return (
-    <div className="space-y-1 text-left">
-      <label htmlFor={id} className="block text-sm font-medium text-[var(--text-h)]">
+    <div className={styles['c-input']}>
+      <label htmlFor={id} className={styles['c-input__label']}>
         {label}
       </label>
-      <input
-        id={id}
-        className={`w-full rounded-md border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--text-h)] outline-none focus:border-[var(--accent-border)] focus:ring-2 focus:ring-[var(--accent-bg)] ${className}`.trim()}
-        {...props}
-      />
-      {error ? <p className="text-xs text-red-500">{error}</p> : null}
+      <input id={id} className={`${styles['c-input__field']} ${className}`.trim()} {...props} />
+      {error ? <p className={styles['c-input__error']}>{error}</p> : null}
     </div>
   )
 }

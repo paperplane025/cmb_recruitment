@@ -4,6 +4,9 @@ export const APP_ROUTES = {
   register: '/register',
   jobs: '/jobs',
   jobDetail: '/jobs/:id',
+  blog: '/blog',
+  blogDetail: '/blog/:id',
+  contact: '/contact',
 } as const
 
 export const STORAGE_KEYS = {
@@ -13,4 +16,8 @@ export const STORAGE_KEYS = {
 
 export function jobDetailPath(id: string): string {
   return `/jobs/${id}`
+}
+
+export function blogDetailPath(id: string): string {
+  return `/blog/${id}`
 }

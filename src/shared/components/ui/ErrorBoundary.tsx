@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import { Button } from '@/shared/components/ui/Button.tsx'
+import styles from './ErrorBoundary.module.scss'
 
 type ErrorBoundaryProps = {
   children: ReactNode
@@ -40,12 +41,12 @@ export class ErrorBoundary extends Component<
       }
 
       return (
-        <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-6 text-center">
-          <div className="text-5xl">⚠️</div>
-          <h2 className="text-xl text-[var(--text-h)]">
+        <div className={styles['c-error-boundary']}>
+          <div className={styles['c-error-boundary__icon']}>⚠️</div>
+          <h2 className={styles['c-error-boundary__title']}>
             Đã xảy ra lỗi không mong muốn
           </h2>
-          <p className="max-w-md text-sm text-[var(--text)]">
+          <p className={styles['c-error-boundary__message']}>
             {this.state.error?.message ?? 'Vui lòng thử lại sau.'}
           </p>
           <Button onClick={this.handleReset}>Thử lại</Button>

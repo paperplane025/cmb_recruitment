@@ -1,0 +1,13 @@
+.l-layout {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+  }
+
+  &__main--contained {
+    padding: 32px 24px;
+  }
+}

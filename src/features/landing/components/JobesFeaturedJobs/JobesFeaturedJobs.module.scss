@@ -155,7 +155,7 @@
       transform: translateY(-2px);
     }
 
-    /* ── Top row: [listContent] [bookmark] ── */
+    /* ── Top row ── */
     &-top {
       display: flex;
       align-items: center;
@@ -295,37 +295,6 @@
       display: inline-block;
     }
 
-    /* Bookmark button — right column */
-    &-bookmark {
-      flex-shrink: 0;
-      align-self: center;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: var(--jobes-teal);
-      opacity: 0.65;
-      border-radius: 8px;
-      transition:
-        opacity 0.2s ease,
-        background-color 0.2s ease;
-      padding: 0;
-
-      svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      &:hover {
-        opacity: 1;
-        background-color: var(--jobes-teal-light);
-      }
-    }
-
     /* ── Horizontal divider ── */
     &-divider {
       border: none;
@@ -333,7 +302,7 @@
       margin: 0 0 18px;
     }
 
-    /* ── Bottom row: applied + tags + apply button ── */
+    /* ── Bottom row: tags + apply button ── */
     &-bottom {
       display: flex;
       align-items: center;
@@ -345,27 +314,6 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-      }
-    }
-
-    /* "Job Applied: 07 Person" */
-    &-applied {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 13px;
-      color: var(--text);
-      flex-shrink: 0;
-
-      svg {
-        width: 15px;
-        height: 15px;
-        color: var(--text);
-      }
-
-      strong {
-        color: var(--text-h);
-        font-weight: 600;
       }
     }
 
@@ -448,4 +396,11 @@
       cursor: pointer;
     }
   }
+}
+
+.p-featured-jobs__loading {
+  display: flex;
+  min-height: 280px;
+  align-items: center;
+  justify-content: center;
 }

@@ -237,3 +237,10 @@
     }
   }
 }
+
+.p-locations__loading {
+  display: flex;
+  min-height: 280px;
+  align-items: center;
+  justify-content: center;
+}

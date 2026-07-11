@@ -2,19 +2,11 @@
 import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { Layout } from '@/shared/components/layout/Layout.tsx'
-import { GuestRoute } from '@/shared/components/routing/GuestRoute.tsx'
-import { ProtectedRoute } from '@/shared/components/routing/ProtectedRoute.tsx'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
-import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
+import { PageLoadingOverlay } from '@/shared/components/ui/PageLoadingOverlay.tsx'
 
 const HomePage = lazy(() =>
   import('@/pages/HomePage.tsx').then((m) => ({ default: m.HomePage })),
-)
-const LoginPage = lazy(() =>
-  import('@/pages/LoginPage.tsx').then((m) => ({ default: m.LoginPage })),
-)
-const RegisterPage = lazy(() =>
-  import('@/pages/RegisterPage.tsx').then((m) => ({ default: m.RegisterPage })),
 )
 const JobListingPage = lazy(() =>
   import('@/pages/JobListingPage.tsx').then((m) => ({
@@ -26,13 +18,25 @@ const JobDetailPage = lazy(() =>
     default: m.JobDetailPage,
   })),
 )
+const BlogListingPage = lazy(() =>
+  import('@/pages/BlogListingPage.tsx').then((m) => ({
+    default: m.BlogListingPage,
+  })),
+)
+const BlogDetailPage = lazy(() =>
+  import('@/pages/BlogDetailPage.tsx').then((m) => ({
+    default: m.BlogDetailPage,
+  })),
+)
+const ContactPage = lazy(() =>
+  import('@/pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })),
+)
+const StaticPage = lazy(() =>
+  import('@/pages/StaticPage.tsx').then((m) => ({ default: m.StaticPage })),
+)
 
 function SuspenseWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={<LoadingState label="Đang tải trang..." />}>
-      {children}
-    </Suspense>
-  )
+  return <Suspense fallback={<PageLoadingOverlay />}>{children}</Suspense>
 }
 
 export const router = createBrowserRouter([
@@ -47,27 +51,6 @@ export const router = createBrowserRouter([
             <HomePage />
           </SuspenseWrapper>
         ),
-      },
-      {
-        element: <GuestRoute />,
-        children: [
-          {
-            path: 'login',
-            element: (
-              <SuspenseWrapper>
-                <LoginPage />
-              </SuspenseWrapper>
-            ),
-          },
-          {
-            path: 'register',
-            element: (
-              <SuspenseWrapper>
-                <RegisterPage />
-              </SuspenseWrapper>
-            ),
-          },
-        ],
       },
       {
         path: 'jobs',
@@ -86,9 +69,36 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        element: <ProtectedRoute />,
-        children: [
-        ],
+        path: 'blog',
+        element: (
+          <SuspenseWrapper>
+            <BlogListingPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'blog/:id',
+        element: (
+          <SuspenseWrapper>
+            <BlogDetailPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'contact',
+        element: (
+          <SuspenseWrapper>
+            <ContactPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'page/:slug',
+        element: (
+          <SuspenseWrapper>
+            <StaticPage />
+          </SuspenseWrapper>
+        ),
       },
     ],
   },
