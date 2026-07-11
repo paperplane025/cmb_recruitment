@@ -27,7 +27,7 @@
     }
 
     @include respond-to('xl') {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -94,70 +94,6 @@
         &::after {
           width: 100%;
         }
-      }
-    }
-  }
-
-  /* ─── Download App Buttons ─── */
-  &__app-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  &__app-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
-    min-width: 170px;
-    max-width: 200px;
-
-    &:hover {
-      border-color: rgba(255, 255, 255, 0.5);
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    &-icon {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      svg {
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    &-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-
-      &-small {
-        font-size: 10px;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.65);
-        letter-spacing: 0.3px;
-        text-transform: uppercase;
-      }
-
-      &-large {
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: -0.2px;
       }
     }
   }
@@ -270,27 +206,6 @@
     }
   }
 
-  &__bottom-nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    &-link {
-      color: rgba(255, 255, 255, 0.75);
-      text-decoration: none;
-      font-size: 13.5px;
-      font-weight: 400;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: #ffffff;
-      }
-    }
-  }
-
   /* ─── Social Icons ─── */
   &__social {
     display: flex;
@@ -341,17 +256,6 @@
     &-brand {
       color: #ffffff;
       font-weight: 600;
-    }
-
-    &-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: rgba(255, 255, 255, 0.75);
-      }
     }
   }
 }

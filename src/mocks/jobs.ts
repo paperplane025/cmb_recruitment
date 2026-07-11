@@ -10,7 +10,7 @@ export const mockJobs: Job[] = [
       'Phát triển giao diện React/TypeScript cho hệ thống tuyển dụng nội bộ. Phối hợp với team design để implement UI pixel-perfect từ Figma. Tối ưu hiệu năng rendering và bundle size.',
     postedAt: '2026-05-15',
     category: 'engineering',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 20_000_000, max: 35_000_000, currency: 'VND' },
     requirements: [
       'Thành thạo React, TypeScript',
@@ -30,7 +30,7 @@ export const mockJobs: Job[] = [
       'Xây dựng API RESTful và tích hợp dịch vụ cho nền tảng recruitment. Thiết kế database schema, viết migration, và đảm bảo performance cho hệ thống.',
     postedAt: '2026-05-10',
     category: 'engineering',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 25_000_000, max: 40_000_000, currency: 'VND' },
     requirements: [
       'Thành thạo Node.js hoặc Java',
@@ -50,7 +50,7 @@ export const mockJobs: Job[] = [
       'Thiết kế giao diện người dùng cho các sản phẩm nội bộ. Tạo wireframe, mockup và prototype trên Figma. Nghiên cứu UX và user testing.',
     postedAt: '2026-05-12',
     category: 'design',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 18_000_000, max: 30_000_000, currency: 'VND' },
     requirements: [
       'Thành thạo Figma',
@@ -70,7 +70,7 @@ export const mockJobs: Job[] = [
       'Xây dựng và triển khai chiến lược marketing digital. Quản lý campaigns trên Google Ads, Facebook Ads. Phân tích dữ liệu và tối ưu ROI.',
     postedAt: '2026-05-08',
     category: 'marketing',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 15_000_000, max: 25_000_000, currency: 'VND' },
     requirements: [
       'Kinh nghiệm Google Ads, Facebook Ads',
@@ -90,7 +90,7 @@ export const mockJobs: Job[] = [
       'Hỗ trợ quy trình tuyển dụng: sàng lọc CV, liên hệ ứng viên, sắp xếp phỏng vấn. Cơ hội chuyển chính thức sau 3 tháng.',
     postedAt: '2026-05-14',
     category: 'hr',
-    employmentType: 'internship',
+    employmentType: ['internship'],
     salary: { min: 5_000_000, max: 7_000_000, currency: 'VND' },
     requirements: [
       'Sinh viên năm 3–4 ngành Quản trị nhân sự hoặc liên quan',
@@ -109,7 +109,7 @@ export const mockJobs: Job[] = [
       'Quản lý roadmap sản phẩm, phối hợp với engineering và design. Phân tích thị trường, thu thập feedback và đưa ra quyết định product.',
     postedAt: '2026-05-11',
     category: 'product',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 30_000_000, max: 50_000_000, currency: 'VND' },
     requirements: [
       'Tối thiểu 3 năm PM/PO experience',
@@ -129,7 +129,7 @@ export const mockJobs: Job[] = [
       'Phát triển kinh doanh, tìm kiếm khách hàng mới và duy trì mối quan hệ với khách hàng hiện tại. Đạt KPI doanh số hàng tháng.',
     postedAt: '2026-05-06',
     category: 'sales',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 12_000_000, max: 20_000_000, currency: 'VND' },
     requirements: [
       'Kinh nghiệm sales B2B',
@@ -148,7 +148,7 @@ export const mockJobs: Job[] = [
       'Thiết kế và vận hành hạ tầng cloud (AWS/GCP). Xây dựng CI/CD pipeline, monitoring, và đảm bảo uptime cho hệ thống production.',
     postedAt: '2026-05-13',
     category: 'engineering',
-    employmentType: 'contract',
+    employmentType: ['contract'],
     salary: { min: 28_000_000, max: 45_000_000, currency: 'VND' },
     requirements: [
       'Kinh nghiệm AWS/GCP',
@@ -168,7 +168,7 @@ export const mockJobs: Job[] = [
       'Phân tích tài chính, lập báo cáo ngân sách, forecast doanh thu. Hỗ trợ ban lãnh đạo trong việc ra quyết định tài chính chiến lược.',
     postedAt: '2026-05-03',
     category: 'finance',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 18_000_000, max: 28_000_000, currency: 'VND' },
     requirements: [
       'Bằng cử nhân Tài chính/Kế toán',
@@ -188,7 +188,7 @@ export const mockJobs: Job[] = [
       'Viết bài content marketing cho website và social media. Nghiên cứu từ khóa SEO và tối ưu nội dung. Lịch làm việc linh hoạt.',
     postedAt: '2026-05-16',
     category: 'marketing',
-    employmentType: 'part-time',
+    employmentType: ['part-time'],
     salary: { min: 8_000_000, max: 12_000_000, currency: 'VND' },
     requirements: [
       'Kỹ năng viết content tốt',
@@ -207,7 +207,7 @@ export const mockJobs: Job[] = [
       'Quản lý vận hành doanh nghiệp, tối ưu quy trình làm việc, phối hợp giữa các phòng ban. Báo cáo trực tiếp với CEO.',
     postedAt: '2026-05-09',
     category: 'operations',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 25_000_000, max: 40_000_000, currency: 'VND' },
     requirements: [
       'Tối thiểu 5 năm kinh nghiệm operations',
@@ -227,7 +227,7 @@ export const mockJobs: Job[] = [
       'Xây dựng test plan, viết automated tests, đảm bảo chất lượng sản phẩm. Phối hợp với dev team trong quy trình Agile.',
     postedAt: '2026-05-17',
     category: 'engineering',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 16_000_000, max: 28_000_000, currency: 'VND' },
     requirements: [
       'Kinh nghiệm testing (manual + automation)',
@@ -247,7 +247,7 @@ export const mockJobs: Job[] = [
       'Phát triển ứng dụng mobile cross-platform bằng React Native. Tích hợp API, tối ưu hiệu suất và trải nghiệm người dùng trên iOS và Android.',
     postedAt: '2026-05-18',
     category: 'engineering',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 22_000_000, max: 38_000_000, currency: 'VND' },
     requirements: [
       'Thành thạo React Native',
@@ -267,7 +267,7 @@ export const mockJobs: Job[] = [
       'Phân tích yêu cầu nghiệp vụ, làm cầu nối giữa business và technical team. Viết BRD, user story và acceptance criteria.',
     postedAt: '2026-05-19',
     category: 'product',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 20_000_000, max: 32_000_000, currency: 'VND' },
     requirements: [
       'Kinh nghiệm BA tối thiểu 2 năm',
@@ -287,7 +287,7 @@ export const mockJobs: Job[] = [
       'Xây dựng và vận hành data pipeline, ETL workflows. Thiết kế data warehouse, tối ưu query và đảm bảo chất lượng dữ liệu.',
     postedAt: '2026-05-20',
     category: 'engineering',
-    employmentType: 'full-time',
+    employmentType: ['full-time'],
     salary: { min: 26_000_000, max: 42_000_000, currency: 'VND' },
     requirements: [
       'Thành thạo Python, SQL',

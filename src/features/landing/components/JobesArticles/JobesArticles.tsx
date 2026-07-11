@@ -1,42 +1,13 @@
+import { Link } from 'react-router'
+import { useFeaturedBlogPosts } from '@/features/blog/index.ts'
+import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
+import { formatDate } from '@/shared/utils/dateUtils.ts'
+import { blogDetailPath } from '@/shared/constants/index.ts'
 import styles from './JobesArticles.module.scss'
 
-interface Article {
-  id: number
-  image: string
-  date: string
-  author: string
-  title: string
-  href: string
-}
-
-const ARTICLES: Article[] = [
-  {
-    id: 1,
-    image: '/images/articles/article-career.png',
-    date: '05 Tháng 1, 2023',
-    author: 'Ông Rakhab',
-    title: 'Tiếp tục tái thiết kế và xây dựng cơ hội nghề nghiệp của bạn.',
-    href: '#',
-  },
-  {
-    id: 2,
-    image: '/images/articles/article-interview.png',
-    date: '05 Tháng 3, 2023',
-    author: 'Ông Rakhab',
-    title: 'Thể hiện sự thông minh và trả lời khéo léo khi phỏng vấn.',
-    href: '#',
-  },
-  {
-    id: 3,
-    image: '/images/articles/article-skills.png',
-    date: '07 Tháng 1, 2023',
-    author: 'Ông Rakhab',
-    title: 'Cách cải thiện kỹ năng và giao tiếp trôi chảy trong mọi buổi phỏng vấn.',
-    href: '#',
-  },
-]
-
 export function JobesArticles() {
+  const { data: articles, isLoading } = useFeaturedBlogPosts(3)
+
   return (
     <section
       className={styles['p-articles']}
@@ -55,45 +26,58 @@ export function JobesArticles() {
         </div>
 
         {/* ─── Article Cards Grid ─── */}
-        <div className={styles['p-articles__grid']}>
-          {ARTICLES.map((article) => (
-            <article
-              key={article.id}
-              className={styles['p-articles__card']}
-              id={`article-card-${article.id}`}
-            >
-              {/* ─── Image Wrapper ─── */}
-              <div className={styles['p-articles__card-image-wrapper']}>
-                <a href={article.href} className={styles['p-articles__card-image-link']} aria-label={article.title}>
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className={styles['p-articles__card-image']}
-                    loading="lazy"
-                  />
-                </a>
-              </div>
+        {isLoading ? (
+          <div className={styles['p-articles__loading']}>
+            <LoadingState />
+          </div>
+        ) : (
+          <div className={styles['p-articles__grid']}>
+            {articles?.slice(0, 3).map((article) => (
+              <article
+                key={article.id}
+                className={styles['p-articles__card']}
+                id={`article-card-${article.id}`}
+              >
+                {/* ─── Image Wrapper ─── */}
+                {article.coverImage && (
+                  <div className={styles['p-articles__card-image-wrapper']}>
+                    <Link
+                      to={blogDetailPath(article.id)}
+                      className={styles['p-articles__card-image-link']}
+                      aria-label={article.title}
+                    >
+                      <img
+                        src={article.coverImage}
+                        alt={article.title}
+                        className={styles['p-articles__card-image']}
+                        loading="lazy"
+                      />
+                    </Link>
+                  </div>
+                )}
 
-              {/* ─── Date Badge ─── */}
-              <a href="#" className={styles['p-articles__card-date']}>
-                {article.date}
-              </a>
+                {/* ─── Date Badge ─── */}
+                <Link to={blogDetailPath(article.id)} className={styles['p-articles__card-date']}>
+                  {formatDate(article.postedAt)}
+                </Link>
 
-              {/* ─── Card Content ─── */}
-              <div className={styles['p-articles__card-content']}>
-                <div className={styles['p-articles__card-author']}>
-                  <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
-                  <a href="#" className={styles['p-articles__card-author-link']}>
-                    {article.author}
-                  </a>
+                {/* ─── Card Content ─── */}
+                <div className={styles['p-articles__card-content']}>
+                  {article.author && (
+                    <div className={styles['p-articles__card-author']}>
+                      <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
+                      <span className={styles['p-articles__card-author-link']}>{article.author}</span>
+                    </div>
+                  )}
+                  <h3 className={styles['p-articles__card-title']}>
+                    <Link to={blogDetailPath(article.id)}>{article.title}</Link>
+                  </h3>
                 </div>
-                <h3 className={styles['p-articles__card-title']}>
-                  <a href={article.href}>{article.title}</a>
-                </h3>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+            {articles?.length === 0 && <p>Chưa có bài viết nào.</p>}
+          </div>
+        )}
       </div>
     </section>
   )

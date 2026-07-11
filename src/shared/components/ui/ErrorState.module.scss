@@ -1,0 +1,15 @@
+.c-error-state {
+  border-radius: 6px;
+  border: 1px solid #fca5a5;
+  background-color: rgba(239, 68, 68, 0.1);
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #b91c1c;
+
+  &__retry {
+    margin-top: 8px;
+    color: var(--accent);
+    text-decoration: underline;
+  }
+}

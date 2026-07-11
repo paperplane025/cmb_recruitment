@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSiteStats } from '../../hooks/useSiteStats.ts'
+import { LoadingState } from '@/shared/components/ui/LoadingState.tsx'
 import styles from './JobesStats.module.scss'
 
 // Import SVG images from assets
@@ -6,6 +8,9 @@ import counterIcon1 from '@/assets/images/home4-counter-1.svg'
 import counterIcon2 from '@/assets/images/home4-counter-2.svg'
 import counterIcon3 from '@/assets/images/home4-counter-3.svg'
 import counterIcon4 from '@/assets/images/home4-counter-4.svg'
+
+// Icon luân phiên theo thứ tự — số liệu lấy động từ wp-admin nên không gắn cứng icon theo nội dung cụ thể.
+const STAT_ICONS = [counterIcon1, counterIcon2, counterIcon3, counterIcon4]
 
 /* ─── Count-up hook ─── */
 
@@ -33,38 +38,33 @@ function useCountUp(target: number, isVisible: boolean, duration = 1800) {
   return count
 }
 
-/* ─── Stat data ─── */
+/* ─── Single stat card ─── */
 
-interface StatItem {
+function StatCard({
+  iconSrc,
+  value,
+  suffix,
+  label,
+  isVisible,
+}: {
   iconSrc: string
   value: number
   suffix: string
   label: string
-  id: string
-}
-
-const STATS: StatItem[] = [
-  { id: 'stat-recruiters', iconSrc: counterIcon1, value: 800, suffix: 'K+', label: 'Tổng nhà tuyển dụng' },
-  { id: 'stat-users', iconSrc: counterIcon2, value: 600, suffix: 'K+', label: 'Lượt truy cập mỗi ngày' },
-  { id: 'stat-jobs', iconSrc: counterIcon3, value: 10, suffix: 'K+', label: 'Việc làm đăng mỗi ngày' },
-  { id: 'stat-applied', iconSrc: counterIcon4, value: 700, suffix: 'K+', label: 'Tổng lượt ứng tuyển' },
-]
-
-/* ─── Single stat card ─── */
-
-function StatCard({ stat, isVisible }: { stat: StatItem; isVisible: boolean }) {
-  const count = useCountUp(stat.value, isVisible)
+  isVisible: boolean
+}) {
+  const count = useCountUp(value, isVisible)
   return (
-    <div className={styles['p-stats__item']} id={stat.id}>
+    <div className={styles['p-stats__item']}>
       <div className={styles['p-stats__icon-wrapper']}>
-        <img src={stat.iconSrc} alt={stat.label} className={styles['p-stats__icon-img']} />
+        <img src={iconSrc} alt={label} className={styles['p-stats__icon-img']} />
       </div>
       <div className={styles['p-stats__content']}>
         <div className={styles['p-stats__number-wrapper']}>
           <h3 className={styles['p-stats__number']}>{count}</h3>
-          <span className={styles['p-stats__suffix']}>{stat.suffix}</span>
+          <span className={styles['p-stats__suffix']}>{suffix}</span>
         </div>
-        <p className={styles['p-stats__label']}>{stat.label}</p>
+        <p className={styles['p-stats__label']}>{label}</p>
       </div>
     </div>
   )
@@ -75,6 +75,7 @@ function StatCard({ stat, isVisible }: { stat: StatItem; isVisible: boolean }) {
 export function JobesStats() {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const { data: stats, isLoading } = useSiteStats()
 
   useEffect(() => {
     const el = ref.current
@@ -100,11 +101,24 @@ export function JobesStats() {
       id="platform-stats-section"
       aria-label="Thống kê nền tảng"
     >
-      <div className={`${styles['p-stats__container']} l-container`}>
-        {STATS.map((stat) => (
-          <StatCard key={stat.id} stat={stat} isVisible={isVisible} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className={styles['p-stats__loading']}>
+          <LoadingState />
+        </div>
+      ) : (
+        <div className={`${styles['p-stats__container']} l-container`}>
+          {stats?.map((stat, idx) => (
+            <StatCard
+              key={stat.label}
+              iconSrc={stat.iconUrl ?? STAT_ICONS[idx % STAT_ICONS.length] ?? counterIcon1}
+              value={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+              isVisible={isVisible}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

@@ -1,6 +1,6 @@
 import { env } from '@/configs/env.ts'
 import { mockJobs } from '@/mocks/jobs.ts'
-import type { Job, JobFilters, PaginatedJobs } from '@/features/job/types.ts'
+import type { Job, JobFilters, JobFacets, FacetItem, PaginatedJobs } from '@/features/job/types.ts'
 import { delay } from '@/shared/lib/delay.ts'
 import { apiClient } from './client.ts'
 
@@ -44,13 +44,15 @@ function applyFilters(jobs: Job[], filters: JobFilters): Job[] {
   }
 
   if (filters.category) {
-    result = result.filter((job) => job.category === filters.category)
+    // Hỗ trợ nhiều danh mục cùng lúc (VD: "marketing,sales" từ card gộp ở trang chủ)
+    const categories = filters.category.split(',').filter(Boolean)
+    result = result.filter((job) => categories.includes(job.category))
   }
 
   if (filters.employmentType) {
-    result = result.filter(
-      (job) => job.employmentType === filters.employmentType,
-    )
+    // Hỗ trợ chọn nhiều loại hình cùng lúc — khớp job có chứa BẤT KỲ loại hình nào trong danh sách
+    const types = filters.employmentType.split(',').filter(Boolean)
+    result = result.filter((job) => job.employmentType.some((t) => types.includes(t)))
   }
 
   if (filters.datePosted && filters.datePosted !== 'all') {
@@ -68,8 +70,9 @@ function applyFilters(jobs: Job[], filters: JobFilters): Job[] {
   }
 
   if (filters.location) {
-    const loc = filters.location.toLowerCase()
-    result = result.filter((job) => job.location.toLowerCase().includes(loc))
+    // Hỗ trợ nhiều khu vực cùng lúc, tương tự category
+    const locations = filters.location.split(',').filter(Boolean)
+    result = result.filter((job) => locations.includes(job.location))
   }
 
   return result
@@ -129,9 +132,7 @@ export const jobService = {
     return data
   },
 
-  getCategories: async (): Promise<
-    Array<{ key: string; label: string; count: number }>
-  > => {
+  getCategories: async (): Promise<FacetItem[]> => {
     if (env.enableMockApi) {
       await delay(200)
       const categoryLabels: Record<string, string> = {
@@ -155,32 +156,123 @@ export const jobService = {
       }))
     }
 
-    const { data } =
-      await apiClient.get<
-        Array<{ key: string; label: string; count: number }>
-      >('/jobs/categories')
+    const { data } = await apiClient.get<FacetItem[]>('/jobs/categories')
     return data
   },
 
-  getLocations: async (): Promise<
-    Array<{ name: string; count: number }>
-  > => {
+  getLocations: async (): Promise<FacetItem[]> => {
     if (env.enableMockApi) {
       await delay(200)
       const counts = new Map<string, number>()
+      const labels = new Map<string, string>()
       for (const job of mockJobs) {
         counts.set(job.location, (counts.get(job.location) ?? 0) + 1)
+        labels.set(job.location, job.locationLabel ?? job.location)
       }
-      return Array.from(counts.entries()).map(([name, count]) => ({
-        name,
+      return Array.from(counts.entries()).map(([key, count]) => ({
+        key,
+        label: labels.get(key) ?? key,
         count,
       }))
     }
 
-    const { data } =
-      await apiClient.get<Array<{ name: string; count: number }>>(
-        '/jobs/locations',
-      )
+    const { data } = await apiClient.get<FacetItem[]>('/jobs/locations')
+    return data
+  },
+
+  getFacets: async (): Promise<JobFacets> => {
+    if (env.enableMockApi) {
+      await delay(200)
+
+      const categoryLabels: Record<string, string> = {
+        engineering: 'Kỹ thuật',
+        design: 'Thiết kế',
+        marketing: 'Marketing',
+        sales: 'Kinh doanh',
+        hr: 'Nhân sự',
+        finance: 'Tài chính',
+        operations: 'Vận hành',
+        product: 'Sản phẩm',
+      }
+      const employmentTypeLabels: Record<string, string> = {
+        'full-time': 'Toàn thời gian',
+        'part-time': 'Bán thời gian',
+        contract: 'Hợp đồng',
+        internship: 'Thực tập',
+        remote: 'Từ xa',
+      }
+
+      // Một job có thể có nhiều loại hình — đếm job vào tất cả các loại hình nó thuộc về.
+      const countByEmploymentType = (labels: Record<string, string>) => {
+        const counts = new Map<string, number>()
+        for (const job of mockJobs) {
+          for (const type of job.employmentType) {
+            counts.set(type, (counts.get(type) ?? 0) + 1)
+          }
+        }
+        return Array.from(counts.entries()).map(([key, count]) => ({
+          key,
+          label: labels[key] ?? key,
+          count,
+        }))
+      }
+
+      const countBy = (getKey: (job: Job) => string, labels: Record<string, string>) => {
+        const counts = new Map<string, number>()
+        for (const job of mockJobs) {
+          const key = getKey(job)
+          counts.set(key, (counts.get(key) ?? 0) + 1)
+        }
+        return Array.from(counts.entries()).map(([key, count]) => ({
+          key,
+          label: labels[key] ?? key,
+          count,
+        }))
+      }
+
+      const dateBuckets = [
+        { key: 'today', label: 'Hôm nay', range: 'today' },
+        { key: 'this-week', label: 'Tuần này', range: 'this-week' },
+        { key: 'this-month', label: 'Tháng này', range: 'this-month' },
+      ]
+      const salaryBuckets = [
+        { min: 5_000_000, max: 15_000_000, label: '5 – 15 triệu' },
+        { min: 15_000_000, max: 25_000_000, label: '15 – 25 triệu' },
+        { min: 25_000_000, max: 40_000_000, label: '25 – 40 triệu' },
+        { min: 40_000_000, max: 60_000_000, label: '40 – 60 triệu' },
+        { min: 60_000_000, max: 999_000_000, label: 'Trên 60 triệu' },
+      ]
+
+      const locationCounts = new Map<string, number>()
+      const locationLabels = new Map<string, string>()
+      for (const job of mockJobs) {
+        locationCounts.set(job.location, (locationCounts.get(job.location) ?? 0) + 1)
+        locationLabels.set(job.location, job.locationLabel ?? job.location)
+      }
+
+      return {
+        categories: countBy((job) => job.category, categoryLabels),
+        locations: Array.from(locationCounts.entries()).map(([key, count]) => ({
+          key,
+          label: locationLabels.get(key) ?? key,
+          count,
+        })),
+        employmentTypes: countByEmploymentType(employmentTypeLabels),
+        datePosted: dateBuckets.map((bucket) => ({
+          key: bucket.key,
+          label: bucket.label,
+          count: mockJobs.filter((job) => isWithinDateRange(job.postedAt, bucket.range)).length,
+        })),
+        salaryRanges: salaryBuckets.map((bucket) => ({
+          ...bucket,
+          count: mockJobs.filter(
+            (job) => job.salary.max >= bucket.min && job.salary.min <= bucket.max,
+          ).length,
+        })),
+      }
+    }
+
+    const { data } = await apiClient.get<JobFacets>('/jobs/facets')
     return data
   },
 }

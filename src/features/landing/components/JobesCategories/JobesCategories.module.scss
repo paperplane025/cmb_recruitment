@@ -10,6 +10,13 @@
     padding: 40px 0;
   }
 
+  &__loading {
+    display: flex;
+    min-height: 280px;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__header {
     margin-bottom: 48px;
     text-align: left;
@@ -83,12 +90,16 @@
   /* ─── 3D Flip Card Styles ─── */
 
   &__card {
+    display: block;
     background-color: transparent;
     perspective: 1000px;
     width: 100%;
     height: 245px;
     /* balanced card height */
     box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 
     &-inner {
       position: relative;

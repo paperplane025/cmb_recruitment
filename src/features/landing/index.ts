@@ -4,7 +4,10 @@ export { JobesFeaturedJobs } from './components/JobesFeaturedJobs/JobesFeaturedJ
 export { JobesStats } from './components/JobesStats/JobesStats.tsx'
 export { JobesLocations } from './components/JobesLocations/JobesLocations.tsx'
 export { JobesTestimonials } from './components/JobesTestimonials/JobesTestimonials.tsx'
-export { JobesTrustedCompanies } from './components/JobesTrustedCompanies/JobesTrustedCompanies.tsx'
-export { JobesTopRecruiters } from './components/JobesTopRecruiters/JobesTopRecruiters.tsx'
 export { JobesArticles } from './components/JobesArticles/JobesArticles.tsx'
+export type { SiteStat, Testimonial, FooterInfo } from './types.ts'
+export { useSiteStats } from './hooks/useSiteStats.ts'
+export { useTestimonials } from './hooks/useTestimonials.ts'
+export { useCompanyGallery } from './hooks/useCompanyGallery.ts'
+export { useFooterInfo } from './hooks/useFooterInfo.ts'
 

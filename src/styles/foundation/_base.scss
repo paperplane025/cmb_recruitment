@@ -1,6 +1,12 @@
 @import "./variables";
 @import "./mixins";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;

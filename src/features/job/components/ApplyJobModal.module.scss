@@ -16,7 +16,7 @@
   &__content {
     position: relative;
     width: 100%;
-    max-width: 560px;
+    max-width: 680px;
     max-height: 90vh;
     overflow-y: auto;
     background-color: var(--white);
@@ -135,6 +135,16 @@
     &:focus {
       border-color: var(--jobes-teal);
       box-shadow: 0 0 0 4px var(--jobes-teal-light);
+    }
+
+    // Trình duyệt tự tô nền vàng/xám khi autofill — ép về màu nền/chữ như bình thường.
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--text-h);
+      -webkit-box-shadow: 0 0 0 1000px var(--white) inset;
+      box-shadow: 0 0 0 1000px var(--white) inset;
+      transition: background-color 9999s ease-in-out 0s;
     }
   }
 

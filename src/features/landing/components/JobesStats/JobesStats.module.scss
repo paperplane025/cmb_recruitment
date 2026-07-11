@@ -11,6 +11,13 @@
     padding: 40px 0;
   }
 
+  &__loading {
+    display: flex;
+    min-height: 120px;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* ─── Container Wrapper ─── */
   &__container {
     display: flex;

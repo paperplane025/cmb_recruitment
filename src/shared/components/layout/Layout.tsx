@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router'
 import { Footer } from './Footer.tsx'
 import { Header } from './Header.tsx'
+import styles from './Layout.module.scss'
 
 export function Layout() {
   const location = useLocation()
@@ -10,9 +11,11 @@ export function Layout() {
   const isFullBleed = isHome || isJobsPage || isAuthPage
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className={styles['l-layout']}>
       <Header />
-      <main className={`flex-1 ${isFullBleed ? '' : 'px-6 py-8 l-container'}`}>
+      <main
+        className={`${styles['l-layout__main']} ${isFullBleed ? '' : `${styles['l-layout__main--contained']} l-container`}`}
+      >
         <Outlet />
       </main>
       <Footer />

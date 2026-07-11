@@ -1,3 +1,5 @@
+import styles from './ErrorState.module.scss'
+
 type ErrorStateProps = {
   message?: string
   onRetry?: () => void
@@ -8,14 +10,10 @@ export function ErrorState({
   onRetry,
 }: ErrorStateProps) {
   return (
-    <div className="rounded-md border border-red-300 bg-red-500/10 p-4 text-left text-sm text-red-700 dark:text-red-300">
+    <div className={styles['c-error-state']}>
       <p>{message}</p>
       {onRetry ? (
-        <button
-          type="button"
-          onClick={onRetry}
-          className="mt-2 text-[var(--accent)] underline"
-        >
+        <button type="button" onClick={onRetry} className={styles['c-error-state__retry']}>
           Thử lại
         </button>
       ) : null}
