@@ -1,4 +1,4 @@
-import { JobesHero, JobesCategories, JobesFeaturedJobs, JobesStats, JobesLocations, JobesTestimonials, JobesArticles } from '@/features/landing/index.ts'
+import { JobesHero, JobesCategories, JobesFeaturedJobs, JobesStats, JobesLocations, JobesArticles } from '@/features/landing/index.ts'
 import styles from './HomePage.module.scss'
 
 export function HomePage() {
@@ -10,7 +10,6 @@ export function HomePage() {
       <JobesFeaturedJobs />
       <JobesStats />
       <JobesLocations />
-      <JobesTestimonials />
       <JobesArticles />
     </div>
   )

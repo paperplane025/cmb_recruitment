@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router'
+import { Outlet, ScrollRestoration, useLocation } from 'react-router'
 import { Footer } from './Footer.tsx'
 import { Header } from './Header.tsx'
 import styles from './Layout.module.scss'
@@ -19,6 +19,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollRestoration />
     </div>
   )
 }

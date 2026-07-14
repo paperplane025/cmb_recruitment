@@ -15,13 +15,14 @@ export type Job = {
   id: string
   title: string
   company: string
+  /** Một job có thể thuộc nhiều khu vực — nhiều slug cách nhau bởi dấu phẩy (VD: "ha-noi,da-nang"). */
   location: string
   description: string
   postedAt: string
   category: JobCategory
   /** Tên danh mục thật lấy từ term taxonomy (fallback dùng getCategoryLabel khi thiếu, ví dụ ở mock data). */
   categoryLabel?: string
-  /** Tên khu vực thật lấy từ term taxonomy (fallback dùng location khi thiếu, ví dụ ở mock data). */
+  /** Tên khu vực thật lấy từ term taxonomy, nhiều khu vực cách nhau bởi ", " (fallback dùng location khi thiếu, ví dụ ở mock data). */
   locationLabel?: string
   /** Một job có thể thuộc nhiều loại hình cùng lúc (VD: vừa full-time vừa remote). */
   employmentType: EmploymentType[]

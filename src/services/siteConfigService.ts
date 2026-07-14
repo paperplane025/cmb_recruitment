@@ -1,5 +1,5 @@
 import { env } from '@/configs/env.ts'
-import type { FooterInfo, HeroBanner, SiteStat, Testimonial } from '@/features/landing/types.ts'
+import type { FooterInfo, HeroBanner, SiteStat } from '@/features/landing/types.ts'
 import { delay } from '@/shared/lib/delay.ts'
 import { apiClient } from './client.ts'
 
@@ -10,21 +10,6 @@ const mockStats: SiteStat[] = [
   { label: 'Lượt truy cập mỗi ngày', value: 600, suffix: 'K+', iconUrl: null },
   { label: 'Việc làm đăng mỗi ngày', value: 10, suffix: 'K+', iconUrl: null },
   { label: 'Tổng lượt ứng tuyển', value: 700, suffix: 'K+', iconUrl: null },
-]
-
-const mockTestimonials: Testimonial[] = [
-  {
-    name: 'Ông Jacoline Frankly',
-    role: 'Kỹ sư UI/UX',
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    avatarUrl: null,
-  },
-  {
-    name: 'Ông Robertson Maike',
-    role: 'Lập trình viên PHP',
-    quote: 'Mặt khác, chúng tôi lên án một cách chính đáng và không ưa những người bị mê hoặc và suy đồi.',
-    avatarUrl: null,
-  },
 ]
 
 const mockFooterInfo: FooterInfo = {
@@ -53,15 +38,6 @@ export const siteConfigService = {
       return mockStats
     }
     const { data } = await apiClient.get<SiteStat[]>('/stats')
-    return data
-  },
-
-  getTestimonials: async (): Promise<Testimonial[]> => {
-    if (env.enableMockApi) {
-      await delay(MOCK_DELAY_MS)
-      return mockTestimonials
-    }
-    const { data } = await apiClient.get<Testimonial[]>('/testimonials')
     return data
   },
 

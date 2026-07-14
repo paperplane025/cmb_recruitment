@@ -70,9 +70,12 @@ function applyFilters(jobs: Job[], filters: JobFilters): Job[] {
   }
 
   if (filters.location) {
-    // Hỗ trợ nhiều khu vực cùng lúc, tương tự category
+    // Hỗ trợ nhiều khu vực cùng lúc — khớp job có chứa BẤT KỲ khu vực nào trong danh sách
+    // (job.location có thể chứa nhiều slug cách nhau bởi dấu phẩy).
     const locations = filters.location.split(',').filter(Boolean)
-    result = result.filter((job) => locations.includes(job.location))
+    result = result.filter((job) =>
+      job.location.split(',').some((loc) => locations.includes(loc)),
+    )
   }
 
   return result
@@ -166,8 +169,12 @@ export const jobService = {
       const counts = new Map<string, number>()
       const labels = new Map<string, string>()
       for (const job of mockJobs) {
-        counts.set(job.location, (counts.get(job.location) ?? 0) + 1)
-        labels.set(job.location, job.locationLabel ?? job.location)
+        const locs = job.location.split(',').filter(Boolean)
+        const locLabels = (job.locationLabel ?? job.location).split(',').filter(Boolean)
+        locs.forEach((loc, idx) => {
+          counts.set(loc, (counts.get(loc) ?? 0) + 1)
+          labels.set(loc, (locLabels[idx] ?? loc).trim())
+        })
       }
       return Array.from(counts.entries()).map(([key, count]) => ({
         key,
@@ -246,8 +253,12 @@ export const jobService = {
       const locationCounts = new Map<string, number>()
       const locationLabels = new Map<string, string>()
       for (const job of mockJobs) {
-        locationCounts.set(job.location, (locationCounts.get(job.location) ?? 0) + 1)
-        locationLabels.set(job.location, job.locationLabel ?? job.location)
+        const locs = job.location.split(',').filter(Boolean)
+        const locLabels = (job.locationLabel ?? job.location).split(',').filter(Boolean)
+        locs.forEach((loc, idx) => {
+          locationCounts.set(loc, (locationCounts.get(loc) ?? 0) + 1)
+          locationLabels.set(loc, (locLabels[idx] ?? loc).trim())
+        })
       }
 
       return {

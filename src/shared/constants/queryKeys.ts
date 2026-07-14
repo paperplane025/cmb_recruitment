@@ -21,7 +21,6 @@ export const queryKeys = {
   },
   siteConfig: {
     stats: ['siteConfig', 'stats'] as const,
-    testimonials: ['siteConfig', 'testimonials'] as const,
     companyGallery: ['siteConfig', 'companyGallery'] as const,
     footerInfo: ['siteConfig', 'footerInfo'] as const,
     heroBanner: ['siteConfig', 'heroBanner'] as const,

@@ -71,7 +71,7 @@ function FeaturedJobCard({ job }: FeaturedJobCardProps) {
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Địa điểm: <strong>{job.location}</strong>
+                Địa điểm: <strong>{job.locationLabel ?? job.location}</strong>
               </span>
             </li>
             <li className={styles['p-featured-jobs__card-meta-item']}>
