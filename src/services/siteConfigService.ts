@@ -1,5 +1,5 @@
 import { env } from '@/configs/env.ts'
-import type { FooterInfo, SiteStat, Testimonial } from '@/features/landing/types.ts'
+import type { FooterInfo, HeroBanner, SiteStat, Testimonial } from '@/features/landing/types.ts'
 import { delay } from '@/shared/lib/delay.ts'
 import { apiClient } from './client.ts'
 
@@ -33,6 +33,10 @@ const mockFooterInfo: FooterInfo = {
   twitterUrl: '#',
   linkedinUrl: '#',
   instagramUrl: '#',
+}
+
+const mockHeroBanner: HeroBanner = {
+  imageUrl: null,
 }
 
 const mockCompanyGallery: string[] = [
@@ -76,6 +80,15 @@ export const siteConfigService = {
       return mockFooterInfo
     }
     const { data } = await apiClient.get<FooterInfo>('/footer-info')
+    return data
+  },
+
+  getHeroBanner: async (): Promise<HeroBanner> => {
+    if (env.enableMockApi) {
+      await delay(MOCK_DELAY_MS)
+      return mockHeroBanner
+    }
+    const { data } = await apiClient.get<HeroBanner>('/hero-banner')
     return data
   },
 }

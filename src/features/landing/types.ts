@@ -19,3 +19,7 @@ export type FooterInfo = {
   linkedinUrl: string | null
   instagramUrl: string | null
 }
+
+export type HeroBanner = {
+  imageUrl: string | null
+}

@@ -24,6 +24,7 @@ export const queryKeys = {
     testimonials: ['siteConfig', 'testimonials'] as const,
     companyGallery: ['siteConfig', 'companyGallery'] as const,
     footerInfo: ['siteConfig', 'footerInfo'] as const,
+    heroBanner: ['siteConfig', 'heroBanner'] as const,
   },
   contact: {
     info: ['contact', 'info'] as const,

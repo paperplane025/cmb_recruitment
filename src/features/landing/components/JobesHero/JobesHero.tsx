@@ -2,9 +2,10 @@ import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { APP_ROUTES } from '@/shared/constants/index.ts'
 import { useJobCategories } from '@/features/job/index.ts'
+import { useHeroBanner } from '../../hooks/useHeroBanner.ts'
 import styles from './JobesHero.module.scss'
 import heroWoman from '@/assets/images/jobes_hero_woman.png'
-import bannerImage from '@/assets/images/banner.png'
+import defaultBannerImage from '@/assets/images/banner.png'
 
 // Tạm thời tắt banner cũ, hiển thị ảnh banner mới
 const SHOW_OLD_HERO_BANNER = false
@@ -17,6 +18,8 @@ export function JobesHero() {
   const navigate = useNavigate()
 
   const { data: categories } = useJobCategories()
+  const { data: heroBanner } = useHeroBanner()
+  const bannerImage = heroBanner?.imageUrl || defaultBannerImage
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
