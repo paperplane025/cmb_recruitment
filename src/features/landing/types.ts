@@ -5,13 +5,6 @@ export type SiteStat = {
   iconUrl: string | null
 }
 
-export type Testimonial = {
-  name: string
-  role: string
-  quote: string
-  avatarUrl: string | null
-}
-
 export type FooterInfo = {
   hotline: string | null
   facebookUrl: string | null
