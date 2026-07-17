@@ -386,6 +386,32 @@
         }
       }
     }
+
+    &--back {
+      background-color: #ffffff;
+      border: 1px solid #eaeeee;
+      color: var(--title-color1);
+
+      &::before {
+        background-color: var(--jobes-teal);
+      }
+
+      &:hover {
+        color: #ffffff;
+        border-color: var(--jobes-teal);
+        box-shadow: 0 6px 18px rgba(0, 81, 152, 0.2);
+
+        &::before {
+          transform: scaleX(1);
+        }
+      }
+
+      @include respond-to('lg', 'max') {
+        span {
+          display: none;
+        }
+      }
+    }
   }
 
   /* Mobile menu button */

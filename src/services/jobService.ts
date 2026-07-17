@@ -81,6 +81,21 @@ function applyFilters(jobs: Job[], filters: JobFilters): Job[] {
   return result
 }
 
+function applySort(jobs: Job[], sort: JobFilters['sort']): Job[] {
+  const sorted = [...jobs]
+  switch (sort) {
+    case 'salary':
+      return sorted.sort((a, b) => b.salary.max - a.salary.max)
+    case 'applications':
+    // Mock data không có số liệu ứng tuyển thực (đến từ CPT don_ung_tuyen riêng trên WP) —
+    // API thật xếp theo số hồ sơ ứng tuyển, mock tạm fallback về mới nhất trước.
+    default:
+      return sorted.sort(
+        (a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime(),
+      )
+  }
+}
+
 export const jobService = {
   getAll: async (
     filters: JobFilters = {},
@@ -91,10 +106,7 @@ export const jobService = {
       await delay(MOCK_DELAY_MS)
 
       const filtered = applyFilters(mockJobs, filters)
-      const sorted = [...filtered].sort(
-        (a, b) =>
-          new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime(),
-      )
+      const sorted = applySort(filtered, filters.sort)
 
       const total = sorted.length
       const totalPages = Math.max(1, Math.ceil(total / pageSize))

@@ -37,6 +37,8 @@ export type Job = {
   experience?: string
   education?: string
   gender?: Gender
+  /** Số hồ sơ đã ứng tuyển vào job này — tính từ CPT don_ung_tuyen trên backend. */
+  applicationCount?: number
 }
 
 export type JobFilters = {
@@ -48,6 +50,7 @@ export type JobFilters = {
   salaryMin?: number
   salaryMax?: number
   location?: string
+  sort?: 'default' | 'salary' | 'applications'
 }
 
 export type PaginatedJobs = {

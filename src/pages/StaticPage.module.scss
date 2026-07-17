@@ -96,6 +96,8 @@
     }
 
     &-separator {
+      display: inline-flex;
+      align-items: center;
       color: var(--jobes-teal);
       font-size: 10px;
     }

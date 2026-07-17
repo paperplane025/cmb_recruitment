@@ -112,7 +112,7 @@ export function Footer() {
         <div className="l-container">
           <div className={styles['p-footer__bottom-inner']}>
             {/* ─── Left: Support + Copyright ─── */}
-            <div>
+            <div className={styles['p-footer__bottom-left']}>
               {footerInfo?.hotline && (
                 <div className={styles['p-footer__support']}>
                   <span className={styles['p-footer__support-icon']} aria-hidden="true">

@@ -97,6 +97,8 @@
     }
 
     &-separator {
+      display: inline-flex;
+      align-items: center;
       color: var(--jobes-teal);
       font-size: 10px;
     }
@@ -951,6 +953,7 @@
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
+      pointer-events: none;
       border-color: var(--border);
       background-color: transparent;
       color: var(--text);
@@ -959,6 +962,17 @@
         color: var(--text);
       }
     }
+  }
+
+  &__ellipsis {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-weight: 600;
+    user-select: none;
   }
 
   &__explore-span {

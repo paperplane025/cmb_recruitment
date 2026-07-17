@@ -305,6 +305,11 @@ export function JobDetailPage() {
                   <span className={styles['p-job-summary-card__label']}>Giới tính:</span>
                   <span className={styles['p-job-summary-card__value']}>{genderLabel}</span>
                 </li>
+                <li className={styles['p-job-summary-card__item']}>
+                  <span className={styles['p-job-summary-card__dot']} />
+                  <span className={styles['p-job-summary-card__label']}>Đã ứng tuyển:</span>
+                  <span className={styles['p-job-summary-card__value']}>{job.applicationCount ?? 0} người</span>
+                </li>
               </ul>
             </div>
 
