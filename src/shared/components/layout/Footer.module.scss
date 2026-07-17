@@ -107,7 +107,6 @@
   &__bottom-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
 
@@ -115,6 +114,16 @@
       flex-direction: column;
       text-align: center;
       gap: 20px;
+    }
+  }
+
+  /* Trái/phải chia đều chiều rộng còn lại để logo ở giữa luôn canh đúng tâm,
+     bất kể nội dung 2 bên dài ngắn khác nhau. */
+  &__bottom-left {
+    flex: 1 1 0;
+
+    @include respond-to('md', 'max') {
+      flex: 0 0 auto;
     }
   }
 
@@ -164,6 +173,7 @@
   /* ─── Logo Center ─── */
   &__logo {
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
     align-items: center;
     gap: 2px;
@@ -196,12 +206,16 @@
   /* ─── Bottom Right: Nav + Social ─── */
   &__bottom-right {
     display: flex;
+    flex: 1 1 0;
     align-items: center;
+    justify-content: flex-end;
     gap: 24px;
     flex-wrap: wrap;
 
     @include respond-to('md', 'max') {
+      flex: 0 0 auto;
       flex-direction: column;
+      justify-content: center;
       gap: 16px;
     }
   }

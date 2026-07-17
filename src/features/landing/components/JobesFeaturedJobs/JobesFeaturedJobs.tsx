@@ -83,7 +83,7 @@ function FeaturedJobCard({ job }: FeaturedJobCardProps) {
             <li className={styles['p-featured-jobs__card-meta-item']}>
               <span className={styles['p-featured-jobs__card-dot']} aria-hidden="true" />
               <span>
-                Kinh nghiệm: <strong>1.5–3 Năm</strong>
+                Kinh nghiệm: <strong>{job.experience || 'Không yêu cầu'}</strong>
               </span>
             </li>
             <li className={styles['p-featured-jobs__card-meta-item']}>

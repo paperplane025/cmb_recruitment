@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import styles from './Header.module.scss'
 import companyLogo from '@/assets/images/Company Logo.svg'
+import { env } from '@/configs/env'
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -103,6 +104,28 @@ export function Header() {
 
             {/* Actions */}
             <div className={styles['p-header__actions']}>
+              {/* Back to WordPress site button */}
+              <a
+                href={env.wordpressSiteUrl}
+                className={`${styles['p-header__btn']} ${styles['p-header__btn--back']}`}
+                id="back-to-wordpress-site"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ width: 18, height: 18 }}
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                <span>Về trang chủ công ty</span>
+              </a>
+
               {/* Mobile Hamburger Button */}
               <button
                 className={styles['p-header__toggle']}
@@ -207,6 +230,28 @@ export function Header() {
           })}
         </ul>
 
+        {/* Back to WordPress site button (mobile) */}
+        <a
+          href={env.wordpressSiteUrl}
+          className={`${styles['p-header__btn']} ${styles['p-header__btn--back']}`}
+          id="back-to-wordpress-site-mobile"
+          onClick={closeMobileMenu}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ width: 18, height: 18 }}
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Về trang chủ công ty
+        </a>
       </div>
     </>
   )

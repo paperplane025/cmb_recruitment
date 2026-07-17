@@ -40,9 +40,12 @@
   }
 
   &__title {
+    color: var(--text-h);
     margin-top: 8px;
     font-size: 18px;
-    color: var(--text-h);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
 
     a {
       color: inherit;

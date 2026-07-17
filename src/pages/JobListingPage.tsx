@@ -24,6 +24,40 @@ const LOGO_COLORS: Record<string, string> = {
   product: '#d35400',
 }
 
+const PAGINATION_ELLIPSIS = 'ellipsis'
+
+// Rút gọn dải số trang khi có nhiều trang (VD: 1 ... 4 5 6 ... 20), tránh liệt kê hết toàn bộ số trang.
+function getPaginationRange(current: number, total: number, siblingCount = 1): (number | typeof PAGINATION_ELLIPSIS)[] {
+  const totalVisible = siblingCount * 2 + 5
+
+  if (total <= totalVisible) {
+    return Array.from({ length: total }, (_, i) => i + 1)
+  }
+
+  const leftSibling = Math.max(current - siblingCount, 1)
+  const rightSibling = Math.min(current + siblingCount, total)
+  const showLeftEllipsis = leftSibling > 2
+  const showRightEllipsis = rightSibling < total - 1
+
+  if (!showLeftEllipsis && showRightEllipsis) {
+    const leftItemCount = 3 + siblingCount * 2
+    return [...Array.from({ length: leftItemCount }, (_, i) => i + 1), PAGINATION_ELLIPSIS, total]
+  }
+
+  if (showLeftEllipsis && !showRightEllipsis) {
+    const rightItemCount = 3 + siblingCount * 2
+    return [1, PAGINATION_ELLIPSIS, ...Array.from({ length: rightItemCount }, (_, i) => total - rightItemCount + i + 1)]
+  }
+
+  return [
+    1,
+    PAGINATION_ELLIPSIS,
+    ...Array.from({ length: rightSibling - leftSibling + 1 }, (_, i) => leftSibling + i),
+    PAGINATION_ELLIPSIS,
+    total,
+  ]
+}
+
 function getInitials(company: string) {
   return company
     .split(' ')
@@ -57,7 +91,6 @@ export function JobListingPage() {
   )
   const [page, setPage] = useState(1)
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list')
-  const [sortOption, setSortOption] = useState<string>('default')
 
   // React Router không remount lại trang khi vẫn ở cùng route (VD: bấm danh mục ở
   // trang chủ trong lúc đã đang ở /jobs) — cần đồng bộ lại filter mỗi khi có điều
@@ -95,6 +128,11 @@ export function JobListingPage() {
         : [...current, key]
       return { ...prev, employmentType: next.length ? next.join(',') : undefined }
     })
+    setPage(1)
+  }
+
+  const handleSortChange = (sort: JobFilters['sort']) => {
+    setFilters((prev) => ({ ...prev, sort }))
     setPage(1)
   }
 
@@ -250,9 +288,6 @@ export function JobListingPage() {
               </ul>
             </div>
 
-            <button className={styles['p-job-filter-sidebar__alert-btn']}>
-              Đến trang thông báo việc làm
-            </button>
           </aside>
 
           {/* ─── Right Content Panel ─── */}
@@ -266,13 +301,13 @@ export function JobListingPage() {
               
               <div className={styles['p-job-listing-content__controls']}>
                 <select
-                  value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
+                  value={filters.sort ?? 'default'}
+                  onChange={(e) => handleSortChange(e.target.value as JobFilters['sort'])}
                   className={styles['p-job-listing-content__sort-select']}
                 >
                   <option value="default">Sắp xếp (Mặc định)</option>
                   <option value="salary">Sắp xếp theo lương</option>
-                  <option value="newest">Sắp xếp mới nhất</option>
+                  <option value="applications">Ứng tuyển nhiều nhất</option>
                 </select>
 
                 <div className={styles['p-job-listing-content__view-toggle']}>
@@ -422,7 +457,7 @@ export function JobListingPage() {
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
-                                  <span>Kinh nghiệm: <strong>2-2.5 năm</strong></span>
+                                  <span>Kinh nghiệm: <strong>{job.experience || 'Không yêu cầu'}</strong></span>
                                 </li>
                                 <li className={styles['c-job-card-grid__meta-item']}>
                                   <span className={styles['c-job-card-grid__dot']} />
@@ -470,19 +505,23 @@ export function JobListingPage() {
                         <img src={exploreArrow} alt="" className={styles['c-pagination__explore-arrow']} />
                       </span>
                     </button>
-                    {Array.from({ length: data.totalPages }).map((_, idx) => {
-                      const p = idx + 1
-                      return (
+                    {getPaginationRange(page, data.totalPages).map((p, idx) =>
+                      p === PAGINATION_ELLIPSIS ? (
+                        <span key={`ellipsis-${idx}`} className={styles['c-pagination__ellipsis']} aria-hidden="true">
+                          …
+                        </span>
+                      ) : (
                         <button
                           key={p}
                           onClick={() => setPage(p)}
                           className={`${styles['c-pagination__btn']} ${page === p ? styles['c-pagination__btn--active'] : ''}`}
                           aria-label={`Đi đến trang ${p}`}
+                          aria-current={page === p ? 'page' : undefined}
                         >
                           {String(p).padStart(2, '0')}
                         </button>
-                      )
-                    })}
+                      ),
+                    )}
                     <button
                       className={`${styles['c-pagination__btn']} ${styles['c-pagination__btn--next']}`}
                       onClick={() => setPage((prev) => Math.min(data.totalPages, prev + 1))}
