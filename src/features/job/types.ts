@@ -17,6 +17,8 @@ export type Job = {
   company: string
   /** Một job có thể thuộc nhiều khu vực — nhiều slug cách nhau bởi dấu phẩy (VD: "ha-noi,da-nang"). */
   location: string
+  /** URL ảnh đại diện (Featured Image) của tin tuyển dụng — null nếu chưa thiết lập trên wp-admin. */
+  image?: string | null
   description: string
   postedAt: string
   category: JobCategory

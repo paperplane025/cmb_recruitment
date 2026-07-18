@@ -63,12 +63,6 @@ export function JobesArticles() {
 
                 {/* ─── Card Content ─── */}
                 <div className={styles['p-articles__card-content']}>
-                  {article.author && (
-                    <div className={styles['p-articles__card-author']}>
-                      <span className={styles['p-articles__card-author-dot']} aria-hidden="true" />
-                      <span className={styles['p-articles__card-author-link']}>{article.author}</span>
-                    </div>
-                  )}
                   <h3 className={styles['p-articles__card-title']}>
                     <Link to={blogDetailPath(article.id)}>{article.title}</Link>
                   </h3>

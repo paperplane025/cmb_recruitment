@@ -172,7 +172,7 @@ export function JobesFeaturedJobs() {
           </div>
         ) : (
           <div className={styles['p-featured-jobs__list']} role="list" aria-label="Việc làm nổi bật">
-            {jobs?.slice(0, 4).map((job) => (
+            {jobs?.slice(0, 5).map((job) => (
               <FeaturedJobCard key={job.id} job={job} />
             ))}
           </div>
