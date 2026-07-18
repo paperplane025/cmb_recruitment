@@ -11,6 +11,8 @@ export type ContactInfo = {
   emails: string[]
   workingHours: string
   offices: ContactOffice[]
+  /** Ảnh minh hoạ trang Liên hệ — cấu hình ở ACF Options "Liên hệ" (field contact_page_image). */
+  imageUrl?: string | null
 }
 
 export type ContactFormInput = {
