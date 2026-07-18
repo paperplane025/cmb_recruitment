@@ -34,7 +34,9 @@ export function ContactPage() {
   const { data: locations } = useJobLocations()
   const firstLocation = locations?.[0]
   const formImage =
-    firstLocation?.imageUrl ?? (firstLocation?.label ? getCityImage(firstLocation.label) : bannerImage)
+    info?.imageUrl ??
+    firstLocation?.imageUrl ??
+    (firstLocation?.label ? getCityImage(firstLocation.label) : bannerImage)
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM)
   const [error, setError] = useState<string | null>(null)
