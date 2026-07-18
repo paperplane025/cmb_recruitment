@@ -90,7 +90,6 @@ export function BlogDetailPage() {
 
             <div className={styles['p-blog-detail-main__meta']}>
               <span>{formatDate(post.postedAt)}</span>
-              {post.author && <span>Tác giả: {post.author}</span>}
             </div>
 
             <div

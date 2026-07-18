@@ -32,7 +32,9 @@ const INITIAL_FORM: FormState = {
 export function ContactPage() {
   const { data: info, isLoading } = useContactInfo()
   const { data: locations } = useJobLocations()
-  const formImage = locations?.[0]?.label ? getCityImage(locations[0].label) : bannerImage
+  const firstLocation = locations?.[0]
+  const formImage =
+    firstLocation?.imageUrl ?? (firstLocation?.label ? getCityImage(firstLocation.label) : bannerImage)
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM)
   const [error, setError] = useState<string | null>(null)

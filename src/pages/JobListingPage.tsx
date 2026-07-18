@@ -414,7 +414,7 @@ export function JobListingPage() {
                     <div className={styles['p-job-listing-content__grid-layout']}>
                       {data.items.map((job, idx) => {
                         const logoColor = LOGO_COLORS[job.category] ?? '#005198'
-                        const bannerSrc = idx % 2 === 0 ? cardBanner1 : cardBanner2
+                        const bannerSrc = job.image || (idx % 2 === 0 ? cardBanner1 : cardBanner2)
                         const formattedDate = new Date(job.postedAt).toLocaleDateString('vi-VN', {
                           day: '2-digit',
                           month: 'long',

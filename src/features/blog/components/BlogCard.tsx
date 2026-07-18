@@ -25,7 +25,6 @@ export function BlogCard({ post }: BlogCardProps) {
         <p className={styles['c-blog-card__excerpt']}>{post.excerpt}</p>
 
         <div className={styles['c-blog-card__footer']}>
-          <span className={styles['c-blog-card__author']}>{post.author}</span>
           <Link to={blogDetailPath(post.id)} className={styles['c-blog-card__link']}>
             Đọc tiếp →
           </Link>
