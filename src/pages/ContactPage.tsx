@@ -307,7 +307,13 @@ export function ContactPage() {
                           </svg>
                           {office.name}
                         </span>
-                        {office.address && <p className={styles['p-contact-offices__item-address']}>{office.address}</p>}
+                        {office.address && (
+                          <p className={styles['p-contact-offices__item-address']}>
+                            {office.address.split('\n').map((line, i) => (
+                              <span key={i}>{line}<br /></span>
+                            ))}
+                          </p>
+                        )}
                         {office.phone && (
                           <p className={styles['p-contact-offices__item-phone']}>
                             <a href={`tel:+${office.phone.replace(/[^0-9]/g, '')}`} onClick={(e) => e.stopPropagation()}>
