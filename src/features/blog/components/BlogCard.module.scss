@@ -87,12 +87,12 @@
   &__link {
     font-size: 14px;
     font-weight: 500;
-    color: var(--jobes-teal);
+    color: var(--dark-blue);
     text-decoration: none;
     transition: opacity 0.2s ease, color 0.2s ease;
 
     &:visited {
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
     }
 
     &:hover {

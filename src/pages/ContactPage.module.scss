@@ -103,7 +103,7 @@
     }
 
     &-current {
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
     }
   }
 }
@@ -182,17 +182,17 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: var(--jobes-teal);
+    color: var(--dark-blue);
   }
 
   &__value {
     font-size: 14px;
-    color: var(--text-h);
+    color: var(--text-color);
     line-height: 1.5;
 
     a {
       display: block;
-      color: var(--text-h);
+      color: var(--text-color);
       text-decoration: none;
       transition: color 0.2s ease;
 
@@ -286,7 +286,7 @@
     background-color: transparent;
     font-family: var(--sans);
     font-size: 0.875rem;
-    color: var(--text-h);
+    color: var(--text-color);
     outline: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -322,9 +322,9 @@
     align-self: flex-start;
     height: 50px;
     padding: 0 32px;
-    background-color: var(--jobes-teal);
+    background-color: var(--dark-blue);
     color: var(--white);
-    border: 1px solid var(--jobes-teal);
+    border: 1px solid var(--dark-blue);
     border-radius: 8px;
     font-family: var(--sans);
     font-size: 1rem;
@@ -465,7 +465,7 @@
     a {
       font-family: var(--sans);
       font-size: 13px;
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
       text-decoration: none;
       font-weight: 600;
 

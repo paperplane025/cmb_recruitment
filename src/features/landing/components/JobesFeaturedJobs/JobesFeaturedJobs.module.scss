@@ -54,7 +54,7 @@
     }
 
     &-accent {
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
       position: relative;
       display: inline-block;
     }
@@ -280,7 +280,7 @@
       line-height: 1.4;
 
       strong {
-        color: var(--text-h);
+        color: var(--text-color);
         font-weight: 600;
       }
     }
@@ -372,7 +372,7 @@
       font-family: var(--sans);
       font-size: 14px;
       font-weight: 500;
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
       text-decoration: none;
       flex-shrink: 0;
       transition: color 0.22s ease;

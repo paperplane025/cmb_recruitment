@@ -104,7 +104,7 @@
     }
 
     &-current {
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
     }
   }
 }
@@ -366,7 +366,7 @@
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 6px;
-    color: var(--text);
+    color: var(--text-color);
     cursor: pointer;
     transition: all 0.2s ease;
     padding: 0;
@@ -383,9 +383,9 @@
     }
 
     &--active {
-      background-color: var(--jobes-teal);
+      background-color: var(--dark-blue);
       color: #fff;
-      border-color: var(--jobes-teal);
+      border-color: var(--dark-blue);
 
       &:hover {
         background-color: var(--jobes-teal-hover);
@@ -550,7 +550,7 @@
     color: var(--text);
 
     strong {
-      color: var(--text-h);
+      color: var(--text-color);
       font-weight: 600;
     }
   }
@@ -779,7 +779,7 @@
     color: var(--text);
 
     strong {
-      color: var(--text-h);
+      color: var(--text-color);
       font-weight: 600;
     }
   }
@@ -876,7 +876,7 @@
     border-radius: 50%;
     border: 1.5px solid var(--border);
     background: transparent;
-    color: var(--text-h);
+    color: var(--text-color);
     font-family: var(--sans);
     font-size: 13.5px;
     font-weight: 600;
@@ -939,8 +939,8 @@
     }
 
     &--active {
-      background-color: var(--jobes-teal);
-      border-color: var(--jobes-teal);
+      background-color: var(--dark-blue);
+      border-color: var(--dark-blue);
       color: #fff;
 
       &:hover {

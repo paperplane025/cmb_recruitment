@@ -10,7 +10,7 @@ $breakpoints: (
 
 :root {
   --text: #595959;
-  --text-h: #061421;
+  --text-h: var(--dark-blue);
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
@@ -36,6 +36,9 @@ $breakpoints: (
   --title-color1: #061421;
   --text-color1: #595959;
   --white: #ffffff;
+
+  --dark-blue: #074c7d;
+  --text-color: #333;
 
   --sans: 'CMB', system-ui, -apple-system, sans-serif;
   --heading: 'CMB', system-ui, -apple-system, sans-serif;
