@@ -120,7 +120,7 @@
       gap: 6px;
       font-size: 15px;
       font-weight: 600;
-      color: var(--title-color1);
+      color: var(--dark-blue);
       text-decoration: none;
       height: 100%;
       position: relative;
@@ -135,11 +135,11 @@
       }
 
       &:hover {
-        color: var(--jobes-teal);
+        color: #0379cc;
       }
 
       &--active {
-        color: var(--jobes-teal) !important;
+        color: #0379cc !important;
       }
     }
 
@@ -390,7 +390,7 @@
     &--back {
       background-color: #ffffff;
       border: 1px solid #eaeeee;
-      color: var(--title-color1);
+      color: var(--dark-blue);
 
       &::before {
         background-color: var(--jobes-teal);
@@ -497,7 +497,7 @@
     &-link {
       font-size: 18px;
       font-weight: 600;
-      color: #3d4f4f;
+      color: var(--dark-blue);
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -509,11 +509,11 @@
       }
 
       &:hover {
-        color: var(--jobes-teal);
+        color: #0379cc;
       }
 
       &--active {
-        color: var(--jobes-teal) !important;
+        color: #0379cc !important;
       }
     }
 

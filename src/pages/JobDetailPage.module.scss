@@ -101,7 +101,7 @@
     }
 
     &-current {
-      color: var(--jobes-teal);
+      color: var(--dark-blue);
     }
   }
 }
@@ -232,7 +232,7 @@
     }
 
     strong {
-      color: var(--text-h);
+      color: var(--text-color);
       font-weight: 600;
     }
   }
@@ -249,7 +249,7 @@
   }
 
   &__apply {
-    background-color: var(--jobes-teal);
+    background-color: var(--dark-blue);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -464,6 +464,7 @@
 
   &__value {
     margin-left: auto;
+    color: var(--text-color);
   }
 }
 
@@ -681,7 +682,7 @@
     color: var(--text);
 
     strong {
-      color: var(--text-h);
+      color: var(--text-color);
       font-weight: 600;
     }
   }
