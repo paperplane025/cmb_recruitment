@@ -418,6 +418,7 @@
   &__item {
     width: 100%;
     text-align: left;
+    font-family: var(--sans);
     background: transparent;
     border: 1px solid transparent;
     border-radius: 10px;
@@ -439,6 +440,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    font-family: var(--sans);
     font-size: 14.5px;
     font-weight: 700;
     color: var(--text-h);
@@ -450,6 +452,7 @@
   }
 
   &__item-address {
+    font-family: var(--sans);
     font-size: 13px;
     color: var(--text);
     margin: 6px 0 0 22px;
@@ -460,6 +463,7 @@
     margin: 4px 0 0 22px;
 
     a {
+      font-family: var(--sans);
       font-size: 13px;
       color: var(--jobes-teal);
       text-decoration: none;
