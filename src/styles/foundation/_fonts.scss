@@ -1,0 +1,50 @@
+/* CMB (custom brand font) */
+@font-face {
+  font-family: 'CMB';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('/fonts/CMB-Thin.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/CMB-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/CMB-LightItalic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/CMB-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/CMB-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/CMB-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CMB';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/CMB-BoldItalic.ttf') format('truetype');
+}
