@@ -215,10 +215,10 @@ export function JobDetailPage() {
               />
             </section>
 
-            {/* Responsibilities / Requirements */}
+            {/* Candidate Requirements */}
             {job.requirements.length > 0 && (
               <section className={styles['p-job-detail-main__section']}>
-                <h3 className={styles['p-job-detail-main__section-title']}>Trách nhiệm công việc:</h3>
+                <h3 className={styles['p-job-detail-main__section-title']}>Yêu cầu ứng viên:</h3>
                 <ul className={styles['p-job-detail-main__list']}>
                   {job.requirements.map((req, idx) => (
                     <li key={idx} className={styles['p-job-detail-main__list-item']}>
@@ -230,37 +230,45 @@ export function JobDetailPage() {
               </section>
             )}
 
-            {/* Educational Requirements */}
-            <section className={styles['p-job-detail-main__section']}>
-              <h3 className={styles['p-job-detail-main__section-title']}>Yêu cầu học vấn:</h3>
-              <ul className={styles['p-job-detail-main__list']}>
-                <li className={styles['p-job-detail-main__list-item']}>
-                  <span className={styles['p-job-detail-main__bullet']} />
-                  <span>{job.education || 'Không yêu cầu'}</span>
-                </li>
-              </ul>
-            </section>
-
-            {/* Experience Requirements */}
-            <section className={styles['p-job-detail-main__section']}>
-              <h3 className={styles['p-job-detail-main__section-title']}>Kinh nghiệm:</h3>
-              <ul className={styles['p-job-detail-main__list']}>
-                <li className={styles['p-job-detail-main__list-item']}>
-                  <span className={styles['p-job-detail-main__bullet']} />
-                  <span>{job.experience || 'Không yêu cầu'}</span>
-                </li>
-              </ul>
-            </section>
-
             {/* Benefits */}
             {job.benefits.length > 0 && (
               <section className={styles['p-job-detail-main__section']}>
-                <h3 className={styles['p-job-detail-main__section-title']}>Quyền lợi khác:</h3>
+                <h3 className={styles['p-job-detail-main__section-title']}>Quyền lợi:</h3>
                 <ul className={styles['p-job-detail-main__list']}>
                   {job.benefits.map((benefit, idx) => (
                     <li key={idx} className={styles['p-job-detail-main__list-item']}>
                       <span className={styles['p-job-detail-main__bullet']} />
                       <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Application Documents */}
+            {(job.applicationDocuments?.length ?? 0) > 0 && (
+              <section className={styles['p-job-detail-main__section']}>
+                <h3 className={styles['p-job-detail-main__section-title']}>Hồ sơ dự tuyển:</h3>
+                <ul className={styles['p-job-detail-main__list']}>
+                  {job.applicationDocuments.map((doc, idx) => (
+                    <li key={idx} className={styles['p-job-detail-main__list-item']}>
+                      <span className={styles['p-job-detail-main__bullet']} />
+                      <span>{doc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* How to Apply */}
+            {(job.howToApply?.length ?? 0) > 0 && (
+              <section className={styles['p-job-detail-main__section']}>
+                <h3 className={styles['p-job-detail-main__section-title']}>Cách thức ứng tuyển:</h3>
+                <ul className={styles['p-job-detail-main__list']}>
+                  {job.howToApply.map((step, idx) => (
+                    <li key={idx} className={styles['p-job-detail-main__list-item']}>
+                      <span className={styles['p-job-detail-main__bullet']} />
+                      <span>{step}</span>
                     </li>
                   ))}
                 </ul>

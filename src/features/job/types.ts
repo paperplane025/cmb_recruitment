@@ -33,6 +33,8 @@ export type Job = {
   salaryText?: string
   requirements: string[]
   benefits: string[]
+  applicationDocuments: string[]
+  howToApply: string[]
   isFeatured: boolean
   deadline?: string | null
   vacancies?: number
