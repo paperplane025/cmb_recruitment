@@ -1,4 +1,4 @@
-import type { Job } from '@/features/job/types.ts'
+﻿import type { Job } from '@/features/job/types.ts'
 
 export const mockJobs: Job[] = [
   {
@@ -19,6 +19,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 2 năm kinh nghiệm',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Thưởng KPI', 'Flexible working hours'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
   {
@@ -39,6 +41,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 3 năm kinh nghiệm',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Thưởng KPI', '13th month salary'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
   {
@@ -59,6 +63,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 2 năm kinh nghiệm',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Macbook Pro', 'Creative budget'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
   {
@@ -79,6 +85,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 1 năm kinh nghiệm',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Training budget', 'Flexible schedule'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -98,6 +106,8 @@ export const mockJobs: Job[] = [
       'Thành thạo Microsoft Office',
     ],
     benefits: ['Mentoring program', 'Certificate', 'Cơ hội chuyển chính thức'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -118,6 +128,8 @@ export const mockJobs: Job[] = [
       'Tiếng Anh giao tiếp tốt',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Stock options', 'Remote-friendly'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
   {
@@ -137,6 +149,8 @@ export const mockJobs: Job[] = [
       'Chịu được áp lực KPI',
     ],
     benefits: ['Commission không giới hạn', 'Bảo hiểm sức khỏe', 'Team building'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -157,6 +171,8 @@ export const mockJobs: Job[] = [
       'Linux system administration',
     ],
     benefits: ['Remote working', 'Bảo hiểm sức khỏe', 'Conference budget'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -177,6 +193,8 @@ export const mockJobs: Job[] = [
       'CFA là một lợi thế',
     ],
     benefits: ['Bảo hiểm sức khỏe', '13th month salary', 'Professional development'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -196,6 +214,8 @@ export const mockJobs: Job[] = [
       'Kinh nghiệm social media',
     ],
     benefits: ['Flexible schedule', 'Remote working', 'Performance bonus'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -216,6 +236,8 @@ export const mockJobs: Job[] = [
       'Tiếng Anh lưu loát',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Company car', 'Annual bonus'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -236,6 +258,8 @@ export const mockJobs: Job[] = [
       'Mindset chi tiết, cẩn thận',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Training budget', '13th month salary'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
   {
@@ -256,6 +280,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 2 năm kinh nghiệm',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Macbook Pro', 'Flexible working hours'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -276,6 +302,8 @@ export const mockJobs: Job[] = [
       'Tiếng Anh đọc hiểu tài liệu kỹ thuật',
     ],
     benefits: ['Bảo hiểm sức khỏe', 'Training budget', 'Annual bonus'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: false,
   },
   {
@@ -296,6 +324,8 @@ export const mockJobs: Job[] = [
       'Tối thiểu 2 năm kinh nghiệm',
     ],
     benefits: ['Remote-friendly', 'Bảo hiểm sức khỏe', 'Stock options'],
+    applicationDocuments: ['CV cập nhật (Tiếng Việt hoặc Tiếng Anh)', 'Bản sao bằng cấp/chứng chỉ liên quan', 'Đơn xin việc (nếu có)'],
+    howToApply: ['Gửi CV qua email hoặc nộp trực tuyến trên website', 'Ứng viên phù hợp sẽ được liên hệ phỏng vấn trong vòng 3-5 ngày làm việc'],
     isFeatured: true,
   },
 ]
