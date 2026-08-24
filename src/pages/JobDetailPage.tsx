@@ -52,7 +52,7 @@ export function JobDetailPage() {
   const { data: galleryImages } = useCompanyGallery()
 
   const relatedSwiperRef = useRef<SwiperType | null>(null)
-  
+
   // Lightbox Modal state
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
@@ -115,10 +115,10 @@ export function JobDetailPage() {
 
   const deadlineFormatted = job.deadline
     ? new Date(job.deadline).toLocaleDateString('vi-VN', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      })
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    })
     : 'Không giới hạn'
 
   const genderLabel = getGenderLabel(job.gender)
@@ -134,7 +134,7 @@ export function JobDetailPage() {
             <Link to="/">Trang chủ</Link>
             <span className={styles['p-job-detail-banner__breadcrumbs-separator']} aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M9 18l6-6-6-6"/>
+                <path d="M9 18l6-6-6-6" />
               </svg>
             </span>
             <span className={styles['p-job-detail-banner__breadcrumbs-current']}>Chi tiết việc làm</span>
@@ -145,10 +145,10 @@ export function JobDetailPage() {
       <div className={`${styles['p-job-detail']} l-container`}>
         {/* Main Grid Layout (Left Column + Right Sidebar) */}
         <div className={styles['p-job-detail__grid']}>
-          
+
           {/* ─── Left Main Column ─── */}
           <div className={styles['p-job-detail-main']}>
-            
+
             {/* Header info card */}
             <article className={styles['p-job-detail-header-card']}>
               <div className={styles['p-job-detail-header-card__top']}>
@@ -278,10 +278,10 @@ export function JobDetailPage() {
 
           {/* ─── Right Sidebar Column ─── */}
           <aside className={styles['p-job-detail-sidebar']}>
-            
+
             {/* Job Summary Panel */}
             <div className={styles['p-job-summary-card']}>
-              <h3 className={styles['p-job-summary-card__title']}>Tóm tắt công việc:</h3>
+              <h3 className={styles['p-job-summary-card__title']}>Thông tin tuyển dụng:</h3>
               <ul className={styles['p-job-summary-card__list']}>
                 <li className={styles['p-job-summary-card__item']}>
                   <span className={styles['p-job-summary-card__dot']} />
@@ -414,7 +414,7 @@ export function JobDetailPage() {
                   aria-label="Việc làm liên quan trước"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>
                 </button>
                 <button
@@ -423,7 +423,7 @@ export function JobDetailPage() {
                   aria-label="Việc làm liên quan tiếp theo"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>
               </div>
@@ -446,10 +446,10 @@ export function JobDetailPage() {
                 const relLogoColor = LOGO_COLORS[relJob.category] ?? '#005198'
                 const relDeadlineFormatted = relJob.deadline
                   ? new Date(relJob.deadline).toLocaleDateString('vi-VN', {
-                      day: '2-digit',
-                      month: 'long',
-                      year: 'numeric',
-                    })
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                  })
                   : 'Không giới hạn'
 
                 return (
