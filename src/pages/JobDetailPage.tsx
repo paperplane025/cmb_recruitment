@@ -59,6 +59,9 @@ export function JobDetailPage() {
   // Apply job modal state
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false)
 
+  // Copy link feedback state (dùng chung cho nút copy link và Instagram)
+  const [linkCopied, setLinkCopied] = useState(false)
+
   // Fetch related jobs by same category (exclude current job)
   const { data: relatedData } = useJobs(
     job ? { category: job.category } : {},
@@ -122,6 +125,24 @@ export function JobDetailPage() {
     : 'Không giới hạn'
 
   const genderLabel = getGenderLabel(job.gender)
+
+  const shareUrl = window.location.href
+  const encodedShareUrl = encodeURIComponent(shareUrl)
+  const encodedShareTitle = encodeURIComponent(job.title)
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setLinkCopied(true)
+      window.setTimeout(() => setLinkCopied(false), 2000)
+    } catch {
+      // Trình duyệt không hỗ trợ clipboard API — bỏ qua, không chặn luồng người dùng.
+    }
+  }
+
+  const openShareWindow = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer,width=600,height=500')
+  }
 
   return (
     <section>
@@ -326,29 +347,61 @@ export function JobDetailPage() {
               <span className={styles['p-job-detail-share__title']}>Chia sẻ tin tuyển dụng:</span>
               <ul className={styles['p-job-detail-share__list']}>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Chia sẻ liên kết">
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    aria-label="Sao chép liên kết"
+                    title={linkCopied ? 'Đã sao chép!' : 'Sao chép liên kết'}
+                  >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                     </svg>
-                  </a>
+                  </button>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Chia sẻ Facebook">
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chia sẻ Facebook"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}`)
+                    }}
+                  >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                     </svg>
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Chia sẻ Twitter">
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chia sẻ Twitter"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      openShareWindow(`https://twitter.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`)
+                    }}
+                  >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
                     </svg>
                   </a>
                 </li>
                 <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Chia sẻ LinkedIn">
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chia sẻ LinkedIn"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`)
+                    }}
+                  >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                       <rect x="2" y="9" width="4" height="12" />
@@ -356,16 +409,12 @@ export function JobDetailPage() {
                     </svg>
                   </a>
                 </li>
-                <li className={styles['p-job-detail-share__item']}>
-                  <a href="#" aria-label="Chia sẻ Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  </a>
-                </li>
               </ul>
+              {linkCopied && (
+                <span className={styles['p-job-detail-share__toast']} role="status">
+                  Đã sao chép liên kết!
+                </span>
+              )}
             </div>
 
           </aside>
@@ -479,7 +528,7 @@ export function JobDetailPage() {
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Số lượng: <strong>{relJob.vacancies ?? 1} người ({getGenderLabel(relJob.gender)})</strong></span>
+                          <span>Số lượng: <strong>{relJob.vacancies ?? 1} người</strong></span>
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
