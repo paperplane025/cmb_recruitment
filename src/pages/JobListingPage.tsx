@@ -381,7 +381,7 @@ export function JobListingPage() {
                                 </div>
                                 <div className={styles['c-job-card-list__meta-item']}>
                                   <span className={styles['c-job-card-list__dot']} />
-                                  <span>Hạn nộp: <strong>{formattedDate}</strong></span>
+                                  <span>Ngày đăng: <strong>{formattedDate}</strong></span>
                                 </div>
                               </div>
 
@@ -444,7 +444,7 @@ export function JobListingPage() {
                                   <h3 className={styles['c-job-card-grid__title']}>
                                     <Link to={`/jobs/${job.id}`}>{job.title}</Link>
                                   </h3>
-                                  <p className={styles['c-job-card-grid__company']}>{job.company} | Hạn nộp: {formattedDate}</p>
+                                  <p className={styles['c-job-card-grid__company']}>{job.company} | Ngày đăng: {formattedDate}</p>
                                 </div>
                               </div>
 
