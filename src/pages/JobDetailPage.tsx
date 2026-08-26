@@ -493,13 +493,11 @@ export function JobDetailPage() {
             >
               {relatedJobs.map((relJob) => {
                 const relLogoColor = LOGO_COLORS[relJob.category] ?? '#005198'
-                const relDeadlineFormatted = relJob.deadline
-                  ? new Date(relJob.deadline).toLocaleDateString('vi-VN', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric',
-                  })
-                  : 'Không giới hạn'
+                const relPostedAtFormatted = new Date(relJob.postedAt).toLocaleDateString('vi-VN', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                })
 
                 return (
                   <SwiperSlide key={relJob.id}>
@@ -532,7 +530,7 @@ export function JobDetailPage() {
                         </li>
                         <li className={styles['c-related-job-card__meta-item']}>
                           <span className={styles['c-related-job-card__dot']} />
-                          <span>Hạn nộp: <strong>{relDeadlineFormatted}</strong></span>
+                          <span>Ngày đăng: <strong>{relPostedAtFormatted}</strong></span>
                         </li>
                       </ul>
 
